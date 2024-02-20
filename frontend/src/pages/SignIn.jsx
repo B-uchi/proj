@@ -2,8 +2,10 @@ import { useState } from "react";
 import pic1 from "../assets/1.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SignIn = () => {
-  const [page, setPage] = useState("Sign in");
+const SignIn = (props) => {
+  console.log(props)
+  const [page, setPage] = useState('Log in');
+  console.log(page)
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,7 @@ const SignIn = () => {
               {page}
             </h1>
             <AnimatePresence>
-              {page === "Sign in" ? (
+              {page === "Log in" ? (
                 <motion.div
                   className="mt-9 bg-white"
                   initial={{ translateX: -100, opacity: 0 }}
@@ -61,7 +63,7 @@ const SignIn = () => {
                           onClick={(e) => login(e)}
                           className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
                         >
-                          Sign In{" "}
+                          Log in{" "}
                           <div id="login" className="traffic-loader"></div>
                         </button>
                       </div>
@@ -136,7 +138,7 @@ const SignIn = () => {
                       </div>
                       <div className="flex justify-center mt-3">
                         <small
-                          onClick={() => setPage("Sign in")}
+                          onClick={() => setPage("Log in")}
                           className="mx-auto underline mb-2 cursor-pointer"
                         >
                           Already have an account? Log In
@@ -156,7 +158,7 @@ const SignIn = () => {
             {page}
           </h1>
           <AnimatePresence>
-            {page === "Sign in" ? (
+            {page === "Log in" ? (
               <motion.div
                 className="mt-9"
                 initial={{ translateX: -100, opacity: 0 }}
@@ -192,13 +194,13 @@ const SignIn = () => {
                         onClick={(e) => login(e)}
                         className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
                       >
-                        Sign In{" "}
+                        Log in{" "}
                         <div id="login" className="traffic-loader"></div>
                       </button>
                     </div>
                     <div className="flex justify-center mt-3">
                       <small
-                        onClick={() => setPage("Sign up")}
+                        onClick={() => setPage("Register")}
                         className="mx-auto underline mb-5 cursor-pointer"
                       >
                         Don't have an account? Create one
@@ -263,12 +265,12 @@ const SignIn = () => {
                         onClick={(e) => register(e)}
                         className="p-3 px-5 flex gap-3 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
                       >
-                        Sign Up{" "}
+                        Register{" "}
                       </button>
                     </div>
                     <div className="flex justify-center mt-3">
                       <small
-                        onClick={() => setPage("Sign in")}
+                        onClick={() => setPage("Log in")}
                         className="mx-auto underline mb-2 cursor-pointer"
                       >
                         Already have an account? Log In

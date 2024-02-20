@@ -10,44 +10,49 @@ const Navbar = () => {
   return (
     <nav className="w-full z-50 sticky top-0 bg-white border-[1px] border-b-[#247e49]">
       <div className="flex container items-center justify-between mx-auto p-2 py-2 md:px-3 px-5">
-        <div className="font-bolder text-xl font-montserrat font-extrabold">
-          <h1>SCION</h1>
-        </div>
-        <div className="md:block hidden">
-          <ul className="flex gap-7 items-center">
-            <Link to={"/"}>
-              <MenuItem text="Home" />
-            </Link>
-            <div className=" relative">
-              <div
-                className="flex gap-1 items-center cursor-pointer"
-                onClick={() => setShowSubMenu((prev) => !prev)}
-              >
-                <MenuItem text="Services" />
-                <IoChevronDownOutline size={20} />
-              </div>
-
-              {showSubMenu ? (
-                <div className="absolute p-2 bg-white border-[1px] rounded-md border-[#247e49] top-[180%] -translate-x-[20%] w-[160px] h-[90px]">
-                  <ul>
-                    <li className="p-1 border-b-[1px] border-[#e1e1e1]">
-                      <a href="">Investment Plans</a>
-                    </li>
-                    <li className="p-1">
-                      <a href="">How it works</a>
-                    </li>
-                  </ul>
+        <div className="flex items-center gap-20">
+          <h1 className="font-bolder text-xl font-montserrat font-extrabold">
+            SCION
+          </h1>
+          <div className=" md:block hidden">
+            <ul className="flex gap-7 items-center">
+              <Link to={"/"}>
+                <MenuItem text="Home" />
+              </Link>
+              <div className=" relative">
+                <div
+                  className="flex gap-1 items-center cursor-pointer"
+                  onClick={() => setShowSubMenu((prev) => !prev)}
+                >
+                  <MenuItem text="Services" />
+                  <IoChevronDownOutline size={20} />
                 </div>
-              ) : null}
-            </div>
-            <MenuItem text="About Us" />
-            <Link to={"sign_in"}>
-              <div className="bg-[#196137] text-white p-2 px-3 rounded lg">
-                <MenuItem text="Sign In" />
+
+                {showSubMenu ? (
+                  <div className="absolute p-2 bg-white border-[1px] rounded-md border-[#247e49] top-[180%] -translate-x-[20%] w-[160px] h-[90px]">
+                    <ul>
+                      <li className="p-1 border-b-[1px] border-[#e1e1e1]">
+                        <a href="">Investment Plans</a>
+                      </li>
+                      <li className="p-1">
+                        <a href="">How it works</a>
+                      </li>
+                    </ul>
+                  </div>
+                ) : null}
               </div>
-            </Link>
-          </ul>
+              <MenuItem text="About Us" />
+            </ul>
+          </div>
         </div>
+        <div className="md:flex gap-4 hidden">
+          <Link to={"sign_up"}>
+            <div className="bg-[#196137] text-white p-2 px-3 rounded lg">
+              <MenuItem text="Login / Register" />
+            </div>
+          </Link>
+        </div>
+
         <div className="md:hidden block">
           <button onClick={() => setShowMenu((prev) => !prev)}>
             {!showMenu ? (
@@ -79,7 +84,7 @@ const Navbar = () => {
               </li>
               <li onClick={() => setShowMenu(false)}>
                 <Link to={"/sign_in"}>
-                  <MenuItem text="Sign In" />
+                  <MenuItem text="Login / Register" />
                 </Link>
               </li>
             </ul>
