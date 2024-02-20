@@ -1,7 +1,12 @@
+import HeroSection from '../components/HeroSection' 
+import Trust from '../components/Trust' 
 
 const Homepage = () => {
   return (
-    <div>Homepage</div>
+    <div className=''>
+      <HeroSection/>
+      <Trust/>
+    </div>
   )
 }
 
