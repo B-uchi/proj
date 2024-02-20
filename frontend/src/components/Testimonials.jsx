@@ -56,7 +56,7 @@ const Testimonials = () => {
     setIndex((index - 1 + testimonials.length) % testimonials.length);
   };
   return (
-    <div className="md:w-[85%] mt-3 relative flex flex-col justify-center items-center mx-auto">
+    <div className="md:w-[85%] mt-10 relative flex flex-col justify-center items-center mx-auto">
       <div className="">
         <h1 className="text-3xl font-montserrat text-center font-extrabold">
           Testimonials
