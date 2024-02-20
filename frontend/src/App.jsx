@@ -11,7 +11,7 @@ import SignIn from "./pages/SignIn";
 function App() {
   return (
     <Router>
-      <div className="h-fit w-full">
+      <div className="max-h-full h-[100vh] overflow-auto">
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
