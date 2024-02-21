@@ -4,15 +4,19 @@ import HeroSection from "../components/HeroSection";
 import Inquiry from "../components/Inquiry";
 import Testimonials from "../components/Testimonials";
 import Trust from "../components/Trust";
+import Cta from "../components/Cta";
+import Markets from "../components/Markets";
 
 const Homepage = () => {
   return (
     <div className="relative">
       <HeroSection />
       {/* <Trust /> */}
-      <Bullet/>
+      <Bullet />
+      <Markets/>
       <Testimonials />
-      <Inquiry/>
+      <Inquiry />
+      <Cta />
       <div className="bottom-0">
         <Footer />
       </div>
