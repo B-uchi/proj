@@ -28,7 +28,7 @@ const Footer = () => {
               <h1 className="font-montserrat font-extrabold text-lg">
                 Useful Links:
               </h1>
-              <div className="font-inter text-sm md:text-md flex md:flex-col gap-3">
+              <div className="font-inter text-sm md:text-md flex md:text-left text-center flex-col gap-3">
                 <a href="#" className="hover:text-[#5f5f5f]">
                   Home
                 </a>
@@ -47,7 +47,7 @@ const Footer = () => {
               <h1 className="font-montserrat font-extrabold text-lg">
                 Markets
               </h1>
-              <div className="font-inter text-sm md:text-md flex md:flex-col gap-3">
+              <div className="font-inter text-sm md:text-md flex flex-col text-center md:text-left gap-3">
                 <a href="#" className="hover:text-[#5f5f5f]">
                   Stocks
                 </a>

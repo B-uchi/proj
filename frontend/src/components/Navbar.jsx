@@ -51,43 +51,45 @@ const Navbar = () => {
     <nav className="w-full z-50 sticky top-0 bg-white border-[1px] border-b-[#247e49]">
       <div className="flex container items-center justify-between mx-auto p-2 py-2 md:px-3 px-5">
         <div className="flex items-center gap-20">
-          <h1 className="font-bolder text-xl font-montserrat font-extrabold">
-            SCION
-          </h1>
+          <Link to={"/"}>
+            <h1 className="font-bolder text-xl font-montserrat font-extrabold">
+              SCION
+            </h1>
+          </Link>
           <div className=" md:block hidden">
             <ul className="flex gap-7 items-center relative">
               <Link to={"/"}>
                 <MenuItem text="Home" />
               </Link>
-                <HoverMenu
-                  label="Markets"
-                  page="markets"
-                  items={[
-                    { key: 1, text: "Stocks" },
-                    { key: 2, text: "Bonds" },
-                    { key: 3, text: "MF's" },
-                    { key: 4, text: "ETF's" },
-                    { key: 5, text: "Futures" },
-                    { key: 6, text: "Commodities" },
-                  ]}
-                />
-                <HoverMenu
-                  label="Company"
-                  page="company"
-                  items={[
-                    { key: 1, text: "How it works" },
-                    { key: 2, text: "Careers" },
-                    { key: 3, text: "About us" },
-                  ]}
-                />
-                <HoverMenu
-                  label="Resources"
-                  page="resources"
-                  items={[
-                    { key: 1, text: "Legal Docs" },
-                    { key: 2, text: "Help & Support" },
-                  ]}
-                />
+              <HoverMenu
+                label="Markets"
+                page="markets"
+                items={[
+                  { key: 1, text: "Stocks" },
+                  { key: 2, text: "Bonds" },
+                  { key: 3, text: "MF's" },
+                  { key: 4, text: "ETF's" },
+                  { key: 5, text: "Futures" },
+                  { key: 6, text: "Commodities" },
+                ]}
+              />
+              <HoverMenu
+                label="Company"
+                page="company"
+                items={[
+                  { key: 1, text: "How it works" },
+                  { key: 2, text: "Careers" },
+                  { key: 3, text: "About us" },
+                ]}
+              />
+              <HoverMenu
+                label="Resources"
+                page="resources"
+                items={[
+                  { key: 1, text: "Legal Docs" },
+                  { key: 2, text: "Help & Support" },
+                ]}
+              />
             </ul>
           </div>
         </div>
@@ -125,22 +127,24 @@ const Navbar = () => {
               </li>
               <li onClick={() => setShowMenu(false)}>
                 <Link>
-                  <MenuItem text="Services" />
+                  <MenuItem text="Markets" />
                 </Link>
               </li>
               <li onClick={() => setShowMenu(false)}>
                 <Link>
-                  <MenuItem text="About Us" />
+                  <MenuItem text="Company" />
                 </Link>
               </li>
               <li onClick={() => setShowMenu(false)}>
-                <Link to={"/sign_in"}>
-                  <MenuItem text="Log In" />
+                <Link>
+                  <MenuItem text="Resources" />
                 </Link>
               </li>
-              <li onClick={() => setShowMenu(false)}>
-                <Link to={"/sign_up"}>
-                  <MenuItem text="Register" />
+              <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
+                <Link to={"sign_in"}>
+                  <div className="bg-[#196137] text-center text-white p-2 px-3 rounded-lg">
+                    <MenuItem text="Log In" />
+                  </div>
                 </Link>
               </li>
             </ul>

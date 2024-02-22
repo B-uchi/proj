@@ -4,6 +4,7 @@ import { AiOutlineLineChart } from "react-icons/ai";
 import highReturns from "../assets/high_returns.jpg";
 import committedTeam from "../assets/committed_team.jpg";
 import confidence from "../assets/confidence.jpg";
+import { Link } from "react-router-dom";
 
 const Bullet = () => {
   return (
@@ -12,10 +13,10 @@ const Bullet = () => {
         <div className="mt-2">
           <h1 className="md:text-3xl text-xl font-montserrat text-center font-extrabold">
             Why choose <span className="text-[#2e9c5c]">us</span>?
-            
           </h1>
           <h1 className="md:text-xl font-montserrat text-center">
-            With Scion, you are <span className="text-[#2e9c5c]">assured</span>{" "} of the following and more 
+            With Scion, you are <span className="text-[#2e9c5c]">assured</span>{" "}
+            of the following and more
           </h1>
         </div>
         <div className="flex flex-col mt-3 md:mt-10 gap-10">
@@ -91,6 +92,13 @@ const Bullet = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="mt-5 justify-center flex md:hidden">
+          <Link to={"sign_in"}>
+            <button className=" hover:scale-110 transition-all bg-[#196137] text-white p-4 px-10 rounded-full shadow-lg">
+              Open an Account
+            </button>
+          </Link>
         </div>
       </div>
     </div>
