@@ -9,15 +9,19 @@ const MenuItemm = ({ children, onClick }) => (
   <li onClick={onClick}>{children}</li>
 );
 
-const HoverMenu = ({ items }) => {
+const HoverMenu = ({ items, label }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div onMouseEnter={toggleMenu} onMouseLeave={toggleMenu} onClick={toggleMenu}>
+    <div
+      onMouseEnter={toggleMenu}
+      onMouseLeave={toggleMenu}
+      onClick={toggleMenu}
+    >
       <div className="flex gap-1 items-center cursor-pointer">
-        <MenuItem text="Services" />
+        <MenuItem text={label} />
         <IoChevronDownOutline size={20} />
       </div>
       {isOpen && (
@@ -29,7 +33,9 @@ const HoverMenu = ({ items }) => {
                 toggleMenu();
               }}
             >
-              <div className=" p-2 mb-2 border-b-[1px] border-[#e1e1e1] cursor-pointer hover:bg-[#e0e0e0]">{item.text}</div>
+              <div className=" p-2 mb-2 border-b-[1px] border-[#e1e1e1] cursor-pointer hover:bg-[#e0e0e0] rounded-lg">
+                {item.text}
+              </div>
             </MenuItemm>
           ))}
         </ul>
@@ -49,20 +55,39 @@ const Navbar = () => {
             SCION
           </h1>
           <div className=" md:block hidden">
-            <ul className="flex gap-7 items-center">
+            <ul className="flex gap-7 items-center relative">
               <Link to={"/"}>
                 <MenuItem text="Home" />
               </Link>
-              <div className="relative">
                 <HoverMenu
+                  label="Markets"
+                  page="markets"
                   items={[
-                    { key: 1, text: "Investment markets" },
-                    { key: 2, text: "How it works" },
-                    { key: 3, text: "Careers" },
+                    { key: 1, text: "Stocks" },
+                    { key: 2, text: "Bonds" },
+                    { key: 3, text: "MF's" },
+                    { key: 4, text: "ETF's" },
+                    { key: 5, text: "Futures" },
+                    { key: 6, text: "Commodities" },
                   ]}
                 />
-              </div>
-              <MenuItem text="About Us" />
+                <HoverMenu
+                  label="Company"
+                  page="company"
+                  items={[
+                    { key: 1, text: "How it works" },
+                    { key: 2, text: "Careers" },
+                    { key: 3, text: "About us" },
+                  ]}
+                />
+                <HoverMenu
+                  label="Resources"
+                  page="resources"
+                  items={[
+                    { key: 1, text: "Legal Docs" },
+                    { key: 2, text: "Help & Support" },
+                  ]}
+                />
             </ul>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import pic3 from "../assets/3.svg";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -29,9 +30,11 @@ const HeroSection = () => {
             sunshine your finances needs.
           </p>
           <div className="mt-10 md:w-fit flex flex-col justify-center">
-            <button className="hover:scale-110 transition-all bg-[#196137] text-white p-4 px-10 rounded-full shadow-lg">
-              Get Started
-            </button>
+            <Link to={"/sign_in"}>
+              <button className="hover:scale-110 transition-all bg-[#196137] text-white p-4 px-10 rounded-full shadow-lg">
+                Get Started
+              </button>
+            </Link>
             <div className="mx-auto right-[50%] w-[40%] h-[3px] rounded-full mt-2 bg-[#b4aeae]"></div>
           </div>
         </motion.div>

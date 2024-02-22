@@ -36,10 +36,35 @@ const Footer = () => {
                   About Us
                 </a>
                 <a href="#" className="hover:text-[#5f5f5f]">
-                  Services
+                  Careers
                 </a>
                 <a href="#" className="hover:text-[#5f5f5f]">
-                  Contact
+                  How it works
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-col gap-1 items-center md:items-start">
+              <h1 className="font-montserrat font-extrabold text-lg">
+                Markets
+              </h1>
+              <div className="font-inter text-sm md:text-md flex md:flex-col gap-3">
+                <a href="#" className="hover:text-[#5f5f5f]">
+                  Stocks
+                </a>
+                <a href="#" className="hover:text-[#5f5f5f]">
+                  Bonds
+                </a>
+                <a href="#" className="hover:text-[#5f5f5f]">
+                  Futures
+                </a>
+                <a href="#" className="hover:text-[#5f5f5f]">
+                  Commodities
+                </a>
+                <a href="#" className="hover:text-[#5f5f5f]">
+                  MF's
+                </a>
+                <a href="#" className="hover:text-[#5f5f5f]">
+                  ETF's
                 </a>
               </div>
             </div>

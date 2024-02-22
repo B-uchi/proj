@@ -2,6 +2,7 @@ import { FiUserPlus } from "react-icons/fi";
 import { FaMoneyBillWave } from "react-icons/fa";
 import { PiChartLineUp } from "react-icons/pi";
 import shake from "../assets/shake.png";
+import { Link } from "react-router-dom";
 
 const Cta = () => {
   return (
@@ -32,9 +33,11 @@ const Cta = () => {
         </div>
       </div>
       <div className="mt-10">
-        <button className="hover:scale-110 transition-all bg-[#196137] text-white p-4 px-10 rounded-full shadow-lg">
-          Get Started
-        </button>
+        <Link to={"sign_in"}>
+          <button className="hover:scale-110 transition-all bg-[#196137] text-white p-4 px-10 rounded-full shadow-lg">
+            Get Started
+          </button>
+        </Link>
       </div>
       <div className="absolute right-0 bottom-0 w-[100px]">
         <img src={shake} alt="" />
