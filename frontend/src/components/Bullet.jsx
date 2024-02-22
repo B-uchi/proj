@@ -1,73 +1,96 @@
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { AiOutlineLineChart } from "react-icons/ai";
+import highReturns from "../assets/high_returns.jpg";
+import committedTeam from "../assets/committed_team.jpg";
+import confidence from "../assets/confidence.jpg";
 
 const Bullet = () => {
   return (
-    <div className=" bg-white">
-      <div className="w-[80%] mx-auto p-4">
-        <div className="">
+    <div className=" bg-white border-y-[1px] border-[#f1f1f1]">
+      <div className="md:w-[80%] mx-auto p-4">
+        <div className="mt-2">
+          <h1 className="md:text-3xl text-xl font-montserrat text-center font-extrabold">
+            Why choose <span className="text-[#2e9c5c]">us</span>?
+            
+          </h1>
           <h1 className="md:text-xl font-montserrat text-center">
-            At Scion investments, you are{" "}
-            <span className="text-[#2e9c5c]">assured</span> of the following
+            With Scion, you are <span className="text-[#2e9c5c]">assured</span>{" "} of the following and more 
           </h1>
         </div>
-        <div className="flex justify-center">
-          <ul className="list-disc list-inside gap-9 flex flex-col font-inter text-[#5f5f5f] mt-5">
-            <li className="w-[60%] mx-auto flex items-center justify-evenly gap-2">
-              <div className="flex w-1/2 gap-2 items-center">
-                <MdOutlineAttachMoney
-                  size={35}
-                  className="text-[#2e9c5c] text-xl"
-                />
-                <p>High Returns on Investments</p>
-              </div>
-              <div className="bg-white p-5 w-[45%] rounded-lg shadow-md">
-                <p>
-                  Scion <span className="text-[#2e9c5c]">Investment</span> is
-                  dedicated to delivering exceptional returns while managing
-                  risk effectively. With a track record of consistent growth, we
-                  have helped thousands of clients realize their financial
-                  dreams.
-                </p>
-              </div>
-            </li>
-            <li className="flex w-[60%] mx-auto items-center justify-evenly gap-2">
-              <div className="flex w-1/2 gap-2 items-center">
-                <AiOutlineLineChart
-                  size={35}
-                  className="text-[#2e9c5c] text-xl"
-                />
-                <p>Invest with Confidence</p>
-              </div>
-              <div className="bg-white p-5 w-[45%] rounded-lg shadow-md">
-                <p>
-                  At Scion <span className="text-[#2e9c5c]">Investment</span>,
-                  we are committed to helping you achieve your financial goals.
-                  We understand that every investment decision is crucial, and
-                  we ensure that your money is put to work effectively.
-                </p>
-              </div>
-            </li>
-            <li className="flex w-[60%] mx-auto items-center justify-evenly ">
-              <div className="flex w-1/2 gap-2 justify-self-end items-center">
-                <IoIosCheckmarkCircleOutline
-                  size={35}
-                  className="text-[#2e9c5c] text-xl"
-                />
-                <p>Committed team</p>
-              </div>
-              <div className="bg-white p-5 w-[45%] rounded-lg shadow-md">
-                <p>
-                  Our unwavering{" "}
-                  <span className="text-[#2e9c5c]">commitment</span> to helping
-                  you achieve your financial goals, combined with our dedication
-                  to excellence and years of expertise, ensures that your
-                  investments are not just secure but poised for growth.
-                </p>
-              </div>
-            </li>
-          </ul>
+        <div className="flex flex-col mt-3 md:mt-10 gap-10">
+          <div className="flex md:flex-row flex-col-reverse justify-center items-center border-[1px] rounded-lg p-2 border-[#f1f1f1]">
+            <div className="md:w-1/2 text-center p-10">
+              <MdOutlineAttachMoney
+                size={35}
+                className="text-[#2e9c5c] text-xl mx-auto"
+              />
+              <p className="font-bold md:text-2xl text-xl">
+                High Returns on Investments
+              </p>
+              <p>
+                Scion <span className="text-[#2e9c5c]">Investment</span> is
+                dedicated to delivering exceptional returns while managing risk
+                effectively. With a track record of consistent growth, we have
+                helped thousands of clients realize their financial dreams.
+              </p>
+            </div>
+            <div className="md:w-1/2">
+              <img
+                src={highReturns}
+                alt=""
+                loading="lazy"
+                className="rounded-lg"
+              />
+            </div>
+          </div>
+          <div className="flex md:flex-row-reverse flex-col-reverse justify-center items-center border-[1px] rounded-lg p-2 border-[#f1f1f1]">
+            <div className="md:w-1/2 text-center p-10">
+              <AiOutlineLineChart
+                size={35}
+                className="text-[#2e9c5c] text-2xl mx-auto"
+              />
+              <p className="font-bold text-xl">Invest with Confidence</p>
+              <p>
+                At Scion <span className="text-[#2e9c5c]">Investment</span>, we
+                are committed to helping you achieve your financial goals. We
+                understand that every investment decision is crucial, and we
+                ensure that your money is put to work effectively.
+              </p>
+            </div>
+            <div className="md:w-1/2">
+              <img
+                src={confidence}
+                alt=""
+                loading="lazy"
+                className="rounded-lg"
+              />
+            </div>
+          </div>
+          <div className="flex md:flex-row flex-col-reverse justify-center items-center border-[1px] rounded-lg p-2 border-[#f1f1f1]">
+            <div className="md:w-1/2 text-center p-10">
+              <IoIosCheckmarkCircleOutline
+                size={35}
+                className="text-[#2e9c5c] text-2xl mx-auto"
+              />
+              <p className="font-bold text-xl">Committed team</p>
+              <p>
+                Our unwavering{" "}
+                <span className="text-[#2e9c5c]">commitment</span> to helping
+                you achieve your financial goals, combined with our dedication
+                to excellence and years of expertise, ensures that your
+                investments are not just secure but poised for growth.
+              </p>
+            </div>
+            <div className="md:w-1/2">
+              <img
+                src={committedTeam}
+                alt=""
+                loading="lazy"
+                className="rounded-lg"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

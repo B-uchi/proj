@@ -4,9 +4,43 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { useState } from "react";
+
+const MenuItemm = ({ children, onClick }) => (
+  <li onClick={onClick}>{children}</li>
+);
+
+const HoverMenu = ({ items }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  return (
+    <div onMouseEnter={toggleMenu} onMouseLeave={toggleMenu} onClick={toggleMenu}>
+      <div className="flex gap-1 items-center cursor-pointer">
+        <MenuItem text="Services" />
+        <IoChevronDownOutline size={20} />
+      </div>
+      {isOpen && (
+        <ul className="menu absolute p-2 bg-white border-[1px] rounded-md border-[#247e49]  -translate-x-[20%] w-[160px]">
+          {items.map((item) => (
+            <MenuItemm
+              key={item.key}
+              onClick={() => {
+                toggleMenu();
+              }}
+            >
+              <div className=" p-2 mb-2 border-b-[1px] border-[#e1e1e1] cursor-pointer hover:bg-[#e0e0e0]">{item.text}</div>
+            </MenuItemm>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [showSubMenu, setShowSubMenu] = useState(false);
+
   return (
     <nav className="w-full z-50 sticky top-0 bg-white border-[1px] border-b-[#247e49]">
       <div className="flex container items-center justify-between mx-auto p-2 py-2 md:px-3 px-5">
@@ -19,36 +53,28 @@ const Navbar = () => {
               <Link to={"/"}>
                 <MenuItem text="Home" />
               </Link>
-              <div className=" relative">
-                <div
-                  className="flex gap-1 items-center cursor-pointer"
-                  onClick={() => setShowSubMenu((prev) => !prev)}
-                >
-                  <MenuItem text="Services" />
-                  <IoChevronDownOutline size={20} />
-                </div>
-
-                {showSubMenu ? (
-                  <div className="absolute p-2 bg-white border-[1px] rounded-md border-[#247e49] top-[180%] -translate-x-[20%] w-[160px] h-[90px]">
-                    <ul>
-                      <li className="p-1 border-b-[1px] border-[#e1e1e1]">
-                        <a href="">Investment Plans</a>
-                      </li>
-                      <li className="p-1">
-                        <a href="">How it works</a>
-                      </li>
-                    </ul>
-                  </div>
-                ) : null}
+              <div className="relative">
+                <HoverMenu
+                  items={[
+                    { key: 1, text: "Investment markets" },
+                    { key: 2, text: "How it works" },
+                    { key: 3, text: "Careers" },
+                  ]}
+                />
               </div>
               <MenuItem text="About Us" />
             </ul>
           </div>
         </div>
         <div className="md:flex gap-4 hidden">
+          <Link to={"sign_in"}>
+            <div className="border-[#196137] border-[2px] text-black p-1.5 px-3 rounded lg">
+              <MenuItem text="Sign In" />
+            </div>
+          </Link>
           <Link to={"sign_up"}>
             <div className="bg-[#196137] text-white p-2 px-3 rounded lg">
-              <MenuItem text="Login / Register" />
+              <MenuItem text="Register" />
             </div>
           </Link>
         </div>
@@ -84,7 +110,12 @@ const Navbar = () => {
               </li>
               <li onClick={() => setShowMenu(false)}>
                 <Link to={"/sign_in"}>
-                  <MenuItem text="Login / Register" />
+                  <MenuItem text="Log In" />
+                </Link>
+              </li>
+              <li onClick={() => setShowMenu(false)}>
+                <Link to={"/sign_up"}>
+                  <MenuItem text="Register" />
                 </Link>
               </li>
             </ul>

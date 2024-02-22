@@ -15,7 +15,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/sign_in" element={<SignIn />} />
+          <Route path="/sign_in" element={<SignIn mode={'Log in'}/>} />
+          <Route path="/sign_up" element={<SignIn mode={'Sign Up'} />} />
         </Routes>
       </div>
     </Router>

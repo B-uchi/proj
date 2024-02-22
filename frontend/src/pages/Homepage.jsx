@@ -6,15 +6,19 @@ import Testimonials from "../components/Testimonials";
 import Trust from "../components/Trust";
 import Cta from "../components/Cta";
 import Markets from "../components/Markets";
+import BriefAbout from "../components/BriefAbout";
+import InvestmentMarkets from "../components/InvestmentMarkets";
 
 const Homepage = () => {
   return (
-    <div className="relative">
+    <div className="relative scroll-smooth">
       <HeroSection />
-      {/* <Trust /> */}
+      <BriefAbout/>
+      <Trust />
       <Bullet />
       <Markets/>
       <Testimonials />
+      <InvestmentMarkets/>
       <Inquiry />
       <Cta />
       <div className="bottom-0">

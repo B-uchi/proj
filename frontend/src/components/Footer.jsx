@@ -11,9 +11,17 @@ const Footer = () => {
               Investing for tomorrow, starting today.
             </p>
 
-            <p className="text-center mt-4">
+            <p className=" mt-4 mb-3 text-sm">
               Copyright &copy; Scion Investment 2024.
             </p>
+            <ul className="flex text-sm justify-center md:justify-start">
+              <li className="border-r-[1px] border-[#5f5f5f]">
+                <a className="p-3 pl-0 hover:text-[#5f5f5f]" href="">Legal Docs</a>
+              </li>
+              <li >
+                <a className="p-3 hover:text-[#5f5f5f]" href="">Help & Support</a>
+              </li>
+            </ul>
           </div>
           <div className="flex gap-3 flex-col md:flex-row  md:w-1/2 justify-around">
             <div className="flex flex-col gap-1 items-center md:items-start">

@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import pic1 from "../assets/1.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SignIn = (props) => {
-  console.log(props)
-  const [page, setPage] = useState('Log in');
-  console.log(page)
+const SignIn = ({ mode }) => {
+  const [page, setPage] = useState(mode);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -81,7 +79,6 @@ const SignIn = (props) => {
               ) : (
                 <motion.div
                   className="mt-9 mb-4 bg-white"
-                  key={"register"}
                   initial={{ translateX: 200, opacity: 0 }}
                   animate={{ translateX: 0, opacity: 1 }}
                   exit={{ display: "none", opacity: 0 }}
@@ -194,13 +191,12 @@ const SignIn = (props) => {
                         onClick={(e) => login(e)}
                         className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
                       >
-                        Log in{" "}
-                        <div id="login" className="traffic-loader"></div>
+                        Log in <div id="login" className="traffic-loader"></div>
                       </button>
                     </div>
                     <div className="flex justify-center mt-3">
                       <small
-                        onClick={() => setPage("Register")}
+                        onClick={() => setPage("Sign Up")}
                         className="mx-auto underline mb-5 cursor-pointer"
                       >
                         Don't have an account? Create one
@@ -212,7 +208,6 @@ const SignIn = (props) => {
             ) : (
               <motion.div
                 className="mt-9 mb-4"
-                key={"register"}
                 initial={{ translateX: 200, opacity: 0 }}
                 animate={{ translateX: 0, opacity: 1 }}
                 transition={{ duration: 0.3 }}
@@ -287,4 +282,4 @@ const SignIn = (props) => {
   );
 };
 
-export default SignIn;
+export default memo(SignIn);
