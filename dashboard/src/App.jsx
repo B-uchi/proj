@@ -27,7 +27,7 @@ function App() {
           <Toolbar setSideNavOpen={setSideNavOpen}/>
           <div className="dark:text-white text-black ">
             <Routes>
-              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/wallets" element={<Wallets />} />
               <Route path="/wallets/:symbol" element={<WalletDetails />} />
