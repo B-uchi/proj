@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Hind+Siliguri&family=Inter:wght@500;600&family=Montserrat:wght@500;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  scroll-behavior: smooth;
+  padding: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+body {
+  background-color: #fafafa;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
+.dark {
+  background-color: #000000;
+}
+.input {
+  outline: solid #166437 1px;
+  border-radius: 5px;
+  padding: 8px;
+  margin-top: 4px;
+}
+.input:webkit-autofill,
+input:-webkit-autofill {
+  background-color: transparent;
+  border: 3px red solid;
+}
+.main-container {
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.bb {
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
+/* Hide the default scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust width for desired thickness */
+  height: 8px; /* Adjust height for desired thickness */
+}
+
+/* Style the thumb (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background-color: #222; /* Dark color for the thumb */
+  border-radius: 4px; /* Rounded corners */
+}
+
+/* Hide the default track (the background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Additional styling for Firefox (optional) */
+scrollbar {
+  width: 8px; /* Adjust width for desired thickness */
+  height: 8px; /* Adjust height for desired thickness */
+  background-color: transparent;
+}
+
+scrollbar-thumb {
+  background-color: #222; /* Dark color for the thumb */
+  border-radius: 4px; /* Rounded corners */
+}

@@ -1,0 +1,114 @@
+import { data } from "../util/dummyWalletData";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { BiSolidDollarCircle } from "react-icons/bi";
+import { FaBitcoin } from "react-icons/fa";
+import { TbCurrencySolana } from "react-icons/tb";
+import { FaEthereum } from "react-icons/fa";
+import { SiLitecoin } from "react-icons/si";
+import TransactionsTable from "../components/TransactionsTable";
+import DepositTable from "../components/DepositTable";
+
+const Dashboard = () => {
+  return (
+    <div>
+      <div className="p-10">
+        <div className="">
+          <h1 className="text-2xl font-montserrat font-bold dark:text-[#cccccc]">
+            My Dashboard
+          </h1>
+        </div>
+        <div className="mt-5">
+          <div className="mt-5 flex flex-col md:flex-row gap-5">
+            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 h-[40vh] overflow-y-auto">
+              <div className="">
+                <h1 className="font-inter font-bold dark:text-[#cccccc]">
+                  Wallet Overview
+                </h1>
+                <small className="font-montserrat">
+                  An overview of all wallets
+                </small>
+              </div>
+              <div className="mt-4 text-center">
+                <h1 className="text-4xl">0.0000</h1>
+                <small>Total Balance</small>
+              </div>
+              <div className="mt-3 text-[#cccccc] p-3">
+                <p>Available wallets:</p>
+                {data.map((item) => (
+                  <div
+                    key={item.currency}
+                    className="border-b-[1px] flex items-center dark:border-[#1f1f1f] border-[#f1f1f1] justify-between"
+                  >
+                    <div className="flex items-center gap-2 py-3">
+                      {item.symbol === "BTC" ? (
+                        <FaBitcoin size={35} color="#f7931a" />
+                      ) : item.symbol === "USD" ? (
+                        <BiSolidDollarCircle size={35} color="#2e9c5c" />
+                      ) : item.symbol === "ETH" ? (
+                        <FaEthereum
+                          size={35}
+                          className="text-black dark:text-[#cccccc]"
+                        />
+                      ) : item.symbol === "LTC" ? (
+                        <SiLitecoin size={35} color="#345d96" />
+                      ) : (
+                        <TbCurrencySolana
+                          size={35}
+                          className="text-black dark:text-[#cccccc]"
+                        />
+                      )}
+                      {item.currency}
+                    </div>
+                    <p className="p-2 text-right">
+                      <span className="block text-sm">Available balance:</span>
+                      {item.availableBalance.toFixed(4)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 overflow-y-auto">
+              <div className="">
+                <h1 className="font-inter font-bold dark:text-[#cccccc]">
+                  Deposit
+                </h1>
+                <small className="font-montserrat">Fund your wallets</small>
+              </div>
+              <div className=""></div>
+            </div>
+            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 overflow-y-auto">
+              <div className="">
+                <h1 className="font-inter font-bold dark:text-[#cccccc]">
+                  Withdraw
+                </h1>
+                <small className="font-montserrat">
+                  Withdraw from your wallet balance
+                </small>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 flex flex-col md:flex-row gap-5">
+            <div className="md:w-1/2">
+              <div className="">
+                <h1 className="font-inter text-xl mb-3 font-bold dark:text-[#cccccc]">
+                  Recent Deposits:
+                </h1>
+              </div>
+              <DepositTable />{" "}
+            </div>
+            <div className="md:w-1/2">
+            <div className="">
+                <h1 className="font-inter text-xl mb-3 font-bold dark:text-[#cccccc]">
+                  Recent Transactions:
+                </h1>
+              </div>
+              <TransactionsTable />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Dashboard;
