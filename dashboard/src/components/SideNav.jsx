@@ -27,7 +27,7 @@ const SideNav = ({setSideNavOpen}) => {
           </button>
         </div>
         <ul>
-          <Link to={"/dashboard"}>
+          <Link to={"/"}>
             <li onClick={(e)=>setAsActive(e)} className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center">
               <MdSpaceDashboard size={25} /> Dashboard
             </li>
