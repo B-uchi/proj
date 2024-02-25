@@ -74,7 +74,33 @@ const Dashboard = () => {
                 </h1>
                 <small className="font-montserrat">Fund your wallets</small>
               </div>
-              <div className=""></div>
+
+              <div className="mt-5">
+                <div className="">
+                  <p className="text-sm">Deposit Method</p>
+                  <select
+                    name=""
+                    id=""
+                    className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  >
+                    <option value="Deposit" disabled selected>
+                      None
+                    </option>
+                    <option value="Deposit">Crypto Transfer</option>
+                  </select>
+                </div>
+                <div className="mt-2">
+                  <p className="text-sm">Amount (in crypto)</p>
+                  <input
+                    type="text"
+                    placeholder="Enter transaction ID"
+                    className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  />
+                </div>
+                <div className="mt-3 flex">
+                  <button className="bg-[#2e9c5c] mx-auto p-2 px-3 rounded-md text-[#cccccc] ">Deposit</button>
+                </div>
+              </div>
             </div>
             <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 overflow-y-auto">
               <div className="">
@@ -84,6 +110,32 @@ const Dashboard = () => {
                 <small className="font-montserrat">
                   Withdraw from your wallet balance
                 </small>
+              </div>
+              <div className="mt-5">
+                <div className="">
+                  <p className="text-sm">Withdrawal Method</p>
+                  <select
+                    name=""
+                    id=""
+                    className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  >
+                    <option value="Deposit" disabled selected>
+                      None
+                    </option>
+                    <option value="Deposit">Crypto Transfer</option>
+                  </select>
+                </div>
+                <div className="mt-2">
+                  <p className="text-sm">Amount (in dollar)</p>
+                  <input
+                    type="text"
+                    placeholder="Enter transaction ID"
+                    className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  />
+                </div>
+                <div className="mt-3 flex">
+                  <button className="bg-[#345d96] mx-auto p-2 px-3 rounded-md text-[#cccccc] ">Withdraw</button>
+                </div>
               </div>
             </div>
           </div>
@@ -97,7 +149,7 @@ const Dashboard = () => {
               <DepositTable />{" "}
             </div>
             <div className="md:w-1/2">
-            <div className="">
+              <div className="">
                 <h1 className="font-inter text-xl mb-3 font-bold dark:text-[#cccccc]">
                   Recent Transactions:
                 </h1>
