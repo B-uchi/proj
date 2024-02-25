@@ -32,7 +32,7 @@ const Dashboard = () => {
                 <h1 className="text-4xl">0.0000</h1>
                 <small>Total Balance</small>
               </div>
-              <div className="mt-3 text-[#cccccc] p-3">
+              <div className="mt-3 dark:text-[#cccccc] text-black p-3">
                 <p>Available wallets:</p>
                 {data.map((item) => (
                   <div
