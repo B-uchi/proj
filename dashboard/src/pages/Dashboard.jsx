@@ -43,28 +43,28 @@ const Dashboard = () => {
             </div>
           )}
           <div className="mt-5 flex flex-col md:flex-row gap-5">
-            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer"> 
               <AiOutlineLoading3Quarters color="#345d96" size={28} />
               <div className="">
                 <small>Open Orders</small>
                 <h1 className="text-xl">0</h1>
               </div>
             </div>
-            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <CiCircleCheck color="green" size={30} />
               <div className="">
                 <small>Closed Orders</small>
                 <h1 className="text-xl">0</h1>
               </div>
             </div>
-            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <IoCloseCircleOutline color="red" size={30} /> 
               <div className="">
                 <small>Cancelled Orders</small>
                 <h1 className="text-xl">0</h1>
               </div>
             </div>
-            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <BiLineChart color="#2e9c5c" size={30} />
               <div className="">
                 <small>Total Trade</small>
@@ -73,7 +73,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row gap-5">
-            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 h-[40vh] overflow-y-auto">
+            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 h-[40vh] overflow-y-auto shadow-md">
               <div className="">
                 <h1 className="font-inter font-bold dark:text-[#cccccc]">
                   Wallet Overview
@@ -121,7 +121,7 @@ const Dashboard = () => {
                 ))}
               </div>
             </div>
-            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 overflow-y-auto">
+            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 overflow-y-auto shadow-md">
               <div className="">
                 <h1 className="font-inter font-bold dark:text-[#cccccc]">
                   Deposit
@@ -158,7 +158,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 overflow-y-auto">
+            <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 overflow-y-auto shadow-md">
               <div className="">
                 <h1 className="font-inter font-bold dark:text-[#cccccc]">
                   Withdraw
