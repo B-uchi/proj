@@ -4,11 +4,16 @@ import { BiSolidDollarCircle } from "react-icons/bi";
 import { FaBitcoin } from "react-icons/fa";
 import { TbCurrencySolana } from "react-icons/tb";
 import { FaEthereum } from "react-icons/fa";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { CiCircleCheck } from "react-icons/ci";
+import { BiLineChart } from "react-icons/bi";
 import { SiLitecoin } from "react-icons/si";
 import TransactionsTable from "../components/TransactionsTable";
 import DepositTable from "../components/DepositTable";
+import { useState } from "react";
 
 const Dashboard = () => {
+  const [kycBanner, showKycBanner] = useState(true);
   return (
     <div>
       <div className="p-10">
@@ -18,7 +23,56 @@ const Dashboard = () => {
           </h1>
         </div>
         <div className="mt-5">
+          {kycBanner && (
+            <div className="border-red-700 border-[1px] p-3 rounded-sm relative">
+              <h1 className="text-xl text-red-600">KYC Required</h1>
+              <p className="font-siliguri">
+                Your account will be temporarily restricted till you complete
+                KYC. Click{" "}
+                <a href="user/kyc" className="underline">
+                  here
+                </a>{" "}
+                to proceed
+              </p>
+              <button
+                onClick={() => showKycBanner(false)}
+                className="absolute top-3 right-3"
+              >
+                <IoCloseCircleOutline />
+              </button>
+            </div>
+          )}
           <div className="mt-5 flex flex-col md:flex-row gap-5">
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+              <AiOutlineLoading3Quarters color="#345d96" size={28} />
+              <div className="">
+                <small>Open Orders</small>
+                <h1 className="text-xl">0</h1>
+              </div>
+            </div>
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+              <CiCircleCheck color="green" size={30} />
+              <div className="">
+                <small>Closed Orders</small>
+                <h1 className="text-xl">0</h1>
+              </div>
+            </div>
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+              <IoCloseCircleOutline color="red" size={30} /> 
+              <div className="">
+                <small>Cancelled Orders</small>
+                <h1 className="text-xl">0</h1>
+              </div>
+            </div>
+            <div className="md:w-1/4 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3">
+              <BiLineChart color="#2e9c5c" size={30} />
+              <div className="">
+                <small>Total Trade</small>
+                <h1 className="text-xl">0</h1>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-5">
             <div className="mt-5 md:w-1/3 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 h-[40vh] overflow-y-auto">
               <div className="">
                 <h1 className="font-inter font-bold dark:text-[#cccccc]">
@@ -98,7 +152,9 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className="mt-3 flex">
-                  <button className="bg-[#2e9c5c] mx-auto p-2 px-3 rounded-md text-[#cccccc] ">Deposit</button>
+                  <button className="bg-[#2e9c5c] mx-auto p-2 px-3 rounded-md text-[#cccccc] ">
+                    Deposit
+                  </button>
                 </div>
               </div>
             </div>
@@ -134,7 +190,9 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className="mt-3 flex">
-                  <button className="bg-[#345d96] mx-auto p-2 px-3 rounded-md text-[#cccccc] ">Withdraw</button>
+                  <button className="bg-[#345d96] mx-auto p-2 px-3 rounded-md text-[#cccccc] ">
+                    Withdraw
+                  </button>
                 </div>
               </div>
             </div>
