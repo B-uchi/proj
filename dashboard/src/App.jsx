@@ -17,6 +17,7 @@ import Settings from "./pages/Settings";
 import { useState } from "react";
 import WalletDetails from "./pages/WalletDetails";
 import CompleteSignup from "./pages/CompleteSignup";
+import KYC from "./pages/KYC";
 
 function App() {
   const [sideNavOpen, setSideNavOpen] = useState(false);
@@ -47,6 +48,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/wallets" element={<Wallets />} />
+              <Route path="/user/kyc" element={<KYC />} />
               <Route path="/wallets/:symbol" element={<WalletDetails />} />
               <Route path="/deposits" element={<Deposits />} />
               <Route path="/withdrawals" element={<Withdrawals />} />

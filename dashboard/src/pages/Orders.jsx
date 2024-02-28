@@ -19,8 +19,8 @@ const Orders = () => {
             <h1 className="text-xl mb-3 font-bold dark:text-[#cccccc]">
               Filter Options
             </h1>
-            <div className="flex gap-3">
-              <div className="w-1/4">
+            <div className="flex md:flex-row flex-col gap-3">
+              <div className="md:w-1/4">
                 <p className="text-sm">Order Parameters</p>
                 <input
                   type="text"
@@ -28,7 +28,7 @@ const Orders = () => {
                   className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
-              <div className="w-1/4">
+              <div className="md:w-1/4">
                 <p className="text-sm">Order Status</p>
                 <select
                   name=""
@@ -43,7 +43,7 @@ const Orders = () => {
                   <option value="Cancelled">Cancelled</option>
                 </select>
               </div>
-              <div className="w-1/4">
+              <div className="md:w-1/4">
                 <p className="text-sm">Order Type</p>
                 <select
                   name=""
@@ -57,8 +57,8 @@ const Orders = () => {
                   <option value="Sell">Sell</option>
                 </select>
               </div>
-              <div className="w-1/4 flex">
-                <button className="bg-[#2e9c5c] hover:bg-green-500 w-[50%] mx-auto text-white flex justify- items-center gap-3 p-2 rounded-md mt-5">
+              <div className="md:w-1/4 flex">
+                <button className="bg-[#2e9c5c] hover:bg-green-500 w-[50%] mx-auto text-white flex justify-center items-center gap-3 p-2 rounded-md mt-5">
                   <MdOutlineFilterList size={25}/>Filter
                 </button>
               </div>
