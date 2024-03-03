@@ -22,7 +22,34 @@ const Dashboard = ({ currentUser }) => {
   const [btcRate, setBtcRate] = useState(null);
   const [depositMethod, setDepositMethod] = useState("none");
   const [depositAmtInUSD, setDepositAmtInUSD] = useState(0);
+  const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const requestOptions = {
+        url: "http://localhost:8080/user/getTransactions",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie.slice(18)}`,
+        },
+      };
+
+      await axios
+        .request(requestOptions)
+        .then((response) => {
+          if (response.status === 200) {
+            setTransactions(response.data.transactions);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("An error occurred. Please try again later.");
+        });
+    };
+    fetchTransactions();
+  }, []);
 
   useEffect(() => {
     getBitcoinPrice();
@@ -281,7 +308,7 @@ const Dashboard = ({ currentUser }) => {
                   Recent Transactions:
                 </h1>
               </div>
-              <TransactionsTable />
+              <TransactionsTable data={transactions}/>
             </div>
           </div>
         </div>

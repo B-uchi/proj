@@ -1,7 +1,36 @@
 import React from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-const Table = ({ data }) => {
+const Table = () => {
+  const [deposits, setDeposits] = useState([]);
+  useEffect(() => {
+    const fetchDeposits = async () => {
+      const requestOptions = {
+        url: "http://localhost:8080/user/getDeposits",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie.slice(18)}`,
+        },
+      };
+
+      await axios
+        .request(requestOptions)
+        .then((response) => {
+          if (response.status === 200) {
+            setDeposits(response.data.deposits);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("An error occurred. Please try again later.");
+        });
+    };
+    fetchDeposits();
+  }, []);
+
   return (
     <div className="bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] overflow-y-auto">
       <div className="p-2 h-full overflow-x-scroll">
@@ -16,8 +45,8 @@ const Table = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data && data.length > 0 ? (
-              data.map((item) => (
+            {deposits && deposits.length > 0 ? (
+              deposits.map((item) => (
                 <tr
                   key={item.id}
                   className="flex justify-between items-center p-2 border-b-[1px] dark:border-[#1f1f1f] border-[#f1f1f1]"

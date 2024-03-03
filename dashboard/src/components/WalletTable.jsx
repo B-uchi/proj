@@ -6,7 +6,6 @@ import { FaEthereum } from "react-icons/fa";
 import { SiLitecoin } from "react-icons/si";
 import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
-import { data } from "../util/dummyWalletData";
 
 const WalletTable = ({ currentUser }) => {
   const navigate = useNavigate();

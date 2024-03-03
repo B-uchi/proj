@@ -5,7 +5,6 @@ import axios from "axios";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
-  console.log(transactions);
   useEffect(() => {
     const fetchTransactions = async () => {
       const requestOptions = {

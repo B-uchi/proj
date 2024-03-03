@@ -93,7 +93,7 @@ const SignIn = ({ mode }) => {
   };
 
   return (
-    <div className="max-h-[100vh] ppp h-[100vh] flex">
+    <div className="max-h-[100vh] absolute w-full h-[100vh] flex">
       <Toaster richColors position="top-right" />
       <div
         style={{ backgroundImage: `url(${pic1})` }}
@@ -235,7 +235,7 @@ const SignIn = ({ mode }) => {
           </div>
         </div>
       </div>
-      <div className="p-3 hidden md:w-1/2 md:flex items-center justify-center">
+      <div className="p-3 hidden md:w-1/2 md:flex items-center justify-center bg-white">
         <div className="p-2 md:w-[500px]">
           <h1 className="font-bold text-center text-xl md:text-3xl text-[#091e42]">
             {page}

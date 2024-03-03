@@ -27,15 +27,12 @@ const HoverMenu = ({ items, label }) => {
       {isOpen && (
         <ul className="menu absolute p-2 bg-white border-[1px] rounded-md border-[#247e49]  -translate-x-[20%] w-[160px]">
           {items.map((item) => (
-            <MenuItemm
-              key={item.key}
-              onClick={() => {
-                toggleMenu();
-              }}
-            >
-              <div className=" p-2 mb-2 border-b-[1px] border-[#e1e1e1] cursor-pointer hover:bg-[#e0e0e0] rounded-lg">
-                {item.text}
-              </div>
+            <MenuItemm key={item.key}>
+              <a href={item.path && item.path}>
+                <div className=" p-2 mb-2 border-b-[1px] border-[#e1e1e1] cursor-pointer hover:bg-[#e0e0e0] rounded-lg">
+                  <>{item.text}</>
+                </div>
+              </a>
             </MenuItemm>
           ))}
         </ul>
@@ -65,29 +62,32 @@ const Navbar = () => {
                 label="Markets"
                 page="markets"
                 items={[
-                  { key: 1, text: "Stocks" },
-                  { key: 2, text: "Bonds" },
-                  { key: 3, text: "MF's" },
-                  { key: 4, text: "ETF's" },
-                  { key: 5, text: "Futures" },
-                  { key: 6, text: "Commodities" },
+                  { key: 1, text: "Stocks", path: '/markets' },
+                  { key: 2, text: "Bonds", path: '/markets' },
+                  { key: 3, text: "MF's", path: '/markets' },
+                  { key: 4, text: "ETF's", path: '/markets' },
+                  { key: 5, text: "Futures", path: '/markets' },
+                  { key: 6, text: "Commodities", path: '/markets' },
                 ]}
               />
               <HoverMenu
                 label="Company"
-                page="company"
                 items={[
-                  { key: 1, text: "How it works" },
-                  { key: 2, text: "Careers" },
-                  { key: 3, text: "About us" },
+                  { key: 7, text: "How it works", path: "/how_it_works" },
+                  { key: 8, text: "Careers", path: "/careers"},
+                  { key: 9, text: "About us", path: "/about" },
                 ]}
               />
               <HoverMenu
                 label="Resources"
                 page="resources"
                 items={[
-                  { key: 1, text: "Legal Docs" },
-                  { key: 2, text: "Help & Support" },
+                  {
+                    key: 10,
+                    text: "Legal Docs",
+                    path: "/src/assets/Terms%20And%20Conditions.pdf",
+                  },
+                  { key: 11, text: "Help & Support", path: "/how_it_works" },
                 ]}
               />
             </ul>
@@ -117,7 +117,7 @@ const Navbar = () => {
         </div>
       </div>
       {showMenu ? (
-        <div className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] dark:border-[#171717] dark:bg-[#0a0a0a] w-full p-7">
+        <div className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7">
           <div className="container">
             <ul className="flex flex-col gap-5 items-center">
               <li onClick={() => setShowMenu(false)}>
