@@ -21,6 +21,7 @@ const Transactions = () => {
         .then((response) => {
           if (response.status === 200) {
             setTransactions(response.data.transactions);
+            
           }
         })
         .catch((err) => {

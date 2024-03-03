@@ -20,9 +20,6 @@ body {
   width: 100%;
   font-family: "Inter", sans-serif;
 }
-.dark {
-  background-color: #000000;
-}
 .input {
   outline: solid #166437 1px;
   border-radius: 5px;

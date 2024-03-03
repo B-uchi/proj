@@ -1,4 +1,4 @@
-import DepositTable from "../components/DepositTable";
+import WithdrawalTable from "../components/WithdrawalTable";
 
 const Withdrawals = () => {
   return (
@@ -11,7 +11,7 @@ const Withdrawals = () => {
           <small className="font-montserrat">View your withdrawal history</small>
         </div>
         <div className="mt-10">
-          <DepositTable />
+          <WithdrawalTable />
         </div>
       </div>
     </div>

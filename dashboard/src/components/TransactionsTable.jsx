@@ -4,7 +4,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 const TransactionsTable = ({ data }) => {
   return (
     <div className="bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] overflow-y-auto">
-      <div className="p-2 h-full overflow-x-scroll">
+      <div className="p-2 h-full w-[600px] md:w-full overflow-x-scroll">
         <table className="table-auto w-full">
           <thead className="">
             <tr className="flex justify-between rounded-lg border-b-[2px] dark:border-[#1f1f1f] border-[#f1f1f1]">
@@ -24,19 +24,19 @@ const TransactionsTable = ({ data }) => {
                   className="flex justify-between items-center p-2 border-b-[1px] dark:border-[#1f1f1f] border-[#f1f1f1]"
                 >
                   <td className="w-1/6">
-                    {new Date(
+                    {item && new Date(
                       item.createdAt._seconds * 1000 +
                         Math.round(item.createdAt._nanoseconds / 1000000)
                     )
                       .toDateString()
                       .slice(4, 15)}
                   </td>
-                  <td className="w-1/6">{item.transactionId}</td>
-                  <td className="w-1/6 text-center">{item.transactionType}</td>
+                  <td className="w-1/6 overflow-x-hidden">{item && item.transactionId}</td>
+                  <td className="w-1/6 text-center">{item && item.transactionType}</td>
                   <td className="w-1/6 text-center">
-                    {item.amount}BTC = ${item.amountInUSD}
+                    {item && item.amount}BTC
                   </td>
-                  <td className="w-1/7">{item.status}</td>
+                  <td className="w-1/7">{item && item.status}</td>
                   <td className="w-1/7">
                     <button
                       onClick={() => {}}

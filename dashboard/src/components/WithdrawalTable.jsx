@@ -3,12 +3,13 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Table = () => {
+const WithdrawalTable = () => {
   const [deposits, setDeposits] = useState([]);
+  console.log(deposits);
   useEffect(() => {
     const fetchDeposits = async () => {
       const requestOptions = {
-        url: "http://localhost:8080/user/getDeposits",
+        url: "http://localhost:8080/user/getWithdrawals",
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -20,7 +21,7 @@ const Table = () => {
         .request(requestOptions)
         .then((response) => {
           if (response.status === 200) {
-            setDeposits(response.data.deposits);
+            setDeposits(response.data.withdrawals);
           }
         })
         .catch((err) => {
@@ -33,12 +34,12 @@ const Table = () => {
 
   return (
     <div className="bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] overflow-y-auto">
-      <div className="p-2 h-full w-[600px] md:w-full overflow-x-scroll">
+      <div className="p-2 h-full overflow-x-scroll">
         <table className="table-auto w-full">
           <thead className="">
             <tr className="flex rounded-lg border-b-[2px] dark:border-[#1f1f1f] border-[#f1f1f1]">
               <th className="p-2 w-1/5 text-left">Date</th>
-              <th className="p-2 w-1/5">Payment Method</th>
+              <th className="p-2 w-1/5">Withdrawal Method</th>
               <th className="p-2 w-1/5 text-center">Amount</th>
               <th className="p-2 w-1/5 text-right">Status</th>
               <th className="p-2 w-1/5 text-right">Action</th>
@@ -63,7 +64,7 @@ const Table = () => {
                   <td className="w-1/5 text-center">
                     {item.amount}BTC = ${item.amountInUSD}
                   </td>
-                  <td className="w-1/5 text-right">{item.status}</td>
+                  <td className="w-1/5 text-right">{item.status === 'Approved' ? <p className='text-green-300'>{item.status}</p> : <p>{item.status}</p>}</td>
                   <td className="w-1/5 text-right">
                     <button
                       onClick={() => {}}
@@ -91,4 +92,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default WithdrawalTable;

@@ -38,18 +38,16 @@ const CompleteSignup = ({ setCurrentUser }) => {
       if (res.status === 200) {
         toast.success("Signup completed successfully!");
         setCurrentUser(res.data.user);
+        setTimeout(
+          () => (window.location.href = "http://localhost:5174/dashboard"),
+          2000
+        );
       }
     } catch (error) {
       toast.error(
         "An error occurred while completing signup. Please try again later."
       );
-      // if (error & error.response.status === 403) {
-      //   toast.error("Access Denied");
-      //   setTimeout(
-      //     () => (window.location.href = "http://localhost:5173/sign_up"),
-      //     2000
-      //   );
-      // }
+    
       console.error(error);
     } finally {
       setLoading(false);

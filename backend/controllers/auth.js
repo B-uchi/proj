@@ -20,7 +20,7 @@ export const verifyUser = async (req, res) => {
         const userRef = db.collection("users").doc(uid);
         const doc = await userRef.get();
         if (!doc.exists) {
-          console.log("No such document!");
+          return res.status(400).json({ message: "User not found" });
         } else {
           res.status(200).json({ message: "User verified", user: doc.data() });
         }
@@ -30,4 +30,3 @@ export const verifyUser = async (req, res) => {
     res.status(400).json(error);
   }
 };
-

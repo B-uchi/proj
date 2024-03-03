@@ -34,7 +34,7 @@ const SignIn = ({ mode }) => {
           document.cookie = cookie;
           toast.success("Successfully logged in");
           setTimeout(() => {
-            window.location.href = "http://localhost:5174";
+            window.location.href = "http://localhost:5174/dashboard";
           }, 1000);
         })
         .catch((error) => {
@@ -70,7 +70,7 @@ const SignIn = ({ mode }) => {
                 });
                 toast.success("Account created successfully");
                 setTimeout(() => {
-                  navigate("http://localhost:5174/");
+                  window.location.href = "http://localhost:5174/dashboard";
                 }, 1000);
               } catch (error) {
                 toast.error(error.message);
@@ -93,11 +93,11 @@ const SignIn = ({ mode }) => {
   };
 
   return (
-    <div className="max-h-[100vh] absolute w-full h-[100vh] flex">
+    <div className="max-h-[100vh] absolute w-full h-[100vh]  flex overflow-y-hidden">
       <Toaster richColors position="top-right" />
       <div
         style={{ backgroundImage: `url(${pic1})` }}
-        className="w-full md:w-1/2 h-[100vh] bg-no-repeat bg-center bg-cover"
+        className="w-full md:w-1/2 h-[100vh]  bg-no-repeat bg-center bg-cover"
       >
         <div className="h-full w-full bg-[#0d331d] bg-opacity-80 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
           {" "}

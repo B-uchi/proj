@@ -10,6 +10,8 @@ import {
   getTransactions,
   getWallet,
   getDeposits,
+  getWithdrawals,
+  createWithdrawalTransaction,
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -23,5 +25,7 @@ router.get("/getWallet", verifyToken, getWallet);
 router.post("/createDepositTransaction", verifyToken, createDepositTransaction);
 router.get("/getTransactions", verifyToken, getTransactions);
 router.get("/getDeposits", verifyToken, getDeposits);
+router.post("/withdraw", verifyToken, createWithdrawalTransaction);
+router.get("/getWithdrawals", verifyToken, getWithdrawals);
 
 export default router;

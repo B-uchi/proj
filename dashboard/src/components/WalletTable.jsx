@@ -20,7 +20,6 @@ const WalletTable = ({ currentUser }) => {
             <tr className="w-full">
               <th className="p-3 text-left">Currency | Coin</th>
               <th className="p-3">Available Balance</th>
-              <th className="p-3 ">Total Balance</th>
               <th className="p-3 ">Status</th>
               <th className="p-3">Action</th>
             </tr>
@@ -56,9 +55,6 @@ const WalletTable = ({ currentUser }) => {
                   </td>
                   <td className="p-2 text-center">
                     {item.availableBalance.toFixed(4)}
-                  </td>
-                  <td className="p-2 text-center">
-                    {item.totalBalance.toFixed(4)}
                   </td>
                   <td className="p-2 text-sm text-center ">
                     {item.status === "Active" ? (

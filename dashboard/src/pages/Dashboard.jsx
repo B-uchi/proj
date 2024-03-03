@@ -18,7 +18,12 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = ({ currentUser }) => {
   const [kycBanner, showKycBanner] = useState(true);
   const [showConversion, setShowConversion] = useState(false);
+  const [showWithdrawalConversion, setShowWithdrawalConversion] =
+    useState(false);
   const [depositAmt, setDepositAmt] = useState(0);
+  const [withdrawalAmt, setWithdrawalAmt] = useState(0);
+  const [withdrawalAmtInBtc, setWithdrawalAmtInBtc] = useState(0);
+  const [withdrawalMethod, setWithdrawalMethod] = useState("none");
   const [btcRate, setBtcRate] = useState(null);
   const [depositMethod, setDepositMethod] = useState("none");
   const [depositAmtInUSD, setDepositAmtInUSD] = useState(0);
@@ -81,6 +86,18 @@ const Dashboard = ({ currentUser }) => {
     });
   };
 
+  const navigateToWithdrawPage = () => {
+    if (withdrawalMethod === "none") {
+      return toast.error("Please select a withdrawal method");
+    }
+    if (withdrawalAmt == 0) {
+      return toast.error("Please enter a valid amount");
+    }
+    navigate("/user/withdraw", {
+      state: { withdrawalAmt, withdrawalAmtInBtc, withdrawalMethod },
+    });
+  };
+
   let accountBalance = 0;
   currentUser &&
     currentUser.wallets.forEach((element) => {
@@ -93,7 +110,12 @@ const Dashboard = ({ currentUser }) => {
           <h1 className="text-2xl font-montserrat font-bold dark:text-[#cccccc] flex items-center gap-5">
             My Dashboard{" "}
             <div className="text-lg">
-              <button className="p-2 px-3 bg-[#345d96] rounded-md text-black dark:text-white">
+              <button
+                onClick={() => {
+                  navigate("/trade");
+                }}
+                className="p-2 px-3 bg-[#345d96] rounded-md text-black dark:text-white"
+              >
                 Trade
               </button>
             </div>
@@ -217,7 +239,7 @@ const Dashboard = ({ currentUser }) => {
                     onChange={(e) => setDepositMethod(e.target.value)}
                     className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                   >
-                    <option value="none" disabled selected>
+                    <option value="none" disabled>
                       None
                     </option>
                     <option value="Crypto Transfer">Crypto Transfer</option>
@@ -267,26 +289,49 @@ const Dashboard = ({ currentUser }) => {
                 <div className="">
                   <p className="text-sm">Withdrawal Method</p>
                   <select
-                    name=""
-                    id=""
+                    value={withdrawalMethod}
+                    onChange={(e) => setWithdrawalMethod(e.target.value)}
                     className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                   >
-                    <option value="Deposit" disabled selected>
+                    <option value="none" disabled>
                       None
                     </option>
-                    <option value="Deposit">Crypto Transfer</option>
+                    <option value="Crypto Transfer">
+                      Crypto Transfer (BTC)
+                    </option>
                   </select>
                 </div>
                 <div className="mt-2">
                   <p className="text-sm">Amount (in dollar)</p>
                   <input
-                    type="text"
-                    placeholder="Enter transaction ID"
+                    type="number"
+                    value={withdrawalAmt}
+                    onChange={(e) => {
+                      setWithdrawalAmt(e.target.value);
+                      setWithdrawalAmtInBtc(
+                        (withdrawalAmt / btcRate).toFixed(5)
+                      );
+                      setShowWithdrawalConversion(true);
+                    }}
+                    placeholder="Enter Amount"
                     className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                   />
+                  {showWithdrawalConversion &&
+                  withdrawalAmt != "" &&
+                  withdrawalAmt != 0 ? (
+                    <div className="mt-2 flex items-center gap-2">
+                      <p className="text-sm">
+                        ${withdrawalAmt} ={" "}
+                        {(withdrawalAmt / btcRate).toFixed(5)}BTC
+                      </p>
+                    </div>
+                  ) : null}
                 </div>
                 <div className="mt-3 flex">
-                  <button className="bg-[#345d96] mx-auto p-2 px-3 rounded-md text-[#cccccc] ">
+                  <button
+                    onClick={() => navigateToWithdrawPage()}
+                    className="bg-[#345d96] mx-auto p-2 px-3 rounded-md text-[#cccccc] "
+                  >
                     Withdraw
                   </button>
                 </div>
@@ -308,7 +353,7 @@ const Dashboard = ({ currentUser }) => {
                   Recent Transactions:
                 </h1>
               </div>
-              <TransactionsTable data={transactions}/>
+              <TransactionsTable data={transactions} />
             </div>
           </div>
         </div>

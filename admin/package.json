@@ -1,5 +1,5 @@
 {
-  "name": "dashboard",
+  "name": "admin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,23 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
-    "autoprefixer": "^10.4.17",
+    "autoprefixer": "^10.4.18",
     "axios": "^1.6.7",
     "firebase": "^10.8.1",
-    "framer-motion": "^11.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
-    "react-qr-code": "^2.0.12",
     "react-redux": "^9.1.0",
-    "react-router-dom": "^6.22.1",
+    "react-router-dom": "^6.22.2",
     "redux": "^5.0.1",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^6.0.0",
-    "sonner": "^1.4.0",
-    "tailwindcss": "^3.4.1",
-    "usehooks-ts": "^2.15.1"
+    "sonner": "^1.4.3",
+    "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

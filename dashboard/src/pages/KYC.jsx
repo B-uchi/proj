@@ -1,7 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import { storage } from "../firebase/firebaseUtil";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { connect } from "react-redux";
+import { toast, Toaster } from "sonner";
+import { useNavigate } from "react-router-dom";
 
-const KYC = () => {
+const KYC = ({ currentUser }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [dlNumber, setDlNumber] = useState("");
   const [gender, setGender] = useState("null");
@@ -9,6 +14,7 @@ const KYC = () => {
   const [annualIncome, setAnnualIncome] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -20,11 +26,48 @@ const KYC = () => {
     }
   };
 
-  const completeKYC = async () => {
+  const uploadFile = async () => {
+    setLoading(true);
+    if (gender === "null" || !annualIncome || !employmentStatus) {
+      setLoading(false);
+      return toast.error("Please fill in all fields");
+    }
+    if (!selectedFile) {
+      setLoading(true);
+      return toast.error("Select a valid ID file");
+    }
+    const storageRef = ref(
+      storage,
+      `kyc/${currentUser.id}.${selectedFile.type.split("/")[1]}`
+    );
+    uploadBytes(storageRef, selectedFile)
+      .then((snapshot) => {
+        getDownloadURL(
+          ref(
+            storage,
+            `kyc/${currentUser.id}.${selectedFile.type.split("/")[1]}`
+          )
+        )
+          .then(async (url) => {
+            await completeKYC(url);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const completeKYC = async (url) => {
     const requestOptions = {
       method: "POST",
       url: "http://localhost:8080/user/completeKYC",
-      data: {file: selectedFile},
+      data: {
+        dlNumber,
+        gender,
+        ssn,
+        annualIncome,
+        employmentStatus,
+        idUrl: url,
+      },
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${document.cookie.slice(18)}`,
@@ -33,20 +76,27 @@ const KYC = () => {
     await axios
       .request(requestOptions)
       .then((response) => {
-        console.log(response.data);
+        if (response.status === 200) {
+          toast.success("KYC submitted successfully");
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 2000);
+          return;
+        }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   return (
     <div className="dark:text-white flex flex-col justify-center items-center p-3 gap-3">
+      <Toaster richColors position="top-right" />
       <div className="text-center mt-10">
         <h1 className="text-2xl font-bold text-black dark:text-[#cccccc] font-montserrat">
           KYC
         </h1>
         <small className="font-montserrat text-black dark:text-[#cccccc]">
-          Complete your KYC and enjoy the full benefits of our Trade Stack
-          Network
+          Complete your KYC and enjoy the full benefits of Trade Stack Network
         </small>
       </div>
       <div className="mt-5 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 md:w-[50%]">
@@ -126,7 +176,7 @@ const KYC = () => {
         </div>
         <div className="mt-5">
           <div className="">
-            <p>Annual Income</p>
+            <p>Annual Income (USD)</p>
             <input
               type="text"
               value={annualIncome}
@@ -137,7 +187,7 @@ const KYC = () => {
         </div>
         <div className="w-full flex">
           <button
-            onClick={() => completeKYC()}
+            onClick={() => uploadFile()}
             className="bg-[#2e9c5c] disabled:bg-green-700 hover:bg-green-500 w-[50%] mx-auto text-white p-2 rounded-md mt-5 flex items-center gap-3 justify-center"
           >
             Submit {loading ? <div className="loader"></div> : null}
@@ -148,4 +198,10 @@ const KYC = () => {
   );
 };
 
-export default KYC;
+const mapStateToProps = ({ user }) => {
+  return {
+    currentUser: user.currentUser,
+  };
+};
+
+export default connect(mapStateToProps)(KYC);

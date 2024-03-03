@@ -25,6 +25,8 @@ import KYC from "./pages/KYC";
 import { connect } from "react-redux";
 import { setShowSideNav } from "./redux/nav/sideNav.actions";
 import EditProfile from "./pages/EditProfile";
+import Withdraw from "./pages/Withdraw";
+import Trade from "./pages/Trade";
 
 function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
   const [loading, setLoading] = useState(true);
@@ -110,8 +112,10 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
           <div className="dark:text-white text-black ">
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/user/deposit" element={<Deposit/>} />
-              <Route path="/profile" element={<EditProfile/>}/>
+              <Route path="/user/deposit" element={<Deposit />} />
+              <Route path="/user/withdraw" element={<Withdraw />} />
+              <Route path="/trade" element={<Trade />} />
+              <Route path="/profile" element={<EditProfile />} />
               <Route path="/orders" element={<Orders />} />
               <Route path="/wallets" element={<Wallets />} />
               <Route path="/user/kyc" element={<KYC />} />

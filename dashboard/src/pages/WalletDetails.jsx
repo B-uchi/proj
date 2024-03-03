@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable";
 import { CiCircleCheck } from "react-icons/ci";
@@ -8,24 +8,63 @@ import { FaBitcoin } from "react-icons/fa";
 import { TbCurrencySolana } from "react-icons/tb";
 import { FaEthereum } from "react-icons/fa";
 import { SiLitecoin } from "react-icons/si";
-import {toast, Toaster} from 'sonner'
+import { toast, Toaster } from "sonner";
+import axios from "axios";
 
 const WalletDetails = () => {
   const location = useLocation();
   const data = location.state;
 
   const displayToast = (status) => {
-    status === 'inactive' ? toast.error('You need to complete KYC') : toast.success('Wallet Active')
-  }
+    status === "inactive"
+      ? toast.error("You need to complete KYC")
+      : toast.success("Wallet Active");
+  };
+  const [transactions, setTransactions] = useState([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const requestOptions = {
+        url: "http://localhost:8080/user/getTransactions",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie.slice(18)}`,
+        },
+      };
+
+      await axios
+        .request(requestOptions)
+        .then((response) => {
+          if (response.status === 200) {
+            setTransactions(
+              response.data.transactions.map((item) => {
+                  if (item.wallet === data.symbol){
+                    return item;
+                  }
+              }).filter(Boolean) 
+            );
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("An error occurred. Please try again later.");
+        });
+    };
+    fetchTransactions();
+  }, []);
 
   return (
     <div>
       <div className="p-10">
-        <Toaster richColors position="top-right"/>
+        <Toaster richColors position="top-right" />
         <div className="">
           <h1 className="text-2xl font-bold dark:text-[#cccccc] flex gap-3">
             My {data.currency} Wallet{" "}
-            <span className="text-sm cursor-pointer" onClick={()=>displayToast(data.status.toLowerCase())}>
+            <span
+              className="text-sm cursor-pointer"
+              onClick={() => displayToast(data.status.toLowerCase())}
+            >
               {data.status === "Active" ? (
                 <div className="border-green-600 border-[1px] p-1 rounded-lg text-green-700">
                   {data.status}
@@ -69,21 +108,12 @@ const WalletDetails = () => {
                   <p>{data.symbol}</p>
                 </div>
                 <div className="flex gap-3">
-                  <div className="w-1/2">
+                  <div className="w-full">
                     <p>Available Balance</p>
                     <input
                       type="number"
                       value={data.availableBalance.toFixed(4)}
                       readOnly
-                      className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
-                    />
-                  </div>
-                  <div className="w-1/2">
-                    <p className="text-right">Total Balance</p>
-                    <input
-                      type="number"
-                      readOnly
-                      value={data.totalBalance.toFixed(4)}
                       className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                     />
                   </div>
@@ -121,7 +151,7 @@ const WalletDetails = () => {
             </div>
           </div>
           <div className="mt-10">
-            <TransactionsTable />
+            <TransactionsTable data={transactions && transactions} />
           </div>
         </div>
       </div>
