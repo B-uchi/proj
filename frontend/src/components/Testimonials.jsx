@@ -8,42 +8,42 @@ const Testimonials = () => {
     {
       name: "Sarah Johnson",
       testimonial:
-        "Scion Investment has been a game-changer for my financial future. Their expertise and personalized guidance have helped me achieve remarkable returns. Thank you, Scion!",
+        "Trade Stack Network has been a game-changer for my financial future. Their expertise and personalized guidance have helped me achieve remarkable returns. Thank you, TSN!",
     },
     {
       name: "David Martinez",
       testimonial:
-        "I've been with Scion Investment for years, and they never cease to amaze me. Their consistent growth strategies have made a significant difference in my portfolio. Highly recommended!",
+        "I've been with Trade Stack Network for years, and they never cease to amaze me. Their consistent growth strategies have made a significant difference in my portfolio. Highly recommended!",
     },
     {
       name: "James Anderson",
       testimonial:
-        "Exceptional service! Scion Investment's team is knowledgeable and responsive. They've helped me navigate the financial markets with ease and have significantly increased my returns.",
+        "Exceptional service! Trade Stack Network's team is knowledgeable and responsive. They've helped me navigate the financial markets with ease and have significantly increased my returns.",
     },
     {
       name: "Maria Rodriguez",
       testimonial:
-        "Scion Investment's commitment to excellence shines through in their results. I couldn't be happier with the substantial growth they've achieved for my investments.",
+        "Trade Stack Network's commitment to excellence shines through in their results. I couldn't be happier with the substantial growth they've achieved for my investments.",
     },
     {
       name: "Robert Turner",
       testimonial:
-        "I trust Scion Investment implicitly with my investments. Their data-driven approach has consistently outperformed market averages. I'm grateful for their expertise.",
+        "I trust Trade Stack Network implicitly with my investments. Their data-driven approach has consistently outperformed market averages. I'm grateful for their expertise.",
     },
     {
       name: "Jennifer Smith",
       testimonial:
-        "Scion Investment has not only secured my financial future but also provided peace of mind. Their personalized approach and strong track record make them my top choice.",
+        "Trade Stack Network has not only secured my financial future but also provided peace of mind. Their personalized approach and strong track record make them my top choice.",
     },
     {
       name: "Michael Brown",
       testimonial:
-        "Working with Scion Investment has been a rewarding experience. Their team's deep knowledge of the financial landscape has led to substantial returns for me.",
+        "Working with Trade Stack Network has been a rewarding experience. Their team's deep knowledge of the financial landscape has led to substantial returns for me.",
     },
     {
       name: "Lisa Taylor",
       testimonial:
-        "Scion Investment's founder, Bill Scion, had a vision that has truly paid off. Their dedication to clients' success is evident, and I'm grateful for their partnership.",
+        "Trade Stack Network's founder, James Durk, had a vision that has truly paid off. Their dedication to clients' success is evident, and I'm grateful for their partnership.",
     },
   ];
 

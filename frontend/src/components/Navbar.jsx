@@ -50,10 +50,10 @@ const Navbar = () => {
   return (
     <nav className="w-full z-50 sticky top-0 bg-white border-[1px] border-b-[#247e49]">
       <div className="flex container items-center justify-between mx-auto p-2 py-2 md:px-3 px-5">
-        <div className="flex items-center gap-20">
+        <div className="flex items-center gap-14">
           <Link to={"/"}>
             <h1 className="font-bolder text-xl font-montserrat font-extrabold">
-              SCION
+              Trade Stack Network
             </h1>
           </Link>
           <div className=" md:block hidden">

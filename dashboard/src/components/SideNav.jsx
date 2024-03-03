@@ -5,11 +5,14 @@ import { GrTransaction } from "react-icons/gr";
 import { BiSolidPurchaseTag } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
+import { connect } from "react-redux";
+import { setShowSideNav } from "../redux/nav/sideNav.actions";
+import { useNavigate } from "react-router-dom";
 
-const SideNav = ({ setSideNavOpen }) => {
+const SideNav = ({ setShowSideNav }) => {
+  const navigate = useNavigate();
   const setAsActive = (e) => {
     const items = document.querySelectorAll("li");
-    console.log(items);
     items.forEach((item) => {
       item.classList.remove("dark:bg-[#1f1f1f]");
       item.classList.remove("bg-[#f1f1f1]");
@@ -21,17 +24,18 @@ const SideNav = ({ setSideNavOpen }) => {
     <aside className="bg-white dark:bg-[#0a0a0a] dark:text-white border-r-[2px] border-[#f1f1f1] dark:border-[#1f1f1f] h-[100vh] w-full">
       <div className="">
         <div className="flex justify-around items-center h-[95px] md:h-[70px] border-b-[2px] border-[#f1f1f1] dark:border-[#1f1f1f]">
-          <h1 className="font-montserrat font-bold text-2xl">SCION</h1>
-          <button onClick={() => setSideNavOpen(false)} className="md:hidden">
+          
+            <h1 className="font-montserrat font-bold text-xl">Trade Stack Network</h1>
+          <button onClick={() => setShowSideNav(false)} className="md:hidden">
             <IoCloseOutline color="red" size={30} />
           </button>
         </div>
         <ul>
-          <Link to={"/"}>
+          <Link to={"/dashboard"}>
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
@@ -42,7 +46,7 @@ const SideNav = ({ setSideNavOpen }) => {
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
@@ -53,7 +57,8 @@ const SideNav = ({ setSideNavOpen }) => {
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
+                navigate("/wallets");
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
@@ -65,7 +70,7 @@ const SideNav = ({ setSideNavOpen }) => {
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
@@ -76,7 +81,7 @@ const SideNav = ({ setSideNavOpen }) => {
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
@@ -87,7 +92,7 @@ const SideNav = ({ setSideNavOpen }) => {
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
@@ -98,18 +103,18 @@ const SideNav = ({ setSideNavOpen }) => {
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
               <MdOutlineSupportAgent size={25} /> Support
             </li>
           </Link>
-          <Link to={"/settings"} className="md:hidden">
+          <Link to={"/profile"} className="md:hidden">
             <li
               onClick={(e) => {
                 setAsActive(e);
-                setSideNavOpen(false);
+                setShowSideNav(false);
               }}
               className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
             >
@@ -125,4 +130,8 @@ const SideNav = ({ setSideNavOpen }) => {
   );
 };
 
-export default SideNav;
+const mapDispatchToProps = (dispatch) => ({
+  setShowSideNav: (value) => dispatch(setShowSideNav(value)),
+});
+
+export default connect(null, mapDispatchToProps)(SideNav);

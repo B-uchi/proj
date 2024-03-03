@@ -15,7 +15,7 @@ const Bullet = () => {
             Why choose <span className="text-[#2e9c5c]">us</span>?
           </h1>
           <h1 className="md:text-xl font-montserrat text-center">
-            With Scion, you are <span className="text-[#2e9c5c]">assured</span>{" "}
+            With TSN, you are <span className="text-[#2e9c5c]">assured</span>{" "}
             of the following and more
           </h1>
         </div>
@@ -30,7 +30,7 @@ const Bullet = () => {
                 High Returns on Investments
               </p>
               <p>
-                Scion <span className="text-[#2e9c5c]">Investment</span> is
+                Trade Stack <span className="text-[#2e9c5c]">Network</span> is
                 dedicated to delivering exceptional returns while managing risk
                 effectively. With a track record of consistent growth, we have
                 helped thousands of clients realize their financial dreams.
@@ -53,7 +53,7 @@ const Bullet = () => {
               />
               <p className="font-bold text-xl">Invest with Confidence</p>
               <p>
-                At Scion <span className="text-[#2e9c5c]">Investment</span>, we
+                At Trade Stack <span className="text-[#2e9c5c]">Network</span>, we
                 are committed to helping you achieve your financial goals. We
                 understand that every investment decision is crucial, and we
                 ensure that your money is put to work effectively.

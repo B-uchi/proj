@@ -5,14 +5,14 @@ import { TbCurrencySolana } from "react-icons/tb";
 import { FaEthereum } from "react-icons/fa";
 import { SiLitecoin } from "react-icons/si";
 import { Link, useNavigate } from "react-router-dom";
-import {data} from '../util/dummyWalletData'
+import { connect } from "react-redux";
+import { data } from "../util/dummyWalletData";
 
-const WalletTable = ({}) => {
+const WalletTable = ({ currentUser }) => {
   const navigate = useNavigate();
   const navitagteToPage = (item) => {
     navigate(`/wallets/${item.symbol.toLowerCase()}`, { state: item });
   };
-  
   return (
     <div className="bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-fit overflow-y-auto">
       <div className="p-3 h-full w-[150vw] md:w-full">
@@ -27,8 +27,8 @@ const WalletTable = ({}) => {
             </tr>
           </thead>
           <tbody>
-            {data && data.length > 0 ? (
-              data.map((item) => (
+            {currentUser.wallets && currentUser.wallets.length > 0 ? (
+              currentUser.wallets.map((item) => (
                 <tr
                   key={item.currency}
                   className="p-10 border-b-[1px] dark:border-[#1f1f1f] border-[#f1f1f1]"
@@ -98,4 +98,9 @@ const WalletTable = ({}) => {
     </div>
   );
 };
-export default WalletTable;
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+export default connect(mapStateToProps)(WalletTable);

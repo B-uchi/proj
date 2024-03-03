@@ -9,7 +9,7 @@ const InvestmentMarkets = () => {
             Freedom with your <span className="text-[#2e9c5c]">finances</span>
           </h1>
           <h1 className="md:text-xl font-montserrat text-center">
-            <span className="text-[#2e9c5c]">Scion</span> provides a wide range
+            <span className="text-[#2e9c5c]">Trade Stack Network</span> provides a wide range
             of investment markets to choose from, including:
           </h1>
         </div>

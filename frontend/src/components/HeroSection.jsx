@@ -15,18 +15,18 @@ const HeroSection = () => {
           className="md:w-1/2 flex flex-col md:p-3 text-center md:text-left"
         >
           <h1 className="font-montserrat font-extrabold text-3xl md:text-4xl">
-            Scion <span className="text-[#2e9c5c]">Investments</span>
+            Trade Stack <span className="text-[#2e9c5c]">Network</span>
           </h1>
 
           <p className="font-inter text-[#5f5f5f] text-md md:text-lg mt-2">
             Investing for tomorrow, starting today.
           </p>
           <p className="font-siliguri text-[#5f5f5f] mt-5 md:mt-10 ">
-            At Scion Investments, we're not just about growing your wealth,
+            At Trade Stack Network, we're not just about growing your wealth,
             we're about helping you blossom into a financially secure future.
             With a focus on transparency, education, and personalized
             strategies, we empower you to make informed decisions and invest
-            with confidence. Let us show you why Scion Investments is the
+            with confidence. Let us show you why Trade Stack Network is the
             sunshine your finances needs.
           </p>
           <div className="mt-10 md:w-fit flex flex-col justify-center">

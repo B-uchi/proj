@@ -1,25 +1,37 @@
+import tc from '../assets/Terms And Conditions.pdf';
+
 const Footer = () => {
+  const openPdf = () => {
+    window.open(tc, "_blank");
+  };
   return (
     <div>
       <footer className=" text-black p-5">
         <div className="flex flex-col-reverse md:flex-row justify-between md:items-center gap-10 md:w-[85%] mx-auto">
           <div className="flex flex-col gap-1 mx-auto text-center md:text-left">
             <h1 className="font-montserrat font-extrabold text-2xl">
-              Scion Investments
+              Trade Stack Network
             </h1>
             <p className="font-inter text-sm md:text-md">
               Investing for tomorrow, starting today.
             </p>
 
             <p className=" mt-4 mb-3 text-sm">
-              Copyright &copy; Scion Investment 2024.
+              Copyright &copy; Trade Stack Network 2024.
             </p>
             <ul className="flex text-sm justify-center md:justify-start">
               <li className="border-r-[1px] border-[#5f5f5f]">
-                <a className="p-3 pl-0 hover:text-[#5f5f5f]" href="">Legal Docs</a>
+                <button
+                  className="p-3 py-0 hover:text-[#5f5f5f]"
+                  onClick={openPdf}
+                >
+                  Legal Docs
+                </button>
               </li>
-              <li >
-                <a className="p-3 hover:text-[#5f5f5f]" href="">Help & Support</a>
+              <li>
+                <a className="p-3 hover:text-[#5f5f5f]" href="">
+                  Help & Support
+                </a>
               </li>
             </ul>
           </div>
@@ -75,7 +87,7 @@ const Footer = () => {
               <p className="font-inter text-sm md:text-md">
                 123 Main St. <br />
                 New York, NY 10001 <br />
-                support@scioninv.com <br />
+                support@tradestacknetwork.com <br />
               </p>
             </div>
           </div>

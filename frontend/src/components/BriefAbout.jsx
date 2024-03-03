@@ -13,8 +13,8 @@ const BriefAbout = () => {
             Brief Company History
           </h1>
           <p className="mt-3 text-md text-[#5f5f5f]">
-            Founded by Bill Scion in 2005 in California, USA. Scion Investment
-            has been a trusted name in the world of finance for decades. Bill's
+            Founded by James Durk in 2005 in California, USA. Trade Stack Network
+            has been a trusted name in the world of finance for decades. James'
             vision was simple yet powerful - to provide investors with access to
             high-quality, diversified investment opportunities. Since then,
             we've grown into a globally recognized investment firm, serving

@@ -1,14 +1,100 @@
 import { useState, memo } from "react";
 import pic1 from "../assets/1.jpg";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../firebase/firebaseUtil";
+import { toast, Toaster } from "sonner";
+import { db } from "../firebase/firebaseUtil";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = ({ mode }) => {
+  const navigate = useNavigate();
   const [page, setPage] = useState(mode);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const login = () => {
+    toast("Logging in....");
+    if (email === "" || password === "") {
+      toast.error("Please fill in all fields");
+    } else {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+          const user = userCredential.user;
+          const idToken = await user.getIdToken(true);
+          const expires = new Date();
+          expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
+          const cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};domain=localhost;path=/;secure;SameSite=None`;
+          document.cookie = cookie;
+          toast.success("Successfully logged in");
+          setTimeout(() => {
+            window.location.href = "http://localhost:5174";
+          }, 1000);
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          console.log(errorMessage);
+          toast.error("An error occured");
+          toast.error(errorMessage);
+        });
+    }
+  };
+
+  const register = () => {
+    if (email === "" || password === "" || username === "") {
+      toast.error("Please fill in all fields");
+    } else if (username.indexOf(" ") !== -1) {
+      toast.error("Username cannot contain spaces");
+    } else {
+      toast("Registering...");
+      if (password === confirmPassword) {
+        if (username != null) {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then(async (userCredential) => {
+              try {
+                const user = userCredential.user;
+                const idToken = await user.getIdToken();
+                document.cookie = `firebase_id_token=${idToken}; SameSite=Strict; Secure; HttpOnly; Path=/`;
+                const userDoc = await setDoc(doc(db, "users", user.uid), {
+                  id: user.uid,
+                  username: username.trim(),
+                  email: user.email,
+                  profileComplete: false,
+                  kycComplete: false,
+                });
+                toast.success("Account created successfully");
+                setTimeout(() => {
+                  navigate("http://localhost:5174/");
+                }, 1000);
+              } catch (error) {
+                toast.error(error.message);
+              }
+              // ...
+            })
+            .catch((error) => {
+              const errorMessage = error.message;
+              toast.error(errorMessage);
+              console.log(errorMessage);
+            });
+        } else {
+          console.log("No display name provided");
+          toast.error("Provide a display name");
+        }
+      } else {
+        toast.error("Passwords do not match");
+      }
+    }
+  };
+
   return (
     <div className="max-h-[100vh] ppp h-[100vh] flex">
+      <Toaster richColors position="top-right" />
       <div
         style={{ backgroundImage: `url(${pic1})` }}
         className="w-full md:w-1/2 h-[100vh] bg-no-repeat bg-center bg-cover"
@@ -16,9 +102,9 @@ const SignIn = ({ mode }) => {
         <div className="h-full w-full bg-[#0d331d] bg-opacity-80 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
           {" "}
           <div className="text-white">
-            <p className="font-montserrat text-lg">Welcome to</p>
-            <h1 className="font-bold font-montserrat text-4xl md:text-[60px]">
-              Scion Investment
+            <p className="font-montserrat text-lg mb-2">Welcome to</p>
+            <h1 className="font-bold font-montserrat text-xl md:text-[60px]">
+              Trade Stack Network
             </h1>
           </div>
           <div className="p-2 w-[90%] md:hidden md:w-[500px] bg-white rounded-lg">
@@ -85,16 +171,6 @@ const SignIn = ({ mode }) => {
                 >
                   <div className="mt-5">
                     <div>
-                      <div className="">
-                        <p className="">Full Name:</p>
-                        <input
-                          type="text"
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
-                          className="w-full input "
-                          placeholder="Enter your full name...."
-                        />
-                      </div>
                       <div className="mt-3">
                         <p className="">Username:</p>
                         <input
@@ -121,6 +197,16 @@ const SignIn = ({ mode }) => {
                           type="password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
+                          className="w-full input "
+                          placeholder="Something secure...."
+                        />
+                      </div>
+                      <div className="mt-3">
+                        <p className="">Confirm Password:</p>
+                        <input
+                          type="password"
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
                           className="w-full input "
                           placeholder="Something secure...."
                         />
@@ -215,16 +301,6 @@ const SignIn = ({ mode }) => {
               >
                 <div className="mt-5">
                   <div>
-                    <div className="">
-                      <p className="">Full Name:</p>
-                      <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="w-full input "
-                        placeholder="Enter your full name...."
-                      />
-                    </div>
                     <div className="mt-3">
                       <p className="">Username:</p>
                       <input
@@ -251,6 +327,16 @@ const SignIn = ({ mode }) => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        className="w-full input "
+                        placeholder="Something secure...."
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <p className="">Confirm Password:</p>
+                      <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         className="w-full input "
                         placeholder="Something secure...."
                       />

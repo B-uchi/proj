@@ -1,7 +1,37 @@
+import { useEffect, useState } from "react";
 import TransactionsTable from "../components/TransactionsTable";
 import { MdOutlineFilterList } from "react-icons/md";
+import axios from "axios";
 
 const Transactions = () => {
+  const [transactions, setTransactions] = useState([]);
+  console.log(transactions);
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const requestOptions = {
+        url: "http://localhost:8080/user/getTransactions",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie.slice(18)}`,
+        },
+      };
+
+      await axios
+        .request(requestOptions)
+        .then((response) => {
+          if (response.status === 200) {
+            setTransactions(response.data.transactions);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("An error occurred. Please try again later.");
+        });
+    };
+    fetchTransactions();
+  }, []);
+
   return (
     <div>
       <div className="p-10">
@@ -58,14 +88,15 @@ const Transactions = () => {
               </div>
               <div className="md:w-1/4 flex">
                 <button className="bg-[#2e9c5c] hover:bg-green-500 w-[50%] mx-auto text-white flex justify-center items-center gap-3 p-2 rounded-md mt-5">
-                  <MdOutlineFilterList size={25}/>Filter
+                  <MdOutlineFilterList size={25} />
+                  Filter
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div className="mt-10">
-          <TransactionsTable />
+          <TransactionsTable data={transactions}/>
         </div>
       </div>
     </div>
