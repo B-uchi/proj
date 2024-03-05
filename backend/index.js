@@ -22,6 +22,9 @@ app.get("/", (req, res) => {
 app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
+app.get('/', ()=>{
+  return res.status(200).json({message: 'Welcome to the backend'});
+})
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
