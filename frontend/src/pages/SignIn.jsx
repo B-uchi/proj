@@ -10,7 +10,7 @@ import { auth } from "../firebase/firebaseUtil";
 import { toast, Toaster } from "sonner";
 import { db } from "../firebase/firebaseUtil";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const SignIn = ({ mode }) => {
   const navigate = useNavigate();
@@ -30,10 +30,9 @@ const SignIn = ({ mode }) => {
       },
     };
     const res = await axios.request(requestOptions);
-    if (res.status === 200) {
-      navigate("/dashboard");
-    }
-  }
+    // navigate("/dashboard");
+    console.log(res);
+  };
 
   const login = () => {
     toast("Logging in....");
@@ -87,7 +86,8 @@ const SignIn = ({ mode }) => {
                 });
                 toast.success("Account created successfully");
                 setTimeout(() => {
-                  window.location.href = "https://proj-dash.vercel.app/dashboard";
+                  window.location.href =
+                    "https://proj-dash.vercel.app/dashboard";
                 }, 1000);
               } catch (error) {
                 toast.error(error.message);

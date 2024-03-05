@@ -31,12 +31,13 @@ app.post("/confirmRedirect", (req, res) => {
   const { idToken } = req.body;
   res.cookie('firebaseAuthToken', idToken, {
     maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours in milliseconds
     secure: true, // Only send the cookie over HTTPS
     sameSite: 'none' // Allow cross-site usage
   });
 
   // Redirect to the desired URL
-  res.redirect("https://proj-dash.vercel.app");
+  res.redirect(301,"https://proj-dash.vercel.app");
 });
 
 app.use("/auth", authRoutes);
