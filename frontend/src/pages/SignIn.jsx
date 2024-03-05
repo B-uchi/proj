@@ -10,6 +10,7 @@ import { auth } from "../firebase/firebaseUtil";
 import { toast, Toaster } from "sonner";
 import { db } from "../firebase/firebaseUtil";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const SignIn = ({ mode }) => {
   const navigate = useNavigate();
@@ -18,6 +19,21 @@ const SignIn = ({ mode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleRedirect = async (idToken) => {
+    const requestOptions = {
+      method: "POST",
+      url: "https://proj-server-3j4y.onrender.com/confirmRedirect",
+      data: { idToken },
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await axios.request(requestOptions);
+    if (res.status === 200) {
+      navigate("/dashboard");
+    }
+  }
 
   const login = () => {
     toast("Logging in....");
@@ -28,10 +44,11 @@ const SignIn = ({ mode }) => {
         .then(async (userCredential) => {
           const user = userCredential.user;
           const idToken = await user.getIdToken(true);
-          const expires = new Date();
-          expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
-          const cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};domain=localhost;path=/;secure;SameSite=None`;
-          document.cookie = cookie;
+          handleRedirect(idToken);
+          // const expires = new Date();
+          // expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
+          // const cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};domain=localhost;path=/;secure;SameSite=None`;
+          // document.cookie = cookie;
           toast.success("Successfully logged in");
           setTimeout(() => {
             window.location.href = "https://proj-dash.vercel.app/dashboard";
@@ -70,7 +87,7 @@ const SignIn = ({ mode }) => {
                 });
                 toast.success("Account created successfully");
                 setTimeout(() => {
-                  window.location.href = "https://proj-dash.vercel.app";
+                  window.location.href = "https://proj-dash.vercel.app/dashboard";
                 }, 1000);
               } catch (error) {
                 toast.error(error.message);
