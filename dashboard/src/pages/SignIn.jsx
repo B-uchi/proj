@@ -22,9 +22,9 @@ const SignIn = () => {
 
   useEffect(() => {
     if (cookie !== "") {
-      navigate("/dashboard");
+      window.location.pathname === "/sign_in";
     }
-  }, [cookie]);
+  }, []);
 
   const login = () => {
     toast("Logging in....");

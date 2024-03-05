@@ -32,7 +32,6 @@ import SignIn from "./pages/SignIn";
 function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
   const [loading, setLoading] = useState(true);
   const cookie = document.cookie;
-  console.log(cookie == "");
   const idToken = cookie ? cookie.slice(18) : null;
 
   useEffect(() => {
