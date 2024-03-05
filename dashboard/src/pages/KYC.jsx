@@ -59,7 +59,7 @@ const KYC = ({ currentUser }) => {
   const completeKYC = async (url) => {
     const requestOptions = {
       method: "POST",
-      url: "http://localhost:8080/user/completeKYC",
+      url: "https://proj-server-3j4y.onrender.com/user/completeKYC",
       data: {
         dlNumber,
         gender,

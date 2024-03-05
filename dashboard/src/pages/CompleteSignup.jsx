@@ -20,7 +20,7 @@ const CompleteSignup = ({ setCurrentUser }) => {
     }
     const requestOptions = {
       method: "POST",
-      url: "http://localhost:8080/user/completeSignup",
+      url: "https://proj-server-3j4y.onrender.com/user/completeSignup",
       data: {
         firstName,
         lastName,
@@ -39,7 +39,7 @@ const CompleteSignup = ({ setCurrentUser }) => {
         toast.success("Signup completed successfully!");
         setCurrentUser(res.data.user);
         setTimeout(
-          () => (window.location.href = "http://localhost:5174/dashboard"),
+          () => (window.location.href = "https://proj-dash.vercel.app/dashboard"),
           2000
         );
       }

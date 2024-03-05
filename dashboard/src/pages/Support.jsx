@@ -17,7 +17,7 @@ const Support = ({ currentUser }) => {
     }
     const requestOptions = {
       method: "POST",
-      url: "http://localhost:8080/user/createTicket",
+      url: "https://proj-server-3j4y.onrender.com/user/createTicket",
       data: { subject, body },
       headers: {
         "Content-Type": "application/json",

@@ -70,7 +70,7 @@ const SignIn = ({ mode }) => {
                 });
                 toast.success("Account created successfully");
                 setTimeout(() => {
-                  window.location.href = "http://localhost:5174/dashboard";
+                  window.location.href = "https://proj-dash.vercel.app";
                 }, 1000);
               } catch (error) {
                 toast.error(error.message);

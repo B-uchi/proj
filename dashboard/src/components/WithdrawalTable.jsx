@@ -9,7 +9,7 @@ const WithdrawalTable = () => {
   useEffect(() => {
     const fetchDeposits = async () => {
       const requestOptions = {
-        url: "http://localhost:8080/user/getWithdrawals",
+        url: "https://proj-server-3j4y.onrender.com/user/getWithdrawals",
         method: "GET",
         headers: {
           "Content-Type": "application/json",

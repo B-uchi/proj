@@ -8,7 +8,7 @@ const Transactions = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       const requestOptions = {
-        url: "http://localhost:8080/user/getTransactions",
+        url: "https://proj-server-3j4y.onrender.com/user/getTransactions",
         method: "GET",
         headers: {
           "Content-Type": "application/json",

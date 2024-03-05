@@ -42,7 +42,7 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
       try {
         const requestOptions = {
           method: "POST",
-          url: "http://localhost:8080/auth/verifyUser",
+          url: "https://proj-server-3j4y.onrender.com/auth/verifyUser",
           data: { idToken },
           headers: {
             "Content-Type": "application/json",
@@ -58,7 +58,7 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
           "An error occurred while verifying user. Please try again later."
         );
         setTimeout(
-          () => (window.location.href = "http://localhost:5173/sign_up"),
+          () => (window.location.href = "https://proj-lake-seven.vercel.app/sign_up"),
           2000
         );
         console.error(error);

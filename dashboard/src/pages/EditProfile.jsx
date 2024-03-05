@@ -38,7 +38,7 @@ const EditProfile = ({ currentUser }) => {
   const updateProfile = async () => {
     setLoading(true);
     const requestOptions = {
-      url: "http://localhost:8080/user/editProfile",
+      url: "https://proj-server-3j4y.onrender.com/user/editProfile",
       method: "POST",
       data: { firstName, lastName, phoneNumber, location, username },
       headers: {

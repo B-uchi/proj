@@ -14,7 +14,7 @@ const Deposit = () => {
   useEffect(() => {
     const fetchWalletAddress = async () => {
       const requestOptions = {
-        url: "http://localhost:8080/user/getWallet",
+        url: "https://proj-server-3j4y.onrender.com/user/getWallet",
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const Deposit = () => {
   const createTransaction = async () => {
     setLoading(true);
     const requestOptions = {
-      url: "http://localhost:8080/user/createDepositTransaction",
+      url: "https://proj-server-3j4y.onrender.com/user/createDepositTransaction",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
