@@ -11,9 +11,9 @@ import { toast, Toaster } from "sonner";
 import { db } from "../firebase/firebaseUtil";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = ({ mode }) => {
+const SignIn = () => {
   const navigate = useNavigate();
-  const [page, setPage] = useState(mode);
+  const [page, setPage] = useState("Log in");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

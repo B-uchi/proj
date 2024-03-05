@@ -62,19 +62,19 @@ const Navbar = () => {
                 label="Markets"
                 page="markets"
                 items={[
-                  { key: 1, text: "Stocks", path: '/markets' },
-                  { key: 2, text: "Bonds", path: '/markets' },
-                  { key: 3, text: "MF's", path: '/markets' },
-                  { key: 4, text: "ETF's", path: '/markets' },
-                  { key: 5, text: "Futures", path: '/markets' },
-                  { key: 6, text: "Commodities", path: '/markets' },
+                  { key: 1, text: "Stocks", path: "/markets" },
+                  { key: 2, text: "Bonds", path: "/markets" },
+                  { key: 3, text: "MF's", path: "/markets" },
+                  { key: 4, text: "ETF's", path: "/markets" },
+                  { key: 5, text: "Futures", path: "/markets" },
+                  { key: 6, text: "Commodities", path: "/markets" },
                 ]}
               />
               <HoverMenu
                 label="Company"
                 items={[
                   { key: 7, text: "How it works", path: "/how_it_works" },
-                  { key: 8, text: "Careers", path: "/careers"},
+                  { key: 8, text: "Careers", path: "/careers" },
                   { key: 9, text: "About us", path: "/about" },
                 ]}
               />
@@ -95,12 +95,18 @@ const Navbar = () => {
         </div>
         <div className="md:flex gap-4 hidden">
           <div>
-            <a className="border-[#196137] border-[2px] text-black p-1.5 px-3 rounded lg flex" href="localhost:5174/sign_in">
+            <a
+              className="border-[#196137] border-[2px] text-black p-1.5 px-3 rounded lg flex"
+              href="https://proj-dash.vercel.app/sign_in"
+            >
               <MenuItem text="Sign In" />
             </a>
           </div>
           <div>
-            <a className="bg-[#196137] text-white p-2 px-3 rounded lg flex" href="localhost:5174/sign_in">
+            <a
+              className="bg-[#196137] text-white p-2 px-3 rounded lg flex"
+              href="https://proj-dash.vercel.app/sign_in"
+            >
               <MenuItem text="Register" />
             </a>
           </div>
@@ -142,7 +148,10 @@ const Navbar = () => {
               </li>
               <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
                 <div>
-                  <a className="bg-[#196137] text-center text-white p-2 px-3 rounded-lg flex justify-center" href="http://localhost:5174/sign_in">
+                  <a
+                    className="bg-[#196137] text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                    href="https://proj-dash.vercel.app/sign_in"
+                  >
                     <MenuItem text="Log In" />
                   </a>
                 </div>
