@@ -17,8 +17,6 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const cookie = document.cookie;
-    const navigate = useNavigate()
 
   const login = () => {
     toast("Logging in....");
@@ -31,12 +29,11 @@ const SignIn = () => {
           const idToken = await user.getIdToken(true);
           const expires = new Date();
           expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
-          const cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};domain=localhost;path=/;secure;SameSite=None`;
+          const cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};path=/;secure;SameSite=None`;
           document.cookie = cookie;
           toast.success("Successfully logged in");
           setTimeout(() => {
-            window.location.href = "/dashboard";
-            navigate("/dashboard")
+            window.location.href = "https://proj-dash.vercel.app/dashboard";
           }, 1000);
         })
         .catch((error) => {

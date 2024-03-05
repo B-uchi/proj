@@ -68,9 +68,9 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
       }
     };
     verifyUser();
-  }, [cookie]);
+  }, []);
 
-  if (cookie == "" || window.location.pathname === "/sign_in") {
+  if (window.location.pathname === "/sign_in") {
     return (
       <Router>
         <div className="">
