@@ -34,7 +34,7 @@ const SignIn = ({ mode }) => {
           document.cookie = cookie;
           toast.success("Successfully logged in");
           setTimeout(() => {
-            window.location.href = "http://localhost:5174/dashboard";
+            window.location.href = "https://proj-dash.vercel.app/dashboard";
           }, 1000);
         })
         .catch((error) => {
