@@ -18,6 +18,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const cookie = document.cookie;
+    const navigate = useNavigate()
 
   const login = () => {
     toast("Logging in....");
@@ -34,7 +35,8 @@ const SignIn = () => {
           document.cookie = cookie;
           toast.success("Successfully logged in");
           setTimeout(() => {
-            window.location.href = "https://proj-dash.vercel.app/dashboard";
+            window.location.href = "/dashboard";
+            navigate("/dashboard")
           }, 1000);
         })
         .catch((error) => {
