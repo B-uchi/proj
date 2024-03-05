@@ -22,7 +22,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (cookie !== "") {
-      window.location.pathname === "/sign_in";
+      window.location.pathname === "/dashboard";
     }
   }, []);
 
