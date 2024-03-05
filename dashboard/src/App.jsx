@@ -60,7 +60,9 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
         toast.error(
           "An error occurred while verifying user. Please try again later."
         );
-        setTimeout(()=>{window.location.href = '/sign_in'},2000)
+        setTimeout(() => {
+          window.location.href = "/sign_in";
+        }, 2000);
         console.error(error);
       } finally {
         setLoading(false);
