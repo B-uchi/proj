@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import pic1 from "../assets/1.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -12,12 +12,19 @@ import { db } from "../firebase/firebaseUtil";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const navigate = useNavigate();
   const [page, setPage] = useState("Log in");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const cookie = document.cookie;
+  console.log(cookie == "");
+
+  useEffect(() => {
+    if (cookie !== "") {
+      navigate("/dashboard");
+    }
+  }, [cookie]);
 
   const login = () => {
     toast("Logging in....");
