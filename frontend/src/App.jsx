@@ -2,7 +2,6 @@ import Homepage from "./pages/Homepage";
 import "../style.css";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SignIn from "./pages/SignIn";
 import Markets from "./pages/Markets";
 import Help from "./pages/Help";
 import Footer from "./components/Footer";
@@ -20,8 +19,6 @@ function App() {
           <Route path="/how_it_works" element={<Help />} />
           <Route path="/markets" element={<Markets />} />
           <Route path="/about" element={<About/>} />
-          <Route path="/sign_in" element={<SignIn mode={"Log in"} />} />
-          <Route path="/sign_up" element={<SignIn mode={"Sign Up"} />} />
         </Routes>
         <div className="static bottom-0 w-full">
           <Footer />

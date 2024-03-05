@@ -94,16 +94,16 @@ const Navbar = () => {
           </div>
         </div>
         <div className="md:flex gap-4 hidden">
-          <Link to={"sign_in"}>
-            <div className="border-[#196137] border-[2px] text-black p-1.5 px-3 rounded lg">
+          <div>
+            <a className="border-[#196137] border-[2px] text-black p-1.5 px-3 rounded lg flex" href="localhost:5174/sign_in">
               <MenuItem text="Sign In" />
-            </div>
-          </Link>
-          <Link to={"sign_up"}>
-            <div className="bg-[#196137] text-white p-2 px-3 rounded lg">
+            </a>
+          </div>
+          <div>
+            <a className="bg-[#196137] text-white p-2 px-3 rounded lg flex" href="localhost:5174/sign_in">
               <MenuItem text="Register" />
-            </div>
-          </Link>
+            </a>
+          </div>
         </div>
 
         <div className="md:hidden block">
@@ -141,11 +141,11 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
-                <Link to={"sign_in"}>
-                  <div className="bg-[#196137] text-center text-white p-2 px-3 rounded-lg">
+                <div>
+                  <a className="bg-[#196137] text-center text-white p-2 px-3 rounded-lg flex justify-center" href="http://localhost:5174/sign_in">
                     <MenuItem text="Log In" />
-                  </div>
-                </Link>
+                  </a>
+                </div>
               </li>
             </ul>
           </div>

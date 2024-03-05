@@ -27,13 +27,12 @@ import { setShowSideNav } from "./redux/nav/sideNav.actions";
 import EditProfile from "./pages/EditProfile";
 import Withdraw from "./pages/Withdraw";
 import Trade from "./pages/Trade";
-import { useNavigate } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 
 function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
   const [loading, setLoading] = useState(true);
   const cookie = document.cookie;
-  console.log(cookie);
+  console.log(cookie == "");
   const idToken = cookie ? cookie.slice(18) : null;
 
   useEffect(() => {
@@ -68,7 +67,21 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
       }
     };
     verifyUser();
-  }, [idToken]);
+  }, [cookie]);
+
+  if (cookie == "" || window.location.pathname === "/sign_in") {
+    return (
+      <Router>
+        <div className="">
+          <Navigate to="/sign_in" />
+          <Toaster richColors position="top-right" />
+          <Routes>
+            <Route path="/sign_in" element={<SignIn />} />
+          </Routes>
+        </div>
+      </Router>
+    );
+  }
 
   if (loading) {
     return (
@@ -115,7 +128,6 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/user/deposit" element={<Deposit />} />
               <Route path="/user/withdraw" element={<Withdraw />} />
-              <Route path="/sign_in" element={<SignIn/>}/>
               <Route path="/trade" element={<Trade />} />
               <Route path="/profile" element={<EditProfile />} />
               <Route path="/orders" element={<Orders />} />
