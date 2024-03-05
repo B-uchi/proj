@@ -25,6 +25,7 @@ const Dashboard = () => {
         .then((response) => {
           if (response.status === 200) {
             setUsers(response.data.users);
+            console.log(response.data.users);
           }
         })
         .catch((err) => {
@@ -36,7 +37,7 @@ const Dashboard = () => {
         });
     };
     getUsers();
-  });
+  }, []);
 
   if (loading) {
     return (

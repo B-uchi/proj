@@ -1,9 +1,12 @@
 import express from "express";
-import {verifyUser } from "../controllers/auth.js";
+import { verifyToken } from "../middleware/auth.js";
+import { getTransactions, getUsers, verifyDeposit } from "../controllers/admin.js";
 
 
 const router = express.Router();
 
-router.post("/verifyUser", verifyUser);
+router.get("/getUsers", verifyToken, getUsers);
+router.get("/getTransactions", verifyToken, getTransactions);
+router.post("/verifyDeposit", verifyToken, verifyDeposit);
 
 export default router;

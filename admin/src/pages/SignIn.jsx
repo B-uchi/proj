@@ -20,7 +20,7 @@ const SignIn = ({ currentUser, setCurrentUser }) => {
       signInWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
           const userId = userCredential.user.uid;
-          const idToken = await user.getIdToken(true);
+          const idToken = await userCredential.user.getIdToken();
 
           const userDoc = getDoc(doc(db, "users", userId)).then(
             async (snapshot) => {

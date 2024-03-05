@@ -6,7 +6,7 @@ const Trade = ({ setShowSideNav }) => {
   useEffect(() => {
     setShowSideNav(false);
   }, []);
-  return <div>Trade</div>;
+  return <div className="p-3">Build in progress...</div>;
 };
 
 const mapDispatchToProps = (dispatch) => ({
