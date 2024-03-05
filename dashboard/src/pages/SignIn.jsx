@@ -18,13 +18,6 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const cookie = document.cookie;
-  console.log(cookie == "");
-
-  useEffect(() => {
-    if (cookie !== "") {
-      window.location.pathname === "/dashboard";
-    }
-  }, []);
 
   const login = () => {
     toast("Logging in....");
