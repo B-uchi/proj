@@ -32,9 +32,9 @@ const Deposit = () => {
         .catch((err) => {
           console.error(err);
           toast.error("An error occurred. Please try again later.");
-          //   setTimeout(() => {
-          //     window.location.href = "/dashboard";
-          //   }, 3000);
+            setTimeout(() => {
+              window.location.pathname = "/dashboard";
+            }, 3000);
         });
     };
     fetchWalletAddress();

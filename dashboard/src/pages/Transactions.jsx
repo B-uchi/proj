@@ -34,7 +34,7 @@ const Transactions = () => {
 
   return (
     <div>
-      <div className="p-10">
+      <div className="p-2 md:p-10">
         <div className="">
           <h1 className="text-2xl font-bold dark:text-[#cccccc]">
             Transactions History

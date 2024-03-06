@@ -56,7 +56,7 @@ const WalletDetails = () => {
 
   return (
     <div>
-      <div className="p-10">
+      <div className="p-2 md:p-10">
         <Toaster richColors position="top-right" />
         <div className="">
           <h1 className="text-2xl font-bold dark:text-[#cccccc] flex gap-3">

@@ -106,7 +106,7 @@ const Dashboard = ({ currentUser }) => {
 
   return (
     <div>
-      <div className="p-10">
+      <div className="p-2 md:p-10">
         <div className="">
           <h1 className="text-2xl font-montserrat font-bold dark:text-[#cccccc] flex items-center gap-5">
             My Dashboard{" "}
