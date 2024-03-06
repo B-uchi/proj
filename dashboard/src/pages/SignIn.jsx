@@ -155,13 +155,13 @@ const SignIn = () => {
                           className="w-full input "
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          placeholder="Something secure...."
+                          placeholder="Enter your password..."
                         />
                       </div>
                       <div className="mt-5 flex justify-center">
                         <button
                           onClick={(e) => login(e)}
-                          className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
+                          className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#196137] text-white rounded-lg"
                         >
                           Log in{" "}
                           {loading ? <div className="loader"></div> : null}
@@ -230,7 +230,7 @@ const SignIn = () => {
                       <div className="mt-5 flex justify-center">
                         <button
                           onClick={(e) => register(e)}
-                          className="p-3 px-5 flex gap-3 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
+                          className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
                         >
                           Sign Up{" "}
                           {loading ? <div className="loader"></div> : null}
@@ -286,13 +286,13 @@ const SignIn = () => {
                         className="w-full input "
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Something secure...."
+                        placeholder="Enter your password..."
                       />
                     </div>
                     <div className="mt-5 flex justify-center">
                       <button
                         onClick={(e) => login(e)}
-                        className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
+                        className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#196137] text-white rounded-lg"
                       >
                         Log in {loading ? <div className="loader"></div> : null}
                       </button>
@@ -361,7 +361,7 @@ const SignIn = () => {
                     <div className="mt-5 flex justify-center">
                       <button
                         onClick={(e) => register(e)}
-                        className="p-3 px-5 flex gap-3 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
+                        className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
                       >
                         Register{" "}
                         {loading ? <div className="loader"></div> : null}
