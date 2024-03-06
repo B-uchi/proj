@@ -17,11 +17,14 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const login = () => {
+    setLoading(true);
     toast("Logging in....");
     if (email === "" || password === "") {
       toast.error("Please fill in all fields");
+      setLoading(false);
     } else {
       signInWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
@@ -31,6 +34,7 @@ const SignIn = () => {
           expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
           const cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};path=/;secure;SameSite=None`;
           document.cookie = cookie;
+          setLoading(false);
           toast.success("Successfully logged in");
           setTimeout(() => {
             window.location.href = "https://proj-dash.vercel.app/dashboard";
@@ -41,15 +45,19 @@ const SignIn = () => {
           console.log(errorMessage);
           toast.error("An error occured");
           toast.error(errorMessage);
+          setLoading(false);
         });
     }
   };
 
   const register = () => {
+    setLoading(true);
     if (email === "" || password === "" || username === "") {
       toast.error("Please fill in all fields");
+        setLoading(false);
     } else if (username.indexOf(" ") !== -1) {
       toast.error("Username cannot contain spaces");
+        setLoading(false);
     } else {
       toast("Registering...");
       if (password === confirmPassword) {
@@ -59,7 +67,9 @@ const SignIn = () => {
               try {
                 const user = userCredential.user;
                 const idToken = await user.getIdToken();
-                document.cookie = `firebase_id_token=${idToken}; SameSite=Strict; Secure; HttpOnly; Path=/`;
+                const expires = new Date();
+                expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
+                document.cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};path=/;secure;SameSite=None`;
                 const userDoc = await setDoc(doc(db, "users", user.uid), {
                   id: user.uid,
                   username: username.trim(),
@@ -68,12 +78,15 @@ const SignIn = () => {
                   kycComplete: false,
                 });
                 toast.success("Account created successfully");
+                setLoading(false);
                 setTimeout(() => {
                   window.location.href =
                     "https://proj-dash.vercel.app/dashboard";
                 }, 1000);
               } catch (error) {
                 toast.error(error.message);
+                console.error(error);
+                setLoading(false);
               }
               // ...
             })
@@ -81,13 +94,16 @@ const SignIn = () => {
               const errorMessage = error.message;
               toast.error(errorMessage);
               console.log(errorMessage);
+              setLoading(false);
             });
         } else {
           console.log("No display name provided");
           toast.error("Provide a display name");
+            setLoading(false);
         }
       } else {
         toast.error("Passwords do not match");
+        setLoading(false);
       }
     }
   };
@@ -148,7 +164,7 @@ const SignIn = () => {
                           className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
                         >
                           Log in{" "}
-                          <div id="login" className="traffic-loader"></div>
+                          {loading ? <div className="loader"></div> : null}
                         </button>
                       </div>
                       <div className="flex justify-center mt-3">
@@ -217,6 +233,7 @@ const SignIn = () => {
                           className="p-3 px-5 flex gap-3 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
                         >
                           Sign Up{" "}
+                          {loading ? <div className="loader"></div> : null}
                         </button>
                       </div>
                       <div className="flex justify-center mt-3">
@@ -277,7 +294,7 @@ const SignIn = () => {
                         onClick={(e) => login(e)}
                         className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
                       >
-                        Log in <div id="login" className="traffic-loader"></div>
+                        Log in {loading ? <div className="loader"></div> : null}
                       </button>
                     </div>
                     <div className="flex justify-center mt-3">
@@ -347,6 +364,7 @@ const SignIn = () => {
                         className="p-3 px-5 flex gap-3 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
                       >
                         Register{" "}
+                        {loading ? <div className="loader"></div> : null}
                       </button>
                     </div>
                     <div className="flex justify-center mt-3">

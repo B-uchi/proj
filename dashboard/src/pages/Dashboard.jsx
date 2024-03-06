@@ -103,6 +103,7 @@ const Dashboard = ({ currentUser }) => {
     currentUser.wallets.forEach((element) => {
       accountBalance += element.availableBalance;
     });
+
   return (
     <div>
       <div className="p-10">

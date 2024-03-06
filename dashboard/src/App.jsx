@@ -60,7 +60,7 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
           "An error occurred while verifying user. Please try again later."
         );
         setTimeout(() => {
-          window.location.href = "/sign_in";
+          window.location.href = "https://proj-dash.vercel.app/sign_in";
         }, 2000);
         console.error(error);
       } finally {

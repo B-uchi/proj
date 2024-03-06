@@ -8,6 +8,9 @@ import { IoCloseOutline } from "react-icons/io5";
 import { connect } from "react-redux";
 import { setShowSideNav } from "../redux/nav/sideNav.actions";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { auth } from "../firebase/firebaseUtil";
+import { signOut } from "firebase/auth";
 
 const SideNav = ({ setShowSideNav }) => {
   const navigate = useNavigate();
@@ -20,12 +23,25 @@ const SideNav = ({ setShowSideNav }) => {
     e.target.classList.add("bg-[#f1f1f1]");
     e.target.classList.add("dark:bg-[#1f1f1f]");
   };
+
+  const signOutUser = () =>{
+    toast('Signing Out')
+    signOut(auth).then(()=>{
+      document.cookie = ""
+      window.location.href = 'https://proj-dash.vercel.app/sign_in'
+    }).catch((error)=>{
+      toast.error('Error signing out')
+      console.log(error)
+    })
+  }
+
   return (
     <aside className="bg-white dark:bg-[#0a0a0a] dark:text-white border-r-[2px] border-[#f1f1f1] dark:border-[#1f1f1f] h-[100vh] w-full">
       <div className="">
         <div className="flex justify-around items-center h-[95px] md:h-[70px] border-b-[2px] border-[#f1f1f1] dark:border-[#1f1f1f]">
-          
-            <h1 className="font-montserrat font-bold text-xl">Trade Stack Network</h1>
+          <h1 className="font-montserrat font-bold text-xl">
+            Trade Stack Network
+          </h1>
           <button onClick={() => setShowSideNav(false)} className="md:hidden">
             <IoCloseOutline color="red" size={30} />
           </button>
@@ -121,7 +137,12 @@ const SideNav = ({ setShowSideNav }) => {
               <IoSettingsSharp size={25} /> Account Settings
             </li>
           </Link>
-          <li className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center">
+          <li
+            onClick={() => {
+              signOutUser();
+            }}
+            className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
+          >
             <LuLogOut size={25} /> Sign Out
           </li>
         </ul>
