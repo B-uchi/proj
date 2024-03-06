@@ -65,7 +65,7 @@ const Toolbar = ({ currentUser, setShowSideNav }) => {
   return (
     <nav className="w-full bg-white dark:bg-[#0a0a0a] dark:text-white">
       <div className="sticky top-0">
-        <div className="container mx-auto border-b-[2px] ml-2 p-3 dark:border-[#1f1f1f] border-b-[#f1f1f1] flex justify-between items-center gap-5">
+        <div className="container mx-auto border-b-[2px] p-2 dark:border-[#1f1f1f] border-b-[#f1f1f1] flex justify-between items-center gap-5">
           <button onClick={() => setShowSideNav(true)} className="md:hidden">
             <IoMenu size={25} />
           </button>
@@ -75,11 +75,11 @@ const Toolbar = ({ currentUser, setShowSideNav }) => {
             </div>
             <FiCopy size={20} className="cursor-pointer" />
           </div>
-          <div className="gap-5 items-center flex">
+          <div className="md:gap-5 items-center flex">
             <div className="">
               <ThemeSwitch />
             </div>
-            <div className="p-2 border-[2px] rounded-md border-[#f1f1f1] dark:border-[#141414]">
+            <div className="p-2 border-[2px] rounded-md border-[#f1f1f1] dark:border-[#141414] md:block hidden">
               <HoverMenu
                 label={currentUser.username}
                 items={[
