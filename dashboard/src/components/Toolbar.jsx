@@ -70,7 +70,7 @@ const Toolbar = ({ currentUser, setShowSideNav }) => {
             <IoMenu size={25} />
           </button>
           <div className=" border-[2px] rounded-lg dark:border-[#1f1f1f] border-b-[#f1f1f1] p-2 py-3 flex gap-3 items-center">
-            <div className="line-clamp-1 text-sm">
+            <div className="line-clamp-1 w-[80%] text-sm">
               https://dashboard.scion.com/referral?{currentUser && currentUser.username}
             </div>
             <FiCopy size={20} className="cursor-pointer" />
