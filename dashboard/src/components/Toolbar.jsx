@@ -69,7 +69,7 @@ const Toolbar = ({ currentUser, setShowSideNav }) => {
           <button onClick={() => setShowSideNav(true)} className="md:hidden">
             <IoMenu size={25} />
           </button>
-          <div className=" border-[2px] rounded-lg dark:border-[#1f1f1f] border-b-[#f1f1f1] p-2 py-3 flex gap-3 w-[80%] items-center">
+          <div className=" border-[2px] rounded-lg dark:border-[#1f1f1f] border-b-[#f1f1f1] p-2 py-3 flex gap-3 w-[70%] items-center">
             <div className="line-clamp-1 text-sm">
               https://dashboard.scion.com/referral?{currentUser && currentUser.username}
             </div>
