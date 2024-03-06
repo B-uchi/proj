@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { auth } from "../firebase/firebaseUtil";
 import { signOut } from "firebase/auth";
+import { setCurrentUser } from "../redux/user/user.actions";
 
-const SideNav = ({ setShowSideNav }) => {
+const SideNav = ({ setShowSideNav, setCurrentUser }) => {
   const navigate = useNavigate();
   const setAsActive = (e) => {
     const items = document.querySelectorAll("li");
@@ -24,16 +25,19 @@ const SideNav = ({ setShowSideNav }) => {
     e.target.classList.add("dark:bg-[#1f1f1f]");
   };
 
-  const signOutUser = () =>{
-    toast('Signing Out')
-    signOut(auth).then(()=>{
-      document.cookie = ""
-      window.location.href = 'https://proj-dash.vercel.app/sign_in'
-    }).catch((error)=>{
-      toast.error('Error signing out')
-      console.log(error)
-    })
-  }
+  const signOutUser = () => {
+    toast("Signing Out");
+    signOut(auth)
+      .then(() => {
+        document.cookie = "";
+        setCurrentUser(null)
+        window.location.href = "https://proj-dash.vercel.app/sign_in";
+      })
+      .catch((error) => {
+        toast.error("Error signing out");
+        console.log(error);
+      });
+  };
 
   return (
     <aside className="bg-white dark:bg-[#0a0a0a] dark:text-white border-r-[2px] border-[#f1f1f1] dark:border-[#1f1f1f] h-[100vh] w-full">
@@ -153,6 +157,7 @@ const SideNav = ({ setShowSideNav }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setShowSideNav: (value) => dispatch(setShowSideNav(value)),
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
 export default connect(null, mapDispatchToProps)(SideNav);
