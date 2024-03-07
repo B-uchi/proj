@@ -36,8 +36,8 @@ const Help = () => {
                 exit={{ display: "none", opacity: 0 }}
                 onClick={() => setPage("help")}
               >
-                <div className=" p-10 py-20 px-20 rounded-lg border-[1px] border-[#247e49] bg-white hover:bg-[#e1e1e1] items-center flex flex-col">
-                  <IoMdHelpCircleOutline size={40} color="#247e49" />
+                <div className=" p-10 py-20 px-20 rounded-lg border-[1px] border-[#33337c] bg-white hover:bg-[#e1e1e1] items-center flex flex-col">
+                  <IoMdHelpCircleOutline size={40} color="#33337c" />
                   <h1 className="font-montserrat font-extrabold text-2xl">
                     Help & Support
                   </h1>
@@ -51,8 +51,8 @@ const Help = () => {
                 exit={{ display: "none", opacity: 0 }}
                 onClick={() => setPage("how")}
               >
-                <div className=" p-10 py-20 px-20 rounded-lg border-[1px] border-[#247e49] bg-white hover:bg-[#e1e1e1] items-center flex flex-col">
-                  <FaPersonChalkboard size={40} color="#247e49" />
+                <div className=" p-10 py-20 px-20 rounded-lg border-[1px] border-[#33337c] bg-white hover:bg-[#e1e1e1] items-center flex flex-col">
+                  <FaPersonChalkboard size={40} color="#33337c" />
                   <h1 className="font-montserrat font-extrabold text-2xl">
                     How it works
                   </h1>

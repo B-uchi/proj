@@ -4,6 +4,8 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoChevronDownOutline } from "react-icons/io5";
 import { useState } from "react";
+import logo from "../assets/logo.png";
+
 
 const MenuItemm = ({ children, onClick }) => (
   <li onClick={onClick}>{children}</li>
@@ -25,7 +27,7 @@ const HoverMenu = ({ items, label }) => {
         <IoChevronDownOutline size={20} />
       </div>
       {isOpen && (
-        <ul className="menu absolute p-2 bg-white border-[1px] rounded-md border-[#247e49]  -translate-x-[20%] w-[160px]">
+        <ul className="menu absolute p-2 bg-white border-[1px] rounded-md border-[#154350]  -translate-x-[20%] w-[160px]">
           {items.map((item) => (
             <MenuItemm key={item.key}>
               <a href={item.path && item.path}>
@@ -45,13 +47,12 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
-    <nav className="w-full z-50 sticky top-0 bg-white border-[1px] border-b-[#247e49]">
+    <nav className="w-full z-50 sticky top-0 bg-white border-[1px]">
       <div className="flex container items-center justify-between mx-auto p-2 py-2 md:px-3 px-5">
-        <div className="flex items-center gap-14">
+        <div className="flex items-center gap-10">
           <Link to={"/"}>
-            <h1 className="font-bolder text-xl font-montserrat font-extrabold">
-              Trade Stack Network
-            </h1>
+            <div className="flex  items-center gap-3"><img src={logo} alt="logo" className="h-10 w-10" />
+            <h1 className="font-lato text-lg text-[#33337c]">Trade Stack Network</h1></div>
           </Link>
           <div className=" md:block hidden">
             <ul className="flex gap-7 items-center relative">
@@ -96,7 +97,7 @@ const Navbar = () => {
         <div className="md:flex gap-4 hidden">
           <div>
             <a
-              className="border-[#196137] border-[2px] text-black p-1.5 px-3 rounded lg flex"
+              className="border-[#33337c] border-[2px] text-black p-1.5 px-3 rounded lg flex"
               href="https://proj-dash.vercel.app/sign_in"
             >
               <MenuItem text="Sign In" />
@@ -104,7 +105,7 @@ const Navbar = () => {
           </div>
           <div>
             <a
-              className="bg-[#196137] text-white p-2 px-3 rounded lg flex"
+              className="bg-[#33337c] text-white p-2 px-3 rounded lg flex"
               href="https://proj-dash.vercel.app/sign_in"
             >
               <MenuItem text="Register" />

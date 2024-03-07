@@ -15,7 +15,7 @@ const HeroSection = () => {
           className="md:w-1/2 flex flex-col md:p-3 text-center md:text-left"
         >
           <h1 className="font-montserrat font-extrabold text-3xl md:text-4xl">
-            Trade Stack <span className="text-[#2e9c5c]">Network</span>
+            Trade Stack <span className="text-[#33337c]">Network</span>
           </h1>
 
           <p className="font-inter text-[#5f5f5f] text-md md:text-lg mt-2">
@@ -31,7 +31,7 @@ const HeroSection = () => {
           </p>
           <div className="mt-10 md:w-fit flex flex-col justify-center">
             <Link to={"/sign_in"}>
-              <button className="hover:scale-110 transition-all bg-[#196137] text-white p-4 px-10 rounded-full shadow-lg">
+              <button className="hover:scale-110 transition-all bg-[#33337c] text-white p-4 px-10 rounded-full shadow-lg">
                 Get Started
               </button>
             </Link>

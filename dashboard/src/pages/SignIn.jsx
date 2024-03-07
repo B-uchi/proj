@@ -1,5 +1,6 @@
 import { useState, memo, useEffect } from "react";
 import pic1 from "../assets/1.jpg";
+import logo from "../assets/logo.png";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   createUserWithEmailAndPassword,
@@ -37,7 +38,7 @@ const SignIn = () => {
           setLoading(false);
           toast.success("Successfully logged in");
           setTimeout(() => {
-            window.location.href = "https://proj-dash.vercel.app/dashboard";
+            window.location.href = "http://localhost:5173/dashboard";
           }, 1000);
         })
         .catch((error) => {
@@ -54,10 +55,10 @@ const SignIn = () => {
     setLoading(true);
     if (email === "" || password === "" || username === "") {
       toast.error("Please fill in all fields");
-        setLoading(false);
+      setLoading(false);
     } else if (username.indexOf(" ") !== -1) {
       toast.error("Username cannot contain spaces");
-        setLoading(false);
+      setLoading(false);
     } else {
       toast("Registering...");
       if (password === confirmPassword) {
@@ -99,7 +100,7 @@ const SignIn = () => {
         } else {
           console.log("No display name provided");
           toast.error("Provide a display name");
-            setLoading(false);
+          setLoading(false);
         }
       } else {
         toast.error("Passwords do not match");
@@ -111,15 +112,12 @@ const SignIn = () => {
   return (
     <div className="max-h-[100vh] absolute w-full h-[100vh]  flex overflow-y-hidden">
       <Toaster richColors position="top-right" />
-      <div
-        style={{ backgroundImage: `url(${pic1})` }}
-        className="w-full md:w-1/2 h-[100vh]  bg-no-repeat bg-center bg-cover"
-      >
-        <div className="h-full w-full bg-[#0d331d] bg-opacity-80 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
+      <div className="w-full md:w-1/2 h-[100vh]  bg-no-repeat bg-center bg-cover">
+        <div className="h-full w-full bg-[#154350] bg-opacity-90 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
           {" "}
-          <div className="text-white">
-            <p className="font-montserrat text-lg mb-2">Welcome to</p>
-            <h1 className="font-bold font-montserrat text-xl md:text-[60px]">
+          <div className="text-white flex items-center flex-col gap-3">
+            <img src={logo} alt="logo" className="w-20 md:w-1/3 mx-auto" />
+            <h1 className="font-lato md:text-2xl text-[#fffff] font-bold">
               Trade Stack Network
             </h1>
           </div>
@@ -161,7 +159,7 @@ const SignIn = () => {
                       <div className="mt-5 flex justify-center">
                         <button
                           onClick={(e) => login(e)}
-                          className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#196137] text-white rounded-lg"
+                          className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#154350] text-white rounded-lg"
                         >
                           Log in{" "}
                           {loading ? <div className="loader"></div> : null}
@@ -230,7 +228,7 @@ const SignIn = () => {
                       <div className="mt-5 flex justify-center">
                         <button
                           onClick={(e) => register(e)}
-                          className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
+                          className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#154350] text-white"
                         >
                           Sign Up{" "}
                           {loading ? <div className="loader"></div> : null}
@@ -292,7 +290,7 @@ const SignIn = () => {
                     <div className="mt-5 flex justify-center">
                       <button
                         onClick={(e) => login(e)}
-                        className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#196137] text-white rounded-lg"
+                        className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#154350] text-white rounded-lg"
                       >
                         Log in {loading ? <div className="loader"></div> : null}
                       </button>
@@ -361,7 +359,7 @@ const SignIn = () => {
                     <div className="mt-5 flex justify-center">
                       <button
                         onClick={(e) => register(e)}
-                        className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#196137] text-white"
+                        className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#154350] text-white"
                       >
                         Register{" "}
                         {loading ? <div className="loader"></div> : null}

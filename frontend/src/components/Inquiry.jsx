@@ -9,7 +9,7 @@ const Inquiry = () => {
         </h1>
         <h1 className="md:text-xl font-montserrat text-center">
           Have an inquiry? Our support staffs are ever{" "}
-          <span className="text-[#2e9c5c]">ready</span> to respond to your
+          <span className="text-[#33337c]">ready</span> to respond to your
           inquiries
         </h1>
       </div>
@@ -29,7 +29,7 @@ const Inquiry = () => {
             placeholder="Message"
             className="p-3 rounded-md border-2 border-gray-200"
           ></textarea>
-          <button className="bg-[#2e9c5c] text-white p-3 rounded-md">
+          <button className="bg-[#33337c] text-white p-3 rounded-md">
             Send
           </button>
         </form>

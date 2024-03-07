@@ -8,14 +8,14 @@ const Cta = () => {
   return (
     <div className="relative bg-white border-y-[2px] border-[#f1f1f1] flex flex-col items-center justify-center text-black p-10">
       <div className="md:w-[80%] flex md:flex-row flex-col justify-center">
-        <div className="p-3 border-b-[1px] md:border-r-[1px] border-[#2e9c5c] md:border-b-0  md:w-1/3">
+        <div className="p-3 border-b-[1px] md:border-r-[1px] border-[#33337c] md:border-b-0  md:w-1/3">
           <div className="flex gap-3 mb-4 self-start">
             <FiUserPlus size={25} />
             <h1 className="font-inter text-xl">Register</h1>
           </div>
           <p>Fill in accurate details and await account creation.</p>
         </div>
-        <div className="p-3 border-b-[1px] md:border-r-[1px] md:border-b-0 border-[#2e9c5c] md:w-1/3">
+        <div className="p-3 border-b-[1px] md:border-r-[1px] md:border-b-0 border-[#33337c] md:w-1/3">
           <div className="flex gap-3 mb-4 self-start">
             <FaMoneyBillWave size={25} />
             <h1 className="font-inter text-xl">Deposit</h1>
@@ -34,7 +34,7 @@ const Cta = () => {
       </div>
       <div className="mt-10">
         <Link to={"sign_in"}>
-          <button className="hover:scale-110 transition-all bg-[#196137] text-white p-4 px-10 rounded-full shadow-lg">
+          <button className="hover:scale-110 transition-all bg-[#33337c] text-white p-4 px-10 rounded-full shadow-lg">
             Get Started
           </button>
         </Link>

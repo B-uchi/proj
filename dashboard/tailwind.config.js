@@ -5,6 +5,7 @@ export default {
   theme: {
     fontFamily: {
       inter: ["Inter", "sans-serif"],
+      lato: ["Lato", "sans-serif"],
       siliguri: ["Hind Siliguri", "sans-serif"],
       montserrat: ["Montserrat", "sans-serif"]
     },
