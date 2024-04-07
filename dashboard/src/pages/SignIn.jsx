@@ -1,6 +1,6 @@
 import { useState, memo, useEffect } from "react";
 import pic1 from "../assets/1.jpg";
-import logo from "../assets/logo.png";
+import logo from "../../public/icon.png";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   createUserWithEmailAndPassword,
@@ -113,10 +113,11 @@ const SignIn = () => {
     <div className="max-h-[100vh] absolute w-full h-[100vh]  flex overflow-y-hidden">
       <Toaster richColors position="top-right" />
       <div className="w-full md:w-1/2 h-[100vh]  bg-no-repeat bg-center bg-cover">
-        <div className="h-full w-full bg-[#33337c91] bg-opacity-90 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
+        <div className="h-full w-full bg-[#33337c] bg-opacity-90 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
           {" "}
           <div className="text-white flex items-center flex-col gap-3">
-            <img src={logo} alt="logo" className="w-44 md:w-[500px] aspect-auto mx-auto" />
+            <img src={logo} alt="logo" className="w-32 md:w-[200px] aspect-auto mx-auto" />
+            <h1 className="font-montserrat text-2xl mb-5 md:text-5xl font-bold text-center">Trade Stack Network</h1>
           </div>
           <div className="p-2 w-[90%] md:hidden md:w-[500px] bg-white rounded-lg">
             <h1 className="font-bold text-center text-xl md:text-3xl text-[#091e42]">
