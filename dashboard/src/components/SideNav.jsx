@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { auth } from "../firebase/firebaseUtil";
 import { signOut } from "firebase/auth";
 import { setCurrentUser } from "../redux/user/user.actions";
+import logo from "../assets/logo.png";
 
 const SideNav = ({ setShowSideNav, setCurrentUser }) => {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const SideNav = ({ setShowSideNav, setCurrentUser }) => {
     signOut(auth)
       .then(() => {
         document.cookie = "";
-        setCurrentUser(null)
+        setCurrentUser(null);
         window.location.href = "https://proj-dash.vercel.app/sign_in";
       })
       .catch((error) => {
@@ -40,12 +41,12 @@ const SideNav = ({ setShowSideNav, setCurrentUser }) => {
   };
 
   return (
-    <aside className="bg-white dark:bg-[#0a0a0a] dark:text-white border-r-[2px] border-[#f1f1f1] dark:border-[#1f1f1f] h-[100vh] w-full">
+    <aside className="bg-white dark:bg-[#10121b] dark:text-white border-r-[2px] border-[#f1f1f1] dark:border-[#1f1f1f] h-[100vh] w-full">
       <div className="">
         <div className="flex justify-around items-center h-[95px] md:h-[70px] border-b-[2px] border-[#f1f1f1] dark:border-[#1f1f1f]">
-          <h1 className="font-montserrat font-bold text-xl">
-            Trade Stack Network
-          </h1>
+          <div className="flex  items-center gap-3">
+            <img src={logo} alt="logo" className="w-48" />
+          </div>
           <button onClick={() => setShowSideNav(false)} className="md:hidden">
             <IoCloseOutline color="red" size={30} />
           </button>

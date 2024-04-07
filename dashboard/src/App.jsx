@@ -44,14 +44,15 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
       try {
         const requestOptions = {
           method: "POST",
-          url: "https://proj-server-3j4y.onrender.com/auth/verifyUser",
+          url: "http://localhost:8080/auth/verifyUser",
           data: { idToken },
           headers: {
             "Content-Type": "application/json",
           },
         };
         const res = await axios.request(requestOptions);
-        if (res.status === 200) {
+        console.log('Heree');
+        if (res.status === 200 && res.data.user) {
           setCurrentUser(res.data.user);
           toast.success("Welcome to your dashboard!");
         }
@@ -59,9 +60,11 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
         toast.error(
           "An error occurred while verifying user. Please try again later."
         );
-        setTimeout(() => {
-          window.location.href = "https://proj-dash.vercel.app/sign_in";
-        }, 2000);
+        if (window.location.pathname != "/sign_in") {
+          setTimeout(() => {
+            window.location.href = "http://localhost:5173/sign_in";
+          }, 2000);
+        }
         console.error(error);
       } finally {
         setLoading(false);

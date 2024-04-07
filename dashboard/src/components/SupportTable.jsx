@@ -1,6 +1,7 @@
 import { IoCloseCircleOutline } from "react-icons/io5";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const SupportTable = () => {
   const [tickets, setTickets] = useState([]);
@@ -22,6 +23,7 @@ const SupportTable = () => {
           }
         })
         .catch((err) => {
+          toast.error("An error occurred. Please try again later.");
           console.error(err);
         });
     };
@@ -29,7 +31,7 @@ const SupportTable = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] w-[100%]">
+    <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#575757] h-[50vh] w-[100%]">
       <div className="p-2 h-full overflow-x-scroll">
         <table className="table-auto w-full">
           <thead className="">
@@ -46,7 +48,7 @@ const SupportTable = () => {
               tickets.map((item) => (
                 <tr
                   key={item.id}
-                  className="flex items-center justify-between p-2 border-b-[1px] dark:border-[#1f1f1f] border-[#f1f1f1]"
+                  className="flex items-center justify-between p-2 border-b-[1px] dark:border-[#1f1f1f] border-[#575757]"
                 >
                   <td className="w-1/5 text-left text-[12px] md:text-base">
                     {new Date(
@@ -62,7 +64,9 @@ const SupportTable = () => {
                   <td className="w-1/5 text-right p-2 text-[12px] md:text-base ">
                     {item.reply.length > 0 ? "Response" : "None"}
                   </td>
-                  <td className="w-1/5 text-right p-2 text-[12px] md:text-base">{item.status}</td>
+                  <td className="w-1/5 text-right p-2 text-[12px] md:text-base">
+                    {item.status}
+                  </td>
                   <td className="w-1/5 text-right p-2 text-[12px] md:text-base ">
                     <button
                       onClick={() => {}}

@@ -13,7 +13,7 @@ const WalletTable = ({ currentUser }) => {
     navigate(`/wallets/${item.symbol.toLowerCase()}`, { state: item });
   };
   return (
-    <div className="bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-fit overflow-y-auto">
+    <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-fit overflow-y-auto">
       <div className="p-3 h-full w-[150vw] md:w-full">
         <table className="w-full">
           <thead className="">
@@ -29,7 +29,7 @@ const WalletTable = ({ currentUser }) => {
               currentUser.wallets.map((item) => (
                 <tr
                   key={item.currency}
-                  className="p-10 border-b-[1px] dark:border-[#1f1f1f] border-[#f1f1f1]"
+                  className="p-10 border-b-[1px] dark:border-[#575757] border-[#f1f1f1]"
                 >
                   <td className="p-2">
                     <div className="flex items-center gap-2 py-5">

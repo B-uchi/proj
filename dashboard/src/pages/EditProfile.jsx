@@ -75,7 +75,7 @@ const EditProfile = ({ currentUser }) => {
           <small className="font-montserrat">View and edit your profile</small>
         </div>
         <div className="mt-5">
-          <div className="mt-5 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+          <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
             <div className="flex gap-3">
               <div className="w-1/2">
                 <p>First Name</p>
@@ -84,7 +84,7 @@ const EditProfile = ({ currentUser }) => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   placeholder={currentUser && currentUser.firstName}
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
               <div className="w-1/2">
@@ -94,7 +94,7 @@ const EditProfile = ({ currentUser }) => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   placeholder={currentUser && currentUser.lastName}
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
             </div>
@@ -106,7 +106,7 @@ const EditProfile = ({ currentUser }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder={currentUser && currentUser.username}
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
             </div>
@@ -117,7 +117,7 @@ const EditProfile = ({ currentUser }) => {
                   type="email"
                   value={currentUser && currentUser.email}
                   readOnly
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
             </div>
@@ -129,7 +129,7 @@ const EditProfile = ({ currentUser }) => {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder={currentUser && currentUser.phoneNumber}
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
             </div>
@@ -141,7 +141,7 @@ const EditProfile = ({ currentUser }) => {
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder={currentUser && currentUser.location}
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
             </div>

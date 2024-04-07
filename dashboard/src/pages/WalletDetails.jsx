@@ -82,7 +82,7 @@ const WalletDetails = () => {
         </div>
         <div className="mt-10">
           <div className="mt-5 flex flex-col md:flex-row gap-5">
-            <div className="mt-5 md:w-1/2 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+            <div className="mt-5 md:w-1/2 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
               <div className="gap-3 flex flex-col">
                 <div className="flex flex-col justify-center items-center">
                   {data.symbol === "BTC" ? (
@@ -114,14 +114,14 @@ const WalletDetails = () => {
                       type="number"
                       value={data.availableBalance.toFixed(4)}
                       readOnly
-                      className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                      className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                     />
                   </div>
                 </div>
               </div>
             </div>
             <div className="md:w-1/2">
-              <div className="mt-5 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+              <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
                 <div className="flex items-center gap-2">
                   <GrTransaction />
                   <small className=" font-bold self-center dark:text-[#cccccc]">
@@ -130,7 +130,7 @@ const WalletDetails = () => {
                 </div>
                 <p className="text-2xl">{data.totalDeposit.toFixed(4)}</p>
               </div>
-              <div className="mt-5 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+              <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
                 <div className="flex items-center gap-2">
                   <GrAtm />
                   <small className=" font-bold self-center dark:text-[#cccccc]">
@@ -139,7 +139,7 @@ const WalletDetails = () => {
                 </div>
                 <p className="text-2xl">{data.totalWithdrawal.toFixed(4)}</p>
               </div>
-              <div className="mt-5 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+              <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
                 <div className="flex items-center gap-2">
                   <CiCircleCheck />
                   <small className=" font-bold self-center dark:text-[#cccccc]">

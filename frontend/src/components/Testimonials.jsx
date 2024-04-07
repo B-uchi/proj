@@ -47,7 +47,6 @@ const Testimonials = () => {
     },
   ];
 
-  const arbitraryArray = [1, 2, 3, 4, 5, 6, 7, 8];
 
   const nextItem = () => {
     setIndex((index + 1) % testimonials.length);

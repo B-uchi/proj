@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import pic3 from "../assets/3.svg";
+import pic3 from "../assets/herosection.svg";
 import { AnimatePresence, motion } from "framer-motion";
 
 const HeroSection = () => {

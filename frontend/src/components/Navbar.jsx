@@ -6,7 +6,6 @@ import { IoChevronDownOutline } from "react-icons/io5";
 import { useState } from "react";
 import logo from "../assets/logo.png";
 
-
 const MenuItemm = ({ children, onClick }) => (
   <li onClick={onClick}>{children}</li>
 );
@@ -51,8 +50,9 @@ const Navbar = () => {
       <div className="flex container items-center justify-between mx-auto p-2 py-2 md:px-3 px-5">
         <div className="flex items-center gap-10">
           <Link to={"/"}>
-            <div className="flex  items-center gap-3"><img src={logo} alt="logo" className="h-10 w-10" />
-            <h1 className="font-lato text-lg text-[#33337c]">Trade Stack Network</h1></div>
+            <div className="flex  items-center gap-3">
+              <img src={logo} alt="logo" className="aspect-auto w-44" />
+            </div>
           </Link>
           <div className=" md:block hidden">
             <ul className="flex gap-7 items-center relative">
@@ -150,7 +150,7 @@ const Navbar = () => {
               <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
                 <div>
                   <a
-                    className="bg-[#196137] text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                    className="bg-[#33337c] text-center text-white p-2 px-3 rounded-lg flex justify-center"
                     href="https://proj-dash.vercel.app/sign_in"
                   >
                     <MenuItem text="Log In" />

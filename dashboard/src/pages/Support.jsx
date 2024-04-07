@@ -60,7 +60,7 @@ const Support = ({ currentUser }) => {
           <h1 className="text-2xl font-bold dark:text-[#cccccc]">
             Create a new support ticket
           </h1>
-          <div className="mt-5 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+          <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
             <div className="flex gap-3">
               <div className="w-1/2">
                 <p>Name</p>
@@ -71,7 +71,7 @@ const Support = ({ currentUser }) => {
                     currentUser.firstName + " " + currentUser.lastName
                   }
                   readOnly
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
               <div className="w-1/2">
@@ -80,7 +80,7 @@ const Support = ({ currentUser }) => {
                   type="email"
                   readOnly
                   value={currentUser && currentUser.email}
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
             </div>
@@ -92,7 +92,7 @@ const Support = ({ currentUser }) => {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="Enter subject"
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
             </div>
@@ -104,7 +104,7 @@ const Support = ({ currentUser }) => {
                   value={body}
                   onChange={(e) => setBody(e.target.value)}
                   placeholder="Enter body"
-                  className="dark:border-[#1f1f1f] border-[#f1f1f1] p-2 border-[2px] rounded-md mt-2 bg-[#fafafa] dark:bg-[#0a0a0a] w-full "
+                  className="dark:border-[#1f1f1f] border-[#f1f1f1] p-2 border-[2px] rounded-md mt-2 bg-[#fafafa] dark:bg-[#10121b] w-full "
                 ></textarea>
               </div>
             </div>

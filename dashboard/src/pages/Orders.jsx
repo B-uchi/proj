@@ -15,7 +15,7 @@ const Orders = () => {
           </small>
         </div>
         <div className="mt-5">
-          <div className="mt-5 bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+          <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
             <h1 className="text-xl mb-3 font-bold dark:text-[#cccccc]">
               Filter Options
             </h1>
@@ -25,7 +25,7 @@ const Orders = () => {
                 <input
                   type="text"
                   placeholder="Currency | Pair "
-                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 />
               </div>
               <div className="md:w-1/4">
@@ -33,7 +33,7 @@ const Orders = () => {
                 <select
                   name=""
                   id=""
-                  className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 >
                   <option selected value="Deposit">
                     All
@@ -48,7 +48,7 @@ const Orders = () => {
                 <select
                   name=""
                   id=""
-                  className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-black  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                 >
                   <option selected value="All">
                     All

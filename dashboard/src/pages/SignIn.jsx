@@ -38,7 +38,7 @@ const SignIn = () => {
           setLoading(false);
           toast.success("Successfully logged in");
           setTimeout(() => {
-            window.location.href = "ttps://proj-dash.vercel.app/dashboard";
+            window.location.href = "http://localhost:5173/dashboard";
           }, 1000);
         })
         .catch((error) => {
@@ -113,13 +113,10 @@ const SignIn = () => {
     <div className="max-h-[100vh] absolute w-full h-[100vh]  flex overflow-y-hidden">
       <Toaster richColors position="top-right" />
       <div className="w-full md:w-1/2 h-[100vh]  bg-no-repeat bg-center bg-cover">
-        <div className="h-full w-full bg-[#154350] bg-opacity-90 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
+        <div className="h-full w-full bg-[#33337c91] bg-opacity-90 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
           {" "}
           <div className="text-white flex items-center flex-col gap-3">
-            <img src={logo} alt="logo" className="w-20 md:w-1/3 mx-auto" />
-            <h1 className="font-lato md:text-2xl text-[#fffff] font-bold">
-              Trade Stack Network
-            </h1>
+            <img src={logo} alt="logo" className="w-44 md:w-[500px] aspect-auto mx-auto" />
           </div>
           <div className="p-2 w-[90%] md:hidden md:w-[500px] bg-white rounded-lg">
             <h1 className="font-bold text-center text-xl md:text-3xl text-[#091e42]">

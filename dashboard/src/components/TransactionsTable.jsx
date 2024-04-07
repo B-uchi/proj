@@ -3,7 +3,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 
 const TransactionsTable = ({ data }) => {
   return (
-    <div className="bg-white dark:bg-[#0a0a0a] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] overflow-y-auto">
+    <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] overflow-y-auto">
       <div className="p-2 h-full w-[600px] md:w-full overflow-x-scroll">
         <table className="table-auto w-full">
           <thead className="">

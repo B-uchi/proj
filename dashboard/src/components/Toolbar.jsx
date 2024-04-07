@@ -24,7 +24,7 @@ const HoverMenu = ({ items, label }) => {
         <IoChevronDownOutline size={20} />
       </div>
       {isOpen && (
-        <ul className="menu absolute z-40 translate-y-4 right-0 p-2 dark:bg-[#0a0a0a] bg-white border-[1px] rounded-md dark:border-[#1f1f1f] border-[#247e49] w-[160px]">
+        <ul className="menu absolute z-40 translate-y-4 right-0 p-2 dark:bg-[#10121b] bg-white border-[1px] rounded-md dark:border-[#1f1f1f] border-[#247e49] w-[160px]">
           {items.map((item) =>
             item.path ? (
               <Link to={item.path} key={item.key}>
@@ -63,7 +63,7 @@ const HoverMenu = ({ items, label }) => {
 
 const Toolbar = ({ currentUser, setShowSideNav }) => {
   return (
-    <nav className="w-full bg-white dark:bg-[#0a0a0a] dark:text-white">
+    <nav className="w-full bg-white dark:bg-[#10121b] dark:text-white">
       <div className="sticky top-0">
         <div className="container mx-auto border-b-[2px] p-2 dark:border-[#1f1f1f] border-b-[#f1f1f1] flex justify-between items-center gap-5">
           <button onClick={() => setShowSideNav(true)} className="md:hidden">
