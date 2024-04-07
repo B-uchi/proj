@@ -15,6 +15,7 @@ initializeApp({
   }),
   storageBucket: process.env.STORAGE_BUCKET,
 });
+console.log("Firebase app initialized!");
 const defaultFirestore = getFirestore();
 
 module.exports = defaultFirestore;
