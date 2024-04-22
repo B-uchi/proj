@@ -71,7 +71,7 @@ const Toolbar = ({ currentUser, setShowSideNav }) => {
           </button>
           <div className=" border-[2px] rounded-lg dark:border-[#c0b4b4] border-b-[#f1f1f1] p-2 py-3 flex gap-3 w-[70%] md:w-fit items-center">
             <div className="line-clamp-1 text-sm">
-              https://dashboard.scion.com/referral?{currentUser && currentUser.username}
+              https://dashboard.tradestacknetwork.com/referral?{currentUser && currentUser.username}
             </div>
             <FiCopy size={20} className="cursor-pointer" />
           </div>

@@ -1,6 +1,6 @@
 import { useState, memo, useEffect } from "react";
 import pic1 from "../assets/1.jpg";
-import logo from "../../public/icon.png";
+import logo from "../assets/logo.png";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   createUserWithEmailAndPassword,
@@ -112,154 +112,19 @@ const SignIn = () => {
   return (
     <div className="max-h-[100vh] absolute w-full h-[100vh]  flex overflow-y-hidden">
       <Toaster richColors position="top-right" />
-      <div className="w-full md:w-1/2 h-[100vh]  bg-no-repeat bg-center bg-cover">
-        <div className="h-full w-full bg-[#154350] bg-opacity-90 flex md:flex-row flex-col justify-center items-center md:gap-0 gap-3">
-          {" "}
-          <div className="text-white flex items-center flex-col gap-3">
-            <img src={logo} alt="logo" className="w-32 md:w-[200px] aspect-auto mx-auto" />
-            <h1 className="font-montserrat text-2xl mb-5 md:text-5xl font-bold text-center">Trade Stack Network</h1>
-          </div>
-          <div className="p-2 w-[90%] md:hidden md:w-[500px] bg-white rounded-lg">
-            <h1 className="font-bold text-center text-xl md:text-3xl text-[#091e42]">
-              {page}
-            </h1>
-            <AnimatePresence>
-              {page === "Log in" ? (
-                <motion.div
-                  className="mt-9 bg-white"
-                  initial={{ translateX: -100, opacity: 0 }}
-                  animate={{ translateX: 0, opacity: 1 }}
-                  exit={{ display: "none", opacity: 0 }}
-                  key={"login"}
-                >
-                  <div className="mt-5">
-                    <div>
-                      <div className="">
-                        <p className="">Email:</p>
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full input "
-                          placeholder="user@domain.com"
-                        />
-                      </div>
-                      <div className="mt-3">
-                        <p className="">Password:</p>
-                        <input
-                          type="password"
-                          className="w-full input "
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          placeholder="Enter your password..."
-                        />
-                      </div>
-                      <div className="mt-5 flex justify-center">
-                        <button
-                          onClick={(e) => login(e)}
-                          className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#154350] text-white rounded-lg"
-                        >
-                          Log in{" "}
-                          {loading ? <div className="loader"></div> : null}
-                        </button>
-                      </div>
-                      <div className="flex justify-center mt-3">
-                        <small
-                          onClick={() => setPage("Sign up")}
-                          className="mx-auto underline mb-5 cursor-pointer"
-                        >
-                          Don't have an account? Create one
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  className="mt-9 mb-4 bg-white"
-                  initial={{ translateX: 200, opacity: 0 }}
-                  animate={{ translateX: 0, opacity: 1 }}
-                  exit={{ display: "none", opacity: 0 }}
-                >
-                  <div className="mt-5">
-                    <div>
-                      <div className="mt-3">
-                        <p className="">Username:</p>
-                        <input
-                          type="text"
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}
-                          className="w-full input "
-                          placeholder="Enter a username..."
-                        />
-                      </div>
-                      <div className="mt-3">
-                        <p className="">Email:</p>
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full input "
-                          placeholder="user@domain.com"
-                        />
-                      </div>
-                      <div className="mt-3">
-                        <p className="">Password:</p>
-                        <input
-                          type="password"
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          className="w-full input "
-                          placeholder="Something secure...."
-                        />
-                      </div>
-                      <div className="mt-3">
-                        <p className="">Confirm Password:</p>
-                        <input
-                          type="password"
-                          value={confirmPassword}
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          className="w-full input "
-                          placeholder="Something secure...."
-                        />
-                      </div>
-                      <div className="mt-5 flex justify-center">
-                        <button
-                          onClick={(e) => register(e)}
-                          className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#154350] text-white"
-                        >
-                          Sign Up{" "}
-                          {loading ? <div className="loader"></div> : null}
-                        </button>
-                      </div>
-                      <div className="flex justify-center mt-3">
-                        <small
-                          onClick={() => setPage("Log in")}
-                          className="mx-auto underline mb-2 cursor-pointer"
-                        >
-                          Already have an account? Log In
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-      <div className="p-3 hidden md:w-1/2 md:flex items-center justify-center bg-white">
-        <div className="p-2 md:w-[500px]">
-          <h1 className="font-bold text-center text-xl md:text-3xl text-[#091e42]">
+
+      <div className="w-full md:hidden flex flex-col h-full items-center justify-center">
+        <img src={logo} alt="logo" className="w-[70%]" />
+        <div className="mt-9 p-2 w-[90%]">
+          <h1 className="font-bold text-center text-xl md:text-3xl text-[#273591]">
             {page}
           </h1>
           <AnimatePresence>
             {page === "Log in" ? (
               <motion.div
-                className="mt-9"
+                className="md:bg-white"
                 initial={{ translateX: -100, opacity: 0 }}
                 animate={{ translateX: 0, opacity: 1 }}
-                transition={{ duration: 0.3 }}
                 exit={{ display: "none", opacity: 0 }}
                 key={"login"}
               >
@@ -288,7 +153,141 @@ const SignIn = () => {
                     <div className="mt-5 flex justify-center">
                       <button
                         onClick={(e) => login(e)}
-                        className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#154350] text-white rounded-lg"
+                        className="p-3 px-5 flex gap-2 hover:scale-105 bg-[#273591] text-white rounded-lg"
+                      >
+                        Log in {loading ? <div className="loader"></div> : null}
+                      </button>
+                    </div>
+                    <div className="flex justify-center mt-3">
+                      <small
+                        onClick={() => setPage("Sign up")}
+                        className="mx-auto underline mb-5 cursor-pointer"
+                      >
+                        Don't have an account? Create one
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                className="mt-9 mb-4 md:bg-white"
+                initial={{ translateX: 200, opacity: 0 }}
+                animate={{ translateX: 0, opacity: 1 }}
+                exit={{ display: "none", opacity: 0 }}
+              >
+                <div className="mt-5">
+                  <div>
+                    <div className="mt-3">
+                      <p className="">Username:</p>
+                      <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        className="w-full input "
+                        placeholder="Enter a username..."
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <p className="">Email:</p>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full input "
+                        placeholder="user@domain.com"
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <p className="">Password:</p>
+                      <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full input "
+                        placeholder="Something secure...."
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <p className="">Confirm Password:</p>
+                      <input
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className="w-full input "
+                        placeholder="Something secure...."
+                      />
+                    </div>
+                    <div className="mt-5 flex justify-center">
+                      <button
+                        onClick={(e) => register(e)}
+                        className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#273591] text-white"
+                      >
+                        Sign Up{" "}
+                        {loading ? <div className="loader"></div> : null}
+                      </button>
+                    </div>
+                    <div className="flex justify-center mt-3">
+                      <small
+                        onClick={() => setPage("Log in")}
+                        className="mx-auto underline mb-2 cursor-pointer"
+                      >
+                        Already have an account? Log In
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <p className="text-center font-siliguri">
+            &copy;Trade Stack Network, 2024.
+          </p>
+        </div>
+      </div>
+
+      <div className="p-3 hidden w-full md:flex items-center justify-center bg-white">
+        <div className="p-2 md:w-[500px]">
+          <img src={logo} className="w-[80%] mx-auto" alt="logo" />
+          <h1 className="font-bold text-center text-xl mt-10 md:text-xl text-[#273591]">
+            Welcome, {page}
+          </h1>
+          <AnimatePresence>
+            {page === "Log in" ? (
+              <motion.div
+                className="mt-9"
+                initial={{ translateX: -100, opacity: 0 }}
+                animate={{ translateX: 0, opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                exit={{ display: "none", opacity: 0 }}
+                key={"login"}
+              >
+                <div className="mt-5">
+                  <div>
+                    <div className="">
+                      <p className="">Email:</p>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full input "
+                        placeholder="user@domain.com"
+                      />
+                    </div>
+                    <div className="mt-3">
+                      <p className="">Password:</p>
+                      <input
+                        type="password"
+                        className="w-full input"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Enter your password..."
+                      />
+                    </div>
+                    <div className="mt-5 flex justify-center">
+                      <button
+                        onClick={(e) => login(e)}
+                        className="p-3 px-5 flex w-full justify-center font-bold gap-2 hover:scale-105 bg-[#273591] text-white rounded-lg"
                       >
                         Log in {loading ? <div className="loader"></div> : null}
                       </button>
@@ -357,7 +356,7 @@ const SignIn = () => {
                     <div className="mt-5 flex justify-center">
                       <button
                         onClick={(e) => register(e)}
-                        className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#154350] text-white"
+                        className="p-3 px-5 flex gap-2 items-center hover:scale-105  rounded-lg bg-[#273591] text-white font-bold w-full justify-center"
                       >
                         Register{" "}
                         {loading ? <div className="loader"></div> : null}
@@ -376,6 +375,9 @@ const SignIn = () => {
               </motion.div>
             )}
           </AnimatePresence>
+          <p className="text-center font-siliguri">
+            &copy;Trade Stack Network, 2024.
+          </p>
         </div>
       </div>
     </div>

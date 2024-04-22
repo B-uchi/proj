@@ -24,7 +24,7 @@ body {
   background-color: #0f111a;
 }
 .input {
-  outline: solid #154350 1px;
+  outline: solid #273591 1px;
   border-radius: 5px;
   padding: 8px;
   margin-top: 4px;
@@ -207,4 +207,8 @@ scrollbar-thumb {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.details{
+  margin-top: 10px;  
 }

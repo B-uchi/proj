@@ -33,6 +33,7 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
   const [loading, setLoading] = useState(true);
   const cookie = document.cookie;
   const idToken = cookie ? cookie.slice(18) : null;
+  console.log(currentUser);
 
   useEffect(() => {
     const verifyUser = async () => {
@@ -51,7 +52,6 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
           },
         };
         const res = await axios.request(requestOptions);
-        console.log('Heree');
         if (res.status === 200 && res.data.user) {
           setCurrentUser(res.data.user);
           toast.success("Welcome to your dashboard!");
@@ -60,11 +60,7 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
         toast.error(
           "An error occurred while verifying user. Please try again later."
         );
-        if (window.location.pathname != "/sign_in") {
-          setTimeout(() => {
-            window.location.href = "http://localhost:5173/sign_in";
-          }, 2000);
-        }
+
         console.error(error);
       } finally {
         setLoading(false);
@@ -74,6 +70,20 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
   }, []);
 
   if (window.location.pathname === "/sign_in") {
+    return (
+      <Router>
+        <div className="">
+          <Navigate to="/sign_in" />
+          <Toaster richColors position="top-right" />
+          <Routes>
+            <Route path="/sign_in" element={<SignIn />} />
+          </Routes>
+        </div>
+      </Router>
+    );
+  }
+
+  if (!currentUser && !loading) {
     return (
       <Router>
         <div className="">
@@ -101,7 +111,7 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
     );
   }
 
-  if (!currentUser.profileComplete) {
+  if (currentUser && !currentUser.profileComplete) {
     return (
       <Router>
         <div className="">
@@ -118,37 +128,39 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
   const style = !showSideNav
     ? "w-[0%] transition-all overflow-hidden md:w-[20%] z-40 absolute md:relative"
     : "w-[80%] transition-all md:w-[20%] z-40 absolute md:relative";
-  return (
-    <Router>
-      <div className="flex w-full relative md:fixed ">
-        <Toaster richColors position="top-right" />
-        <div className={style}>
-          <SideNav setShowSideNav={setShowSideNav} />
-        </div>
-        <div className="flex-col flex-grow main-container">
-          <Toolbar setShowSideNav={setShowSideNav} />
-          <div className="dark:text-white text-black ">
-            <Routes>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/user/deposit" element={<Deposit />} />
-              <Route path="/user/withdraw" element={<Withdraw />} />
-              <Route path="/trade" element={<Trade />} />
-              <Route path="/profile" element={<EditProfile />} />
-              <Route path="/orders" element={<Orders />} />
-              <Route path="/wallets" element={<Wallets />} />
-              <Route path="/user/kyc" element={<KYC />} />
-              <Route path="/wallets/:symbol" element={<WalletDetails />} />
-              <Route path="/deposits" element={<Deposits />} />
-              <Route path="/withdrawals" element={<Withdrawals />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/support" element={<Support />} />
-              <Route path="/settings" element={<Settings />} />
-            </Routes>
+  if (currentUser && currentUser) {
+    return (
+      <Router>
+        <div className="flex w-full relative md:fixed ">
+          <Toaster richColors position="top-right" />
+          <div className={style}>
+            <SideNav setShowSideNav={setShowSideNav} />
+          </div>
+          <div className="flex-col flex-grow main-container">
+            <Toolbar setShowSideNav={setShowSideNav} />
+            <div className="dark:text-white text-black ">
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/user/deposit" element={<Deposit />} />
+                <Route path="/user/withdraw" element={<Withdraw />} />
+                <Route path="/trade" element={<Trade />} />
+                <Route path="/profile" element={<EditProfile />} />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/wallets" element={<Wallets />} />
+                <Route path="/user/kyc" element={<KYC />} />
+                <Route path="/wallets/:symbol" element={<WalletDetails />} />
+                <Route path="/deposits" element={<Deposits />} />
+                <Route path="/withdrawals" element={<Withdrawals />} />
+                <Route path="/transactions" element={<Transactions />} />
+                <Route path="/support" element={<Support />} />
+                <Route path="/settings" element={<Settings />} />
+              </Routes>
+            </div>
           </div>
         </div>
-      </div>
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
