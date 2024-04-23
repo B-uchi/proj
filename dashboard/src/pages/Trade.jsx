@@ -18,7 +18,9 @@ const Trade = ({
   setBitcoinData,
   setEthereumData,
   setSolanaData,
-  bitcoinData,ethereumData, solanaData
+  bitcoinData,
+  ethereumData,
+  solanaData,
 }) => {
   const [loading, setLoading] = useState(true);
   const [detailsTab, setDetailsTab] = useState("details");
@@ -182,7 +184,10 @@ const Trade = ({
                     </thead>
                     <tbody>
                       <tr className="text-sm details cursor-pointer hover:bg-slate-700">
-                        <td className="text-left flex py-3 items-center"><TiStarFullOutline/>BTC/USD</td>
+                        <td className="text-left flex py-3 items-center">
+                          <TiStarFullOutline />
+                          BTC/USD
+                        </td>
                         <td>${Number(bitcoinData.price).toFixed(3)}</td>
                         <td className="text-right">
                           {bitcoinData.change.charAt(0) === "-" ? (
@@ -199,7 +204,10 @@ const Trade = ({
                         </td>
                       </tr>
                       <tr className="text-sm details cursor-pointer hover:bg-slate-700">
-                        <td className="text-left py-3 flex items-center"><TiStarFullOutline/>ETH/USD</td>
+                        <td className="text-left py-3 flex items-center">
+                          <TiStarFullOutline />
+                          ETH/USD
+                        </td>
                         <td>${Number(ethereumData.price).toFixed(3)}</td>
                         <td className="text-right">
                           {ethereumData.change.charAt(0) === "-" ? (
@@ -216,7 +224,10 @@ const Trade = ({
                         </td>
                       </tr>
                       <tr className="text-sm details cursor-pointer hover:bg-slate-700">
-                        <td className="text-left py-3 flex items-center"><TiStarFullOutline/>SOL/USD</td>
+                        <td className="text-left py-3 flex items-center">
+                          <TiStarFullOutline />
+                          SOL/USD
+                        </td>
                         <td>${Number(solanaData.price).toFixed(3)}</td>
                         <td className="text-right">
                           {solanaData.change.charAt(0) === "-" ? (
@@ -233,8 +244,17 @@ const Trade = ({
                         </td>
                       </tr>
                       <tr className="text-sm details cursor-pointer hover:bg-slate-700">
-                        <td className="text-left py-3 flex items-center"><TiStarFullOutline/>ETH/SOL</td>
-                        <td>${(Number(ethereumData.price)/Number(solanaData.price)).toFixed(3)}</td>
+                        <td className="text-left py-3 flex items-center">
+                          <TiStarFullOutline />
+                          ETH/SOL
+                        </td>
+                        <td>
+                          $
+                          {(
+                            Number(ethereumData.price) /
+                            Number(solanaData.price)
+                          ).toFixed(3)}
+                        </td>
                         <td className="text-right">
                           {ethereumData.change.charAt(0) === "-" ? (
                             <span className="text-red-500 justify-end flex items-center">
@@ -255,8 +275,82 @@ const Trade = ({
               )}
             </div>
           </div>
-          <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] flex-grow border-[#f1f1f1] p-3">
-            fhrt
+          <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] flex md:flex-row flex-grow border-[#f1f1f1] p-3">
+            <div className="w-1/2 border-r-[2px] px-2 dark:border-[#3b3b3b] border-[#f1f1f1]">
+              <div className="flex justify-between bg-[#303444] p-2 mb-2 rounded-sm">
+                <p>Available USD: </p>
+                <p>$0.00</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+                <p className="text-sm">Price</p>
+                <input
+                  type="text"
+                  placeholder="10-100000"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">USD</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+                <p className="text-sm">Amount</p>
+                <input
+                  type="text"
+                  placeholder="10-100000"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">ETH</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+                <p className="text-sm">Total</p>
+                <input
+                  type="text"
+                  placeholder="0.00"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">USD</p>
+              </div>
+              <div className="mt-3">
+                <button className="w-full bg-green-700 p-2 rounded-md">
+                  <p>Buy</p>
+                </button>
+              </div>
+            </div>
+            <div className="w-1/2 px-2">
+              <div className="flex justify-between bg-[#303444] p-2 mb-2 rounded-sm">
+                <p>Available ETH: </p>
+                <p>0.00</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+                <p className="text-sm">Price</p>
+                <input
+                  type="text"
+                  placeholder="10-100000"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">USD</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+                <p className="text-sm">Amount</p>
+                <input
+                  type="text"
+                  placeholder="10-100000"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">ETH</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+                <input
+                  type="text"
+                  placeholder="0.00"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">USD</p>
+              </div>
+              <div className="mt-3">
+                <button className="w-full bg-red-700 p-2 rounded-md">
+                  <p>Sell</p>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
