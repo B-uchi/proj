@@ -354,3 +354,8 @@ export const createWithdrawalTransaction = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+export const openTrade = async (req, res) => {
+  console.log("req received to openTrade");
+  const {pair, leverage, entryPrice, total, status} = req.body;
+}

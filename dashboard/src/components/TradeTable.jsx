@@ -8,9 +8,9 @@ const TradeTable = () => {
         <table className="w-full h-full">
           <thead className="">
             <tr className="flex justify-between border-b-[2px] dark:border-[#1f1f1f] border-[#f1f1f1]">
-              <th className="p-2">Date | Pair</th>
-              <th className="p-2">Type</th>
-              <th className="p-2">Rate</th>
+              <th className="p-2">Date </th>
+              <th className="p-2">Pair</th>
+              <th className="p-2">Leverage</th>
               <th className="p-2">Total</th>
               <th className="p-2">Status</th>
               <th className="p-2">Action</th>

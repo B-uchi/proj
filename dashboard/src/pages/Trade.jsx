@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { setShowSideNav } from "../redux/nav/sideNav.actions";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BigChart from "../components/BigChart";
 import TradeTable from "../components/TradeTable";
 import axios from "axios";
@@ -22,8 +22,6 @@ const Trade = ({
   ethereumData,
   solanaData,
 }) => {
-  const [loading, setLoading] = useState(true);
-  const [detailsTab, setDetailsTab] = useState("details");
   useEffect(() => {
     const fetchCoinDetails = () => {
       const solana = {
@@ -105,6 +103,16 @@ const Trade = ({
     fetchCoinDetails();
     setShowSideNav(false);
   }, []);
+
+  const [loading, setLoading] = useState(true);
+  const [detailsTab, setDetailsTab] = useState("details");
+  const tabs = document.querySelectorAll(".tab");
+
+  const setAsActive = (e) => {
+    tabs.forEach((tab) => tab.classList.remove("active-tab"));
+    e.target.classList.add("active-tab");
+  };
+
   return (
     <div className="p-2 flex flex-col ">
       <h1 className="text-2xl font-montserrat font-bold dark:text-[#cccccc] p-3 flex items-center gap-5">
@@ -128,21 +136,26 @@ const Trade = ({
             <div className="text-center">
               <div className="text-left flex gap-3 mb-3">
                 <p
-                  className="underline underline-offset-[12px] text-[#bcc0ce] cursor-pointer hover:bg-slate-400 p-2 rounded-sm"
-                  onClick={() => setDetailsTab("details")}
+                  className="active-tab text-[#a6afce] tab cursor-pointer p-2 rounded-sm"
+                  onClick={(e) => {
+                    setDetailsTab("details");
+                    setAsActive(e);
+                  }}
                 >
                   Details
                 </p>
                 <p
-                  className="text-[#a6afce] cursor-pointer hover:bg-slate-400 p-2 rounded-sm"
-                  onClick={() => setDetailsTab("pairs")}
+                  className="text-[#a6afce] tab cursor-pointer p-2 rounded-sm"
+                  onClick={(e) => {
+                    setDetailsTab("pairs");
+                    setAsActive(e);
+                  }}
                 >
                   Markets
                 </p>
               </div>
               {detailsTab === "details" ? (
                 <div className="">
-                  {" "}
                   <div className="flex justify-center items-center gap-2 mb-2">
                     <img src={bitcoinData.iconUrl} alt="" className="w-8" />
                     <p>BTC/USD</p>
@@ -167,8 +180,12 @@ const Trade = ({
                       <p>${Number(bitcoinData.marketCap)}</p>
                     </div>
                     <div className="flex p-3 itemx-center justify-between">
-                      <p>Volume: </p>
+                      <p>24h Volume: </p>
                       <p>${Number(bitcoinData["24hVolume"])}</p>
+                    </div>
+                    <div className="flex p-3 itemx-center justify-between">
+                      <p>Low Volume: </p>
+                      <p>{String(bitcoinData.lowVolume)}</p>
                     </div>
                   </div>
                 </div>
@@ -275,31 +292,40 @@ const Trade = ({
               )}
             </div>
           </div>
-          <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] flex md:flex-row flex-grow border-[#f1f1f1] p-3">
-            <div className="w-1/2 border-r-[2px] px-2 dark:border-[#3b3b3b] border-[#f1f1f1]">
+          <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] flex flex-col gap-5 md:gap-0 md:flex-row flex-grow border-[#f1f1f1] p-3">
+            <div className="md:w-1/2 md:border-r-[2px] px-2 dark:border-[#3b3b3b] border-[#f1f1f1]">
               <div className="flex justify-between bg-[#303444] p-2 mb-2 rounded-sm">
                 <p>Available USD: </p>
                 <p>$0.00</p>
               </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
                 <p className="text-sm">Price</p>
                 <input
                   type="text"
-                  placeholder="10-100000"
+                  placeholder="10-100,000"
                   className="w-full p-2 text-right rounded-md bg-transparent outline-none"
                 />
                 <p className="text-sm">USD</p>
               </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
                 <p className="text-sm">Amount</p>
                 <input
                   type="text"
-                  placeholder="10-100000"
+                  placeholder="10-100,000"
                   className="w-full p-2 text-right rounded-md bg-transparent outline-none"
                 />
                 <p className="text-sm">ETH</p>
               </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                <p className="text-sm">Leverage</p>
+                <input
+                  type="text"
+                  placeholder="1-100"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">%</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
                 <p className="text-sm">Total</p>
                 <input
                   type="text"
@@ -309,35 +335,44 @@ const Trade = ({
                 <p className="text-sm">USD</p>
               </div>
               <div className="mt-3">
-                <button className="w-full bg-green-700 p-2 rounded-md">
+                <button className="w-full bg-green-700 hover:bg-green-500 p-2 rounded-md">
                   <p>Buy</p>
                 </button>
               </div>
             </div>
-            <div className="w-1/2 px-2">
+            <div className="md:w-1/2 px-2">
               <div className="flex justify-between bg-[#303444] p-2 mb-2 rounded-sm">
                 <p>Available ETH: </p>
                 <p>0.00</p>
               </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
                 <p className="text-sm">Price</p>
                 <input
                   type="text"
-                  placeholder="10-100000"
+                  placeholder="10-100,000"
                   className="w-full p-2 text-right rounded-md bg-transparent outline-none"
                 />
                 <p className="text-sm">USD</p>
               </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
                 <p className="text-sm">Amount</p>
                 <input
                   type="text"
-                  placeholder="10-100000"
+                  placeholder="10-100,000"
                   className="w-full p-2 text-right rounded-md bg-transparent outline-none"
                 />
                 <p className="text-sm">ETH</p>
               </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-2 rounded-md justify-between">
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                <p className="text-sm">Leverage</p>
+                <input
+                  type="text"
+                  placeholder="1-100"
+                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                />
+                <p className="text-sm">%</p>
+              </div>
+              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
                 <input
                   type="text"
                   placeholder="0.00"
@@ -346,7 +381,7 @@ const Trade = ({
                 <p className="text-sm">USD</p>
               </div>
               <div className="mt-3">
-                <button className="w-full bg-red-700 p-2 rounded-md">
+                <button className="w-full hover:bg-red-500 bg-red-700 p-2 rounded-md">
                   <p>Sell</p>
                 </button>
               </div>
