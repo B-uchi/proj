@@ -1,15 +1,44 @@
+import { useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import axios from "axios";
 
 const TradeTable = () => {
-  const data = [];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchTrades = async () => {
+      const options = {
+        method: "GET",
+        url: "http://localhost:8080/user/getTrades",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie.slice(18)}`,
+        },
+      };
+      await axios
+        .request(options)
+        .then((response) => {
+          if (response.status === 200) {
+            setData(response.data.trades);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("An error occurred. Please try again later.");
+        });
+    };
+    fetchTrades();
+  }, []);
+
   return (
     <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] overflow-y-auto">
       <div className="p-3 h-full w-[150vw] md:w-full">
         <table className="w-full h-full">
           <thead className="">
             <tr className="flex justify-between border-b-[2px] dark:border-[#1f1f1f] border-[#f1f1f1]">
-              <th className="p-2">Date </th>
-              <th className="p-2">Pair</th>
+              <th className="p-2">Pair </th>
+              <th className="p-2">Type</th>
+              <th className="p-2">Entry</th>
               <th className="p-2">Leverage</th>
               <th className="p-2">Total</th>
               <th className="p-2">Status</th>

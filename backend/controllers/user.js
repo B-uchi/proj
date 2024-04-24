@@ -357,5 +357,54 @@ export const createWithdrawalTransaction = async (req, res) => {
 
 export const openTrade = async (req, res) => {
   console.log("req received to openTrade");
-  const {pair, leverage, entryPrice, total, status} = req.body;
+  const { pair, leverage, entryPrice,type , total, status } = req.body;
+  try {
+    const userRef = db.collection("users").doc(req.uid);
+    const user = await userRef.get();
+    if (type === "Buy") {
+      if (user.data().wallets[0].availableBalance < total) {
+        return res.status(400).json({ message: "Insufficient balance" });
+      }
+    } else {
+      if (user.data().wallets[1].availableBalance < total) {
+        return res.status(400).json({ message: "Insufficient balance" });
+      }
+    }
+    const tradeRef = db.collection("trades").doc();
+    await tradeRef
+      .set(
+        {
+          userId: req.uid,
+          tradeId: tradeRef.id,
+          pair,
+          leverage,
+          entryPrice,
+          total,
+          status,
+          createdAt: FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      )
+      .then(async () => {
+        const doc = await tradeRef.get();
+        return res.status(201).json({ message: "Trade created successfully" });
+      });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+export const getTrades = async (req, res) => {
+  console.log("req received to getTrades");
+  const trades = [];
+  try {
+    const tradeRef = db.collection("trades");
+    const snapshot = await tradeRef.where("userId", "==", req.uid).get();
+    snapshot.forEach((doc) => {
+      trades.push({ id: doc.id, ...doc.data() });
+    });
+    return res.status(200).json({ trades });
+  } catch (error) {
+    res.status(400).json(error);
+  }
 }
