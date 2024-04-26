@@ -34,9 +34,11 @@ const Cta = () => {
       </div>
       <div className="mt-10">
         <Link to={"sign_in"}>
-          <button className="hover:scale-110 transition-all bg-[#33337c] text-white p-4 px-10 rounded-full shadow-lg">
-            Get Started
-          </button>
+          <a href="https://proj-dash.vercel.app/sign_in">
+            <button className="hover:scale-110 transition-all bg-[#33337c] text-white p-4 px-10 rounded-full shadow-lg">
+              Get Started
+            </button>
+          </a>
         </Link>
       </div>
       <div className="absolute right-0 bottom-0 w-[100px]">

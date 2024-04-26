@@ -30,9 +30,11 @@ const HeroSection = () => {
             sunshine your finances needs.
           </p>
           <div className="mt-10 md:w-fit flex flex-col justify-center">
+            <a href="https://proj-dash.vercel.app/sign_in">
               <button className="hover:scale-110 transition-all bg-[#33337c] text-white p-4 px-10 rounded-full shadow-lg">
-                <a href="http://localhost:5174/sign_in">Get Started</a>
+                Get Started
               </button>
+            </a>
             <div className="mx-auto right-[50%] w-[40%] h-[3px] rounded-full mt-2 bg-[#b4aeae]"></div>
           </div>
         </motion.div>

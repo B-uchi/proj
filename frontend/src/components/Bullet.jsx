@@ -15,8 +15,9 @@ const Bullet = () => {
             Why choose <span className="text-[#33337c]">us</span>?
           </h1>
           <h1 className="md:text-xl font-montserrat text-center">
-            With Trade Stack Network, you are <span className="text-[#33337c]">assured</span> of
-            the following and more
+            With Trade Stack Network, you are{" "}
+            <span className="text-[#33337c]">assured</span> of the following and
+            more
           </h1>
         </div>
         <div className="flex flex-col md:flex-row mt-3 md:mt-10 gap-10">
@@ -106,9 +107,11 @@ const Bullet = () => {
         </div>
         <div className="mt-5 justify-center flex md:hidden">
           <Link to={"sign_in"}>
-            <button className=" hover:scale-110 transition-all bg-[#33337c] text-white p-4 px-10 rounded-full shadow-lg">
-              Open an Account
-            </button>
+            <a href="https://proj-dash.vercel.app/sign_in">
+              <button className=" hover:scale-110 transition-all bg-[#33337c] text-white p-4 px-10 rounded-full shadow-lg">
+                Open an Account
+              </button>
+            </a>
           </Link>
         </div>
       </div>
