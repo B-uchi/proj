@@ -28,12 +28,12 @@ import EditProfile from "./pages/EditProfile";
 import Withdraw from "./pages/Withdraw";
 import Trade from "./pages/Trade";
 import SignIn from "./pages/SignIn";
+import { setBitcoinData, setEthereumData, setSolanaData } from "./redux/coins/coin.actions";
 
 function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
   const [loading, setLoading] = useState(true);
   const cookie = document.cookie;
   const idToken = cookie ? cookie.slice(18) : null;
-  console.log(currentUser);
 
   useEffect(() => {
     const verifyUser = async () => {
@@ -171,6 +171,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
   setShowSideNav: (value) => dispatch(setShowSideNav(value)),
+  setBitcoinData: (data) => dispatch(setBitcoinData(data)),
+  setSolanaData: (data) => dispatch(setSolanaData(data)),
+  setEthereumData: (data) => dispatch(setEthereumData(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

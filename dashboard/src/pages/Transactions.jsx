@@ -5,33 +5,6 @@ import axios from "axios";
 import {toast} from 'sonner'
 
 const Transactions = () => {
-  const [transactions, setTransactions] = useState([]);
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      const requestOptions = {
-        url: "https://proj-server-3j4y.onrender.com/user/getTransactions",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${document.cookie.slice(18)}`,
-        },
-      };
-
-      await axios
-        .request(requestOptions)
-        .then((response) => {
-          if (response.status === 200) {
-            setTransactions(response.data.transactions);
-            
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          toast.error("An error occurred. Please try again later.");
-        });
-    };
-    fetchTransactions();
-  }, []);
 
   return (
     <div>
@@ -97,7 +70,7 @@ const Transactions = () => {
           </div>
         </div>
         <div className="mt-10">
-          <TransactionsTable data={transactions}/>
+          <TransactionsTable/>
         </div>
       </div>
     </div>

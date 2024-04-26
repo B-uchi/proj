@@ -13,6 +13,8 @@ import {
   getWithdrawals,
   createWithdrawalTransaction,
   getTrades,
+  openTrade,
+  closeTrade,
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -29,5 +31,7 @@ router.get("/getDeposits", verifyToken, getDeposits);
 router.post("/withdraw", verifyToken, createWithdrawalTransaction);
 router.get("/getWithdrawals", verifyToken, getWithdrawals);
 router.get("/getTrades", verifyToken, getTrades);
+router.post("/openTrade", verifyToken, openTrade);
+router.post("/closeTrade", verifyToken, closeTrade);
 
 export default router;

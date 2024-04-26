@@ -27,34 +27,7 @@ const Dashboard = ({ currentUser }) => {
   const [btcRate, setBtcRate] = useState(null);
   const [depositMethod, setDepositMethod] = useState("none");
   const [depositAmtInUSD, setDepositAmtInUSD] = useState(0);
-  const [transactions, setTransactions] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      const requestOptions = {
-        url: "http://localhost:8080/user/getTransactions",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${document.cookie.slice(18)}`,
-        },
-      };
-
-      await axios
-        .request(requestOptions)
-        .then((response) => {
-          if (response.status === 200) {
-            setTransactions(response.data.transactions);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          toast.error("An error occurred. Please try again later.");
-        });
-    };
-    fetchTransactions();
-  }, []);
 
   useEffect(() => {
     getBitcoinPrice();
@@ -147,28 +120,28 @@ const Dashboard = ({ currentUser }) => {
               <AiOutlineLoading3Quarters color="#345d96" size={28} />
               <div className="">
                 <small>Open Orders</small>
-                <h1 className="text-xl">0</h1>
+                <h1 className="text-xl">{currentUser.orderDetails.openOrders}</h1>
               </div>
             </div>
             <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <CiCircleCheck color="green" size={30} />
               <div className="">
                 <small>Closed Orders</small>
-                <h1 className="text-xl">0</h1>
+                <h1 className="text-xl">{currentUser.orderDetails.closedOrders}</h1>
               </div>
             </div>
             <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <IoCloseCircleOutline color="red" size={30} />
               <div className="">
                 <small>Cancelled Orders</small>
-                <h1 className="text-xl">0</h1>
+                <h1 className="text-xl">{currentUser.orderDetails.cancelledOrders}</h1>
               </div>
             </div>
             <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <BiLineChart color="#2e9c5c" size={30} />
               <div className="">
                 <small>Total Trade</small>
-                <h1 className="text-xl">0</h1>
+                <h1 className="text-xl">{currentUser.orderDetails.totalOrders}</h1>
               </div>
             </div>
           </div>
@@ -346,7 +319,7 @@ const Dashboard = ({ currentUser }) => {
                   Recent Deposits:
                 </h1>
               </div>
-              <DepositTable />{" "}
+              <DepositTable />
             </div>
             <div className="md:w-1/2">
               <div className="">
@@ -354,7 +327,7 @@ const Dashboard = ({ currentUser }) => {
                   Recent Transactions:
                 </h1>
               </div>
-              <TransactionsTable data={transactions} />
+              <TransactionsTable/>
             </div>
           </div>
         </div>

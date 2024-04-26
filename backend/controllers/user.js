@@ -33,7 +33,6 @@ export const completeSignup = async (req, res) => {
               availableBalance: 0,
               totalDeposit: 0,
               totalWithdrawal: 0,
-              totalOrder: 0,
               status: "Active",
             },
             {
@@ -42,7 +41,6 @@ export const completeSignup = async (req, res) => {
               availableBalance: 0,
               totalDeposit: 0,
               totalWithdrawal: 0,
-              totalOrder: 0,
               status: "Inactive",
             },
             {
@@ -51,7 +49,6 @@ export const completeSignup = async (req, res) => {
               availableBalance: 0,
               totalDeposit: 0,
               totalWithdrawal: 0,
-              totalOrder: 0,
               status: "Inactive",
             },
             {
@@ -60,7 +57,6 @@ export const completeSignup = async (req, res) => {
               availableBalance: 0,
               totalDeposit: 0,
               totalWithdrawal: 0,
-              totalOrder: 0,
               status: "Inactive",
             },
             {
@@ -69,7 +65,6 @@ export const completeSignup = async (req, res) => {
               availableBalance: 0,
               totalDeposit: 0,
               totalWithdrawal: 0,
-              totalOrder: 0,
               status: "Inactive",
             },
           ],
@@ -126,6 +121,12 @@ export const completeKYC = async (req, res) => {
       .set(
         {
           kycComplete: true,
+          orderDetails: {
+            openOrders: 0,
+            closedOrders: 0,
+            totalOrders: 0,
+            cancelledOrders: 0,
+          },
           kyc: {
             ssn: ssn && ssn,
             gender,
@@ -357,11 +358,14 @@ export const createWithdrawalTransaction = async (req, res) => {
 
 export const openTrade = async (req, res) => {
   console.log("req received to openTrade");
-  const { pair, leverage, entryPrice,type , total, status } = req.body;
+  const { pair, leverage, entryPrice, type, total, status } = req.body;
   try {
     const userRef = db.collection("users").doc(req.uid);
     const user = await userRef.get();
-    if (type === "Buy") {
+    if (user.data().kycComplete === false) {
+      return res.status(400).json({ message: "Complete KYC first" });
+    }
+    if (type === "BUY") {
       if (user.data().wallets[0].availableBalance < total) {
         return res.status(400).json({ message: "Insufficient balance" });
       }
@@ -378,19 +382,100 @@ export const openTrade = async (req, res) => {
           tradeId: tradeRef.id,
           pair,
           leverage,
+          type,
           entryPrice,
           total,
-          status,
+          status: "Open",
           createdAt: FieldValue.serverTimestamp(),
         },
         { merge: true }
       )
       .then(async () => {
         const doc = await tradeRef.get();
-        return res.status(201).json({ message: "Trade created successfully" });
+        await userRef.set(
+          {
+            orderDetails: {
+              openOrders: user.data().orderDetails.openOrders + 1,
+              totalOrders: user.data().orderDetails.totalOrders + 1,
+            },
+            wallets: user.data().wallets.map((wallet) => {
+              if (wallet.currency === "US Dollar") {
+                wallet.availableBalance -= total;
+              }
+              return wallet;
+            }),
+          },
+          { merge: true }
+        );
+        return res.sendStatus(201);
       });
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
+  }
+};
+
+export const closeTrade = async (req, res) => {
+  console.log("req received to closeTrade");
+  const { tradeId, exitPrice } = req.body;
+  try {
+    const tradeRef = db.collection("trades").doc(tradeId);
+    const trade = await tradeRef.get();
+    if (trade.data().status === "Closed") {
+      return res.status(400).json({ message: "Trade position already closed" });
+    }
+    const userRef = db.collection("users").doc(trade.data().userId);
+    const user = await userRef.get();
+    let profit;
+    if (trade.data().type === "BUY") {
+      profit = trade.data().total * (exitPrice - trade.data().entryPrice);
+    } else {
+      profit = trade.data().total * (trade.data().entryPrice - exitPrice);
+    }
+    const transactionRef = db.collection("transactions").doc();
+    await tradeRef
+      .set(
+        {
+          exitPrice,
+          profit,
+          status: "Closed",
+          updatedAt: FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      )
+      .then(async () => {
+        await transactionRef.set(
+          {
+            userId: trade.data().userId,
+            transactionId: transactionRef.id,
+            amountInUSD: profit,
+            amount: profit,
+            wallet: "USD",
+            transactionType: "Profit",
+            status: "Completed",
+            createdAt: FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+        await userRef.set(
+          {
+            orderDetails: {
+              closedOrders: user.data().orderDetails.closedOrders + 1,
+              openOrders: user.data().orderDetails.openOrders - 1,
+            },
+            wallets: user.data().wallets.map((wallet) => {
+              if (wallet.currency === "US Dollar") {
+                wallet.availableBalance += trade.data().total + profit;
+              }
+              return wallet;
+            }),
+          },
+          { merge: true }
+        );
+        return res.status(200).json({ profit });
+      });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -407,4 +492,4 @@ export const getTrades = async (req, res) => {
   } catch (error) {
     res.status(400).json(error);
   }
-}
+};

@@ -107,12 +107,14 @@ const Trade = ({
 
   const [loading, setLoading] = useState(true);
   const [detailsTab, setDetailsTab] = useState("details");
-  const [buyAmount, setBuyAmount] = useState(null);
-  const [buyTotal, setBuyTotal] = useState(null);
-  const [sellAmount, setSellAmount] = useState(null);
-  const [sellTotal, setSellTotal] = useState(null);
-  const [buyLeverage, setBuyLeverage] = useState(null);
-  const [sellLeverage, setSellLeverage] = useState(null);
+  const [buyAmount, setBuyAmount] = useState(undefined);
+  const [buyTotal, setBuyTotal] = useState(undefined);
+  const [sellAmount, setSellAmount] = useState(undefined);
+  const [sellTotal, setSellTotal] = useState(undefined);
+  const [buyLeverage, setBuyLeverage] = useState(undefined);
+  const [sellLeverage, setSellLeverage] = useState(undefined);
+  const [buyLoading, setBuyLoading] = useState(false);
+  const [sellLoading, setSellLoading] = useState(false);
   const tabs = document.querySelectorAll(".tab");
 
   const setAsActive = (e) => {
@@ -120,16 +122,87 @@ const Trade = ({
     e.target.classList.add("active-tab");
   };
 
-  const buy =()=>{
-    if (!(!buyAmount && !buyLeverage)){
-      return toast.error('All parameters are required to buy')
+  const buy = () => {
+    setBuyLoading(true);
+    if (buyAmount == null || buyLeverage == null) {
+      setBuyLoading(false);
+      return toast.error("All parameters are required to buy");
     }
-  }
-  const sell = ()=>{
-    if (!(!sellAmount && !sellLeverage)){
-      return toast.error('All parameters are required to sll')
+    const buyOptions = {
+      method: "POST",
+      url: "http://localhost:8080/user/openTrade",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${document.cookie.slice(18)}`,
+      },
+      data: {
+        pair: "BTC/USD",
+        type: "BUY",
+        total: buyTotal,
+        leverage: buyLeverage,
+        entryPrice: Number(bitcoinData.price).toFixed(3),
+      },
+    };
+    axios
+      .request(buyOptions)
+      .then((res) => {
+        if (res.status === 201) {
+          toast.success("Buy was successful");
+        }
+      })
+      .catch((e) => {
+        if (e.response.status === 400) {
+          console.log(e.response.data.message);
+          return toast.error(e.response.data.message);
+        }
+        console.error(e);
+        toast.error(
+          "An error occurred while opening trade. Please try again later"
+        );
+      })
+      .finally(() => setBuyLoading(true));
+  };
+
+  const sell = () => {
+    setSellLoading(true);
+    if (sellAmount === null || sellLeverage === null) {
+      setSellLoading(false);
+      return toast.error("All parameters are required to sell");
     }
-  }
+    const buyOptions = {
+      method: "POST",
+      url: "http://localhost:8080/user/openTrade",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${document.cookie.slice(18)}`,
+      },
+      data: {
+        pair: "BTC/USD",
+        type: "SELL",
+        total: sellTotal,
+        leverage: sellLeverage,
+        entryPrice: Number(bitcoinData.price).toFixed(3),
+      },
+    };
+    axios
+      .request(buyOptions)
+      .then((res) => {
+        if (res.status === 201) {
+          toast.success("Sell was successful");
+        }
+      })
+      .catch((e) => {
+        if (e.response.status === 400) {
+          console.log(e.response.data.message);
+          return toast.error(e.response.data.message);
+        }
+        console.error(e);
+        toast.error(
+          "An error occurred while opening trade. Please try again later"
+        );
+      })
+      .finally(() => setSellLoading(true));
+  };
 
   return (
     <div className="p-2 flex flex-col ">
@@ -154,7 +227,7 @@ const Trade = ({
             <div className="text-center">
               <div className="text-left flex gap-3 mb-3">
                 <p
-                  className="active-tab text-[#a6afce] tab cursor-pointer p-2 rounded-sm"
+                  className="active-tab dark:text-[#a6afce] tab cursor-pointer p-2 rounded-sm"
                   onClick={(e) => {
                     setDetailsTab("details");
                     setAsActive(e);
@@ -163,7 +236,7 @@ const Trade = ({
                   Details
                 </p>
                 <p
-                  className="text-[#a6afce] tab cursor-pointer p-2 rounded-sm"
+                  className="dark:text-[#a6afce] tab cursor-pointer p-2 rounded-sm"
                   onClick={(e) => {
                     setDetailsTab("pairs");
                     setAsActive(e);
@@ -310,121 +383,128 @@ const Trade = ({
               )}
             </div>
           </div>
-          <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] flex flex-col gap-5 md:gap-0 md:flex-row flex-grow border-[#f1f1f1] p-3">
-            <div className="md:w-1/2 md:border-r-[2px] px-2 dark:border-[#3b3b3b] border-[#f1f1f1]">
-              <div className="flex justify-between bg-[#303444] p-2 mb-2 rounded-sm">
-                <p>Available USD: </p>
-                <p>${currentUser.wallets[0].availableBalance}</p>
-              </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <p className="text-sm">Price</p>
-                <input
-                  type="text"
-                  readOnly
-                  value={Number(bitcoinData.price).toFixed(3)}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">USD</p>
-              </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <p className="text-sm">Amount</p>
-                <input
-                  type="number"
-                  placeholder="10-100,000"
-                  value={buyAmount}
-                  onChange={(e) => {
-                    setBuyAmount(e.target.value);
-                    setBuyTotal(
-                      e.target.value * Number(bitcoinData.price).toFixed(3)
-                    );
-                  }}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">BTC</p>
-              </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <p className="text-sm">Leverage</p>
-                <input
-                  type="text"
-                  placeholder="1-100"
-                  value={buyLeverage}
-                  onChange={(e) => setBuyLeverage(e.target.value)}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">%</p>
-              </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <p className="text-sm">Total</p>
-                <input
-                  type="text"
-                  placeholder="0.00"
-                  readOnly
-                  value={buyTotal}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">USD</p>
-              </div>
-              <div className="mt-3">
-                <button className="w-full bg-green-700 hover:bg-green-500 p-2 rounded-md" onClick={()=>buy()}>
-                  <p>Buy</p>
-                </button>
-              </div>
+          <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] flex flex-col gap-5 md:gap-0  flex-grow border-[#f1f1f1] p-3">
+            <div className="flex justify-between bg-[#f1f1f1] dark:bg-[#303444] p-2 mb-2 rounded-sm">
+              <p>Available USD: </p>
+              <p>${currentUser.wallets[0].availableBalance.toFixed(4)}</p>
             </div>
-            <div className="md:w-1/2 px-2">
-              <div className="flex justify-between bg-[#303444] p-2 mb-2 rounded-sm">
-                <p>Available BTC: </p>
-                <p>{currentUser.wallets[1].availableBalance}</p>
+            <div className="flex">
+              <div className="md:w-1/2 md:border-r-[2px] px-2 dark:border-[#3b3b3b] border-[#f1f1f1]">
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Price</p>
+                  <input
+                    type="text"
+                    readOnly
+                    value={Number(bitcoinData.price).toFixed(3)}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">USD</p>
+                </div>
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Amount</p>
+                  <input
+                    type="number"
+                    placeholder="10-100,000"
+                    value={buyAmount}
+                    onChange={(e) => {
+                      setBuyAmount(e.target.value);
+                      setBuyTotal(
+                        e.target.value * Number(bitcoinData.price).toFixed(3)
+                      );
+                    }}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">BTC</p>
+                </div>
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Leverage</p>
+                  <input
+                    type="text"
+                    placeholder="1-100"
+                    value={buyLeverage}
+                    onChange={(e) => setBuyLeverage(e.target.value)}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">%</p>
+                </div>
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Total</p>
+                  <input
+                    type="text"
+                    placeholder="0.00"
+                    readOnly
+                    value={buyTotal}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">USD</p>
+                </div>
+                <div className="mt-3">
+                  <button
+                    className="w-full bg-green-700 hover:bg-green-500 p-2 rounded-md flex justify-center items-center gap-2"
+                    onClick={() => buy()}
+                  >
+                    <p>Buy</p>
+                    {buyLoading ? <div className="loader"></div> : null}
+                  </button>
+                </div>
               </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <p className="text-sm">Price</p>
-                <input
-                  type="text"
-                  readOnly
-                  value={Number(bitcoinData.price).toFixed(3)}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">USD</p>
-              </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <p className="text-sm">Amount</p>
-                <input
-                  type="text"
-                  placeholder="10-100,000"
-                  value={sellAmount}
-                  onChange={(e) => {
-                    setSellAmount(e.target.value);
-                    setSellTotal(
-                      e.target.value * Number(bitcoinData.price).toFixed(3)
-                    );
-                  }}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">BTC</p>
-              </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <p className="text-sm">Leverage</p>
-                <input
-                  type="number"
-                  placeholder="1-100"
-                  value={sellLeverage}
-                  onChange={(e) => setSellLeverage(e.target.value)}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">%</p>
-              </div>
-              <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
-                <input
-                  type="text"
-                  placeholder="0.00"
-                  value={sellTotal}
-                  className="w-full p-2 text-right rounded-md bg-transparent outline-none"
-                />
-                <p className="text-sm">USD</p>
-              </div>
-              <div className="mt-3">
-                <button className="w-full hover:bg-red-500 bg-red-700 p-2 rounded-md" onClick={()=>sell()}>
-                  <p>Sell</p>
-                </button>
+              <div className="md:w-1/2 px-2">
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Price</p>
+                  <input
+                    type="text"
+                    readOnly
+                    value={Number(bitcoinData.price).toFixed(3)}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">USD</p>
+                </div>
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Amount</p>
+                  <input
+                    type="text"
+                    placeholder="10-100,000"
+                    value={sellAmount}
+                    onChange={(e) => {
+                      setSellAmount(e.target.value);
+                      setSellTotal(
+                        e.target.value * Number(bitcoinData.price).toFixed(3)
+                      );
+                    }}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">BTC</p>
+                </div>
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Leverage</p>
+                  <input
+                    type="number"
+                    placeholder="1-100"
+                    value={sellLeverage}
+                    onChange={(e) => setSellLeverage(e.target.value)}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">%</p>
+                </div>
+                <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
+                  <p className="text-sm">Total</p>
+                  <input
+                    type="text"
+                    placeholder="0.00"
+                    value={sellTotal}
+                    className="w-full p-2 text-right rounded-md bg-transparent outline-none"
+                  />
+                  <p className="text-sm">USD</p>
+                </div>
+                <div className="mt-3">
+                  <button
+                    className="w-full hover:bg-red-500 bg-red-700 p-2 rounded-md flex justify-center items-center gap-2"
+                    onClick={() => sell()}
+                  >
+                    <p>Sell</p>
+                    {sellLoading ? <div className="loader"></div> : null}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

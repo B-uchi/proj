@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable";
 import { CiCircleCheck } from "react-icons/ci";
+import { MdAccountBalance } from "react-icons/md";
 import { GrTransaction, GrAtm } from "react-icons/gr";
 import { BiSolidDollarCircle } from "react-icons/bi";
 import { FaBitcoin } from "react-icons/fa";
@@ -38,11 +39,13 @@ const WalletDetails = () => {
         .then((response) => {
           if (response.status === 200) {
             setTransactions(
-              response.data.transactions.map((item) => {
-                  if (item.wallet === data.symbol){
+              response.data.transactions
+                .map((item) => {
+                  if (item.wallet === data.symbol) {
                     return item;
                   }
-              }).filter(Boolean) 
+                })
+                .filter(Boolean)
             );
           }
         })
@@ -83,7 +86,7 @@ const WalletDetails = () => {
         <div className="mt-10">
           <div className="mt-5 flex flex-col md:flex-row gap-5">
             <div className="mt-5 md:w-1/2 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
-              <div className="gap-3 flex flex-col">
+              <div className="gap-3 h-full flex justify-center items-center">
                 <div className="flex flex-col justify-center items-center">
                   {data.symbol === "BTC" ? (
                     <FaBitcoin size={80} color="#f7931a" />
@@ -107,20 +110,18 @@ const WalletDetails = () => {
                   </h1>
                   <p>{data.symbol}</p>
                 </div>
-                <div className="flex gap-3">
-                  <div className="w-full">
-                    <p>Available Balance</p>
-                    <input
-                      type="number"
-                      value={data.availableBalance.toFixed(4)}
-                      readOnly
-                      className="w-full mt-2 p-2 border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
             <div className="md:w-1/2">
+              <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+                <div className="flex items-center gap-2">
+                  <MdAccountBalance />
+                  <small className=" font-bold self-center dark:text-[#cccccc]">
+                    Available Balance
+                  </small>
+                </div>
+                <p className="text-2xl">{data.availableBalance.toFixed(4)}</p>
+              </div>
               <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
                 <div className="flex items-center gap-2">
                   <GrTransaction />
@@ -138,15 +139,6 @@ const WalletDetails = () => {
                   </small>
                 </div>
                 <p className="text-2xl">{data.totalWithdrawal.toFixed(4)}</p>
-              </div>
-              <div className="mt-5 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
-                <div className="flex items-center gap-2">
-                  <CiCircleCheck />
-                  <small className=" font-bold self-center dark:text-[#cccccc]">
-                    Total Orders
-                  </small>
-                </div>
-                <p className="text-2xl">{data.totalOrder.toFixed(4)}</p>
               </div>
             </div>
           </div>

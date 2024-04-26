@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import axios from "axios";
 
-const TransactionsTable = ({ data }) => {
+const TransactionsTable = () => {
+  const [data, setData] = useState([]);
+  console.log(data);
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      const requestOptions = {
+        url: "http://localhost:8080/user/getTransactions",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${document.cookie.slice(18)}`,
+        },
+      };
+
+      await axios
+        .request(requestOptions)
+        .then((response) => {
+          if (response.status === 200) {
+            setData(response.data.transactions);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("An error occurred. Please try again later.");
+        });
+    };
+    fetchTransactions();
+  }, []);
   return (
     <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] h-[50vh] overflow-y-auto">
       <div className="p-2 h-full w-[600px] md:w-full overflow-x-scroll">
@@ -24,18 +52,25 @@ const TransactionsTable = ({ data }) => {
                   className="flex justify-between items-center p-2 border-b-[1px] dark:border-[#1f1f1f] border-[#f1f1f1]"
                 >
                   <td className="w-1/6">
-                    {item && new Date(
-                      item.createdAt._seconds * 1000 +
-                        Math.round(item.createdAt._nanoseconds / 1000000)
-                    )
-                      .toDateString()
-                      .slice(4, 15)}
+                    {item &&
+                      new Date(
+                        item.createdAt._seconds * 1000 +
+                          Math.round(item.createdAt._nanoseconds / 1000000)
+                      )
+                        .toDateString()
+                        .slice(4, 15)}
                   </td>
-                  <td className="w-1/6 overflow-x-hidden">{item && item.transactionId}</td>
-                  <td className="w-1/6 text-center">{item && item.transactionType}</td>
+                  <td className="w-1/6 overflow-x-hidden">
+                    {item && item.transactionId}
+                  </td>
                   <td className="w-1/6 text-center">
-                    {item && item.amount}BTC
+                    {item && item.transactionType}
                   </td>
+                  {item && item.transactionType === "Profit" ? <td className="w-1/6 text-center">
+                    {item && item.amount.toFixed(4)} USD
+                  </td> : <td className="w-1/6 text-center">
+                    {item && item.amount} BTC
+                  </td>}
                   <td className="w-1/7">{item && item.status}</td>
                   <td className="w-1/7">
                     <button

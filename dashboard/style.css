@@ -213,9 +213,12 @@ scrollbar-thumb {
   margin-top: 10px;
 }
 .active-tab {
-  color: white;
+  color: #273591;
   text-decoration: underline;
   text-underline-offset: 12px;
+}
+.dark .active-tab {
+  color: white;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
