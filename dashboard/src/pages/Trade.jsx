@@ -388,7 +388,7 @@ const Trade = ({
               <p>Available USD: </p>
               <p>${currentUser.wallets[0].availableBalance.toFixed(4)}</p>
             </div>
-            <div className="flex">
+            <div className="flex md:flex-row flex-col gap-10">
               <div className="md:w-1/2 md:border-r-[2px] px-2 dark:border-[#3b3b3b] border-[#f1f1f1]">
                 <div className="w-full border-[1px] bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] flex items-center p-1 rounded-md justify-between">
                   <p className="text-sm">Price</p>
