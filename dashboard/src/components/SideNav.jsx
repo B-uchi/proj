@@ -32,7 +32,7 @@ const SideNav = ({ setShowSideNav, setCurrentUser }) => {
       .then(() => {
         document.cookie = "";
         setCurrentUser('');
-        window.location.href = "http://localhost:5173/sign_in";
+        window.location.href = "https://proj-dash.vercel.app/sign_in";
       })
       .catch((error) => {
         toast.error("Error signing out");

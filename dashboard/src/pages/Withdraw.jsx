@@ -12,7 +12,7 @@ const Withdraw = () => {
   const withdraw = async () => {
     setLoading(true);
     const requestOptions = {
-      url: "http://localhost:8080/user/withdraw",
+      url: "https://proj-server-3j4y.onrender.com/user/withdraw",
       method: "POST",
       headers: {
         "Content-Type": "application/json",

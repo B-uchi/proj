@@ -130,7 +130,7 @@ const Trade = ({
     }
     const buyOptions = {
       method: "POST",
-      url: "http://localhost:8080/user/openTrade",
+      url: "https://proj-server-3j4y.onrender.com/user/openTrade",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${document.cookie.slice(18)}`,
@@ -171,7 +171,7 @@ const Trade = ({
     }
     const buyOptions = {
       method: "POST",
-      url: "http://localhost:8080/user/openTrade",
+      url: "https://proj-server-3j4y.onrender.com/user/openTrade",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${document.cookie.slice(18)}`,

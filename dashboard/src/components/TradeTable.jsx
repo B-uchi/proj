@@ -16,7 +16,7 @@ const TradeTable = ({ bitcoinData }) => {
     const fetchTrades = async () => {
       const options = {
         method: "GET",
-        url: "http://localhost:8080/user/getTrades",
+        url: "https://proj-server-3j4y.onrender.com/user/getTrades",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${document.cookie.slice(18)}`,
@@ -41,7 +41,7 @@ const TradeTable = ({ bitcoinData }) => {
     setLoading(true);
     const options = {
       method: "POST",
-      url: "http://localhost:8080/user/closeTrade",
+      url: "https://proj-server-3j4y.onrender.com/user/closeTrade",
       data: { tradeId, exitPrice: Number(bitcoinData.price) },
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const TradeTable = ({ bitcoinData }) => {
     setCLoading(true);
     const options = {
       method: "POST",
-      url: "http://localhost:8080/user/cancelTrade",
+      url: "https://proj-server-3j4y.onrender.com/user/cancelTrade",
       data: { tradeId },
       headers: {
         "Content-Type": "application/json",

@@ -45,7 +45,7 @@ function App({ currentUser, setCurrentUser, setShowSideNav, showSideNav }) {
       try {
         const requestOptions = {
           method: "POST",
-          url: "http://localhost:8080/auth/verifyUser",
+          url: "https://proj-server-3j4y.onrender.com/auth/verifyUser",
           data: { idToken },
           headers: {
             "Content-Type": "application/json",

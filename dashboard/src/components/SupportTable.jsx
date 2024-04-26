@@ -9,7 +9,7 @@ const SupportTable = () => {
     const fetchTickets = async () => {
       const requestOptions = {
         method: "GET",
-        url: "http://localhost:8080/user/getTickets",
+        url: "https://proj-server-3j4y.onrender.com/user/getTickets",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${document.cookie.slice(18)}`,
