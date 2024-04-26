@@ -60,7 +60,7 @@ const WithdrawalTable = () => {
                       .toDateString()
                       .slice(4, 15)}
                   </td>
-                  <td className="w-1/5 text-center">{item.depositMethod}</td>
+                  <td className="w-1/5 text-center">{item.withdrawalMethod}</td>
                   <td className="w-1/5 text-center">
                     {item.amount}BTC = ${item.amountInUSD}
                   </td>

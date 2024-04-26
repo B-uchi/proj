@@ -323,9 +323,9 @@ export const createWithdrawalTransaction = async (req, res) => {
           userId: req.uid,
           transactionId: transactionRef.id,
           amountInUSD: withdrawalAmt,
-          depositMethod,
           wallet: "USD",
           amount: Number(withdrawalAmtInBtc),
+          withdrawalMethod: "Crypto Transfer",
           transactionType: "Withdrawal",
           userWallet,
           status: "Pending",
@@ -334,18 +334,6 @@ export const createWithdrawalTransaction = async (req, res) => {
         { merge: true }
       )
       .then(async () => {
-        userRef.set(
-          {
-            wallets: user.data().wallets.map((wallet) => {
-              if (wallet.currency === "US Dollar") {
-                wallet.availableBalance -= withdrawalAmt;
-                wallet.totalWithdrawal += withdrawalAmt;
-              }
-              return wallet;
-            }),
-          },
-          { merge: true }
-        );
         return res
           .status(201)
           .json({ message: "Transaction created successfully" });
@@ -358,22 +346,19 @@ export const createWithdrawalTransaction = async (req, res) => {
 
 export const openTrade = async (req, res) => {
   console.log("req received to openTrade");
-  const { pair, leverage, entryPrice, type, total, status } = req.body;
+  const { pair, leverage, entryPrice, type, total } = req.body;
   try {
     const userRef = db.collection("users").doc(req.uid);
     const user = await userRef.get();
+
     if (user.data().kycComplete === false) {
       return res.status(400).json({ message: "Complete KYC first" });
     }
-    if (type === "BUY") {
-      if (user.data().wallets[0].availableBalance < total) {
-        return res.status(400).json({ message: "Insufficient balance" });
-      }
-    } else {
-      if (user.data().wallets[1].availableBalance < total) {
-        return res.status(400).json({ message: "Insufficient balance" });
-      }
+
+    if (user.data().wallets[0].availableBalance < total) {
+      return res.status(400).json({ message: "Insufficient balance" });
     }
+
     const tradeRef = db.collection("trades").doc();
     await tradeRef
       .set(
@@ -422,6 +407,11 @@ export const closeTrade = async (req, res) => {
     const trade = await tradeRef.get();
     if (trade.data().status === "Closed") {
       return res.status(400).json({ message: "Trade position already closed" });
+    }
+    if (trade.data().status === "Cancelled") {
+      return res
+        .status(400)
+        .json({ message: "Trade position already cancelled" });
     }
     const userRef = db.collection("users").doc(trade.data().userId);
     const user = await userRef.get();
@@ -472,6 +462,50 @@ export const closeTrade = async (req, res) => {
           { merge: true }
         );
         return res.status(200).json({ profit });
+      });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
+
+export const cancelTrade = async (req, res) => {
+  console.log("req recieved to cancelTrade");
+  const { tradeId } = req.body;
+  try {
+    const tradeRef = db.collection("trades").doc(tradeId);
+    const trade = await tradeRef.get();
+    if (trade.data().status === "Closed") {
+      return res.status(400).json({ message: "Trade position already closed" });
+    }
+    if (trade.data().status === "Cancelled") {
+      return res
+        .status(400)
+        .json({ message: "Trade position already cancelled" });
+    }
+    const userRef = db.collection("users").doc(trade.data().userId);
+    const user = await userRef.get();
+    await tradeRef
+      .set(
+        {
+          status: "Cancelled",
+          updatedAt: FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      )
+      .then(async () => {
+        await userRef.set(
+          {
+            orderDetails: {
+              cancelledOrders: user.data().orderDetails.cancelledOrders + 1,
+              openOrders: user.data().orderDetails.openOrders - 1,
+            },
+          },
+          { merge: true }
+        );
+        return res
+          .status(200)
+          .json({ message: "Trade cancelled successfully" });
       });
   } catch (error) {
     console.log(error);

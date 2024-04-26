@@ -4,7 +4,17 @@ import axios from "axios";
 
 const TransactionsTable = () => {
   const [data, setData] = useState([]);
-  console.log(data);
+
+  const compareCreatedAt = (a, b) => {
+    const dateA = new Date(
+      a.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1000000
+    );
+    const dateB = new Date(
+      b.createdAt._seconds * 1000 + b.createdAt._nanoseconds / 1000000
+    );
+    return dateA - dateB;
+  };
+
   useEffect(() => {
     const fetchTransactions = async () => {
       const requestOptions = {
@@ -20,7 +30,7 @@ const TransactionsTable = () => {
         .request(requestOptions)
         .then((response) => {
           if (response.status === 200) {
-            setData(response.data.transactions);
+            setData(response.data.transactions.sort(compareCreatedAt).reverse());
           }
         })
         .catch((err) => {
@@ -66,11 +76,15 @@ const TransactionsTable = () => {
                   <td className="w-1/6 text-center">
                     {item && item.transactionType}
                   </td>
-                  {item && item.transactionType === "Profit" ? <td className="w-1/6 text-center">
-                    {item && item.amount.toFixed(4)} USD
-                  </td> : <td className="w-1/6 text-center">
-                    {item && item.amount} BTC
-                  </td>}
+                  {item && item.transactionType === "Profit" ? (
+                    <td className="w-1/6 text-center">
+                      {item && item.amount.toFixed(4)} USD
+                    </td>
+                  ) : (
+                    <td className="w-1/6 text-center">
+                      {item && item.amount} BTC
+                    </td>
+                  )}
                   <td className="w-1/7">{item && item.status}</td>
                   <td className="w-1/7">
                     <button

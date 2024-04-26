@@ -160,7 +160,7 @@ const Trade = ({
           "An error occurred while opening trade. Please try again later"
         );
       })
-      .finally(() => setBuyLoading(true));
+      .finally(() => setBuyLoading(false));
   };
 
   const sell = () => {
@@ -201,7 +201,7 @@ const Trade = ({
           "An error occurred while opening trade. Please try again later"
         );
       })
-      .finally(() => setSellLoading(true));
+      .finally(() => setSellLoading(false));
   };
 
   return (
@@ -440,7 +440,7 @@ const Trade = ({
                 </div>
                 <div className="mt-3">
                   <button
-                    className="w-full bg-green-700 hover:bg-green-500 p-2 rounded-md flex justify-center items-center gap-2"
+                    className="w-full bg-green-700 text-white hover:bg-green-500 p-2 rounded-md flex justify-center items-center gap-2"
                     onClick={() => buy()}
                   >
                     <p>Buy</p>
@@ -498,7 +498,7 @@ const Trade = ({
                 </div>
                 <div className="mt-3">
                   <button
-                    className="w-full hover:bg-red-500 bg-red-700 p-2 rounded-md flex justify-center items-center gap-2"
+                    className="w-full hover:bg-red-500 text-white bg-red-700 p-2 rounded-md flex justify-center items-center gap-2"
                     onClick={() => sell()}
                   >
                     <p>Sell</p>

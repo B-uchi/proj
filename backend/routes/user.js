@@ -15,6 +15,7 @@ import {
   getTrades,
   openTrade,
   closeTrade,
+  cancelTrade,
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -33,5 +34,6 @@ router.get("/getWithdrawals", verifyToken, getWithdrawals);
 router.get("/getTrades", verifyToken, getTrades);
 router.post("/openTrade", verifyToken, openTrade);
 router.post("/closeTrade", verifyToken, closeTrade);
+router.post('/cancelTrade', verifyToken, cancelTrade)
 
 export default router;

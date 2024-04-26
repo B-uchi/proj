@@ -9,6 +9,7 @@ const TradeTable = ({ bitcoinData }) => {
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [cLoading, setCLoading] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
@@ -59,13 +60,45 @@ const TradeTable = ({ bitcoinData }) => {
       .catch((err) => {
         if (err.response.status === 400) {
           toast.error(err.response.data.message);
-          return console.log(err.response.data.message)
+          return console.log(err.response.data.message);
         }
         console.error(err);
         toast.error("An error occurred. Please try again later.");
       })
       .finally(() => {
         setLoading(false);
+        setShowModal(false);
+      });
+  };
+
+  const cancelTrade = async (tradeId) => {
+    setCLoading(true);
+    const options = {
+      method: "POST",
+      url: "http://localhost:8080/user/cancelTrade",
+      data: { tradeId },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${document.cookie.slice(18)}`,
+      },
+    };
+    await axios
+      .request(options)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success(`Trade cancelled successfully!`);
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          toast.error(err.response.data.message);
+          return console.log(err.response.data.message);
+        }
+        console.error(err);
+        toast.error("An error occurred. Please try again later.");
+      })
+      .finally(() => {
+        setCLoading(false);
         setShowModal(false);
       });
   };
@@ -81,6 +114,7 @@ const TradeTable = ({ bitcoinData }) => {
               <th className="p-2">Entry</th>
               <th className="p-2">Leverage</th>
               <th className="p-2">Total</th>
+              <th className="p-2">Profit</th>
               <th className="p-2">Status</th>
               <th className="p-2 text-right">Action</th>
             </tr>
@@ -101,6 +135,11 @@ const TradeTable = ({ bitcoinData }) => {
                   <td className="p-2 text-center">${item.entryPrice}</td>
                   <td className="p-2 text-center">{item.leverage}%</td>
                   <td className="p-2 text-center">${item.total.toFixed(3)}</td>
+                  {!item.profit ? (
+                    <td className="p-2 text-center">N/A</td>
+                  ) : (
+                    <td className="p-2 text-center">${item.profit.toFixed(4)}</td>
+                  )}
                   <td className="p-2 text-center">{item.status}</td>
                   <td className="p-2 text-right">
                     <button
@@ -143,8 +182,11 @@ const TradeTable = ({ bitcoinData }) => {
               >
                 Close Trade {loading ? <div className="loader"></div> : null}
               </button>
-              <button className="p-2 bg-red-600 rounded-lg text-[#ffffff] hover:bg-red-500 transition duration-300 ease-in-out focus:outline-none">
-                Cancel Trade
+              <button
+                onClick={() => cancelTrade(selectedId)}
+                className="p-2 bg-red-600 rounded-lg text-[#ffffff] flex gap-2 items-center hover:bg-red-500 transition duration-300 ease-in-out focus:outline-none"
+              >
+                Cancel Trade {cLoading ? <div className="loader"></div> : null}
               </button>
             </div>
             <button

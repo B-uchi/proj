@@ -10,7 +10,6 @@ const Withdraw = () => {
   const data = location.state;
 
   const withdraw = async () => {
-    console.log(data);
     setLoading(true);
     const requestOptions = {
       url: "http://localhost:8080/user/withdraw",
@@ -22,7 +21,6 @@ const Withdraw = () => {
       data: {
         withdrawalAmt: Number(data.withdrawalAmt),
         withdrawalAmtInBtc: data.withdrawalAmtInBtc,
-        depositMethod: data.depositMethod,
         userWallet: userWallet,
       },
     };

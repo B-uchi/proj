@@ -44,23 +44,88 @@ export const verifyDeposit = async (req, res) => {
     const { transactionId } = req.body;
     const transactionRef = db.collection("transactions").doc(transactionId);
     const transaction = await transactionRef.get();
+    const userRef = db.collection("users").doc(transaction.data().userId);
     if (!transaction.exists) {
       res.status(400).json({ message: "Transaction does not exist" });
     } else {
       const data = transaction.data();
       if (data.status === "Pending") {
-        await transactionRef.update({
-          status: "Completed",
-          verifiedBy: req.uid,
-          verifiedAt: FieldValue.serverTimestamp(),
-        });
+        await transactionRef
+          .update({
+            status: "Completed",
+            verifiedBy: req.uid,
+            verifiedAt: FieldValue.serverTimestamp(),
+          })
+          .then(() => {
+            userRef.set(
+              {
+                wallets: user.data().wallets.map((wallet) => {
+                  if (wallet.currency === "US Dollar") {
+                    wallet.availableBalance += transaction.data().amountInUSD;
+                  }
+                  return wallet;
+                }),
+              },
+              { merge: true }
+            );
+          });
         res.status(200).json({ message: "Transaction verified" });
       } else {
-        res.status(400).json({ message: "Transaction has already been verified" });
+        res
+          .status(400)
+          .json({ message: "Transaction has already been verified" });
       }
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(400).json(error);
   }
-}
+};
+export const verifyWithdrawal = async (req, res) => {
+  try {
+    const { transactionId } = req.body;
+    const transactionRef = db.collection("transactions").doc(transactionId);
+    const transaction = await transactionRef.get();
+    const userRef = db.collection("users").doc(transaction.data().userId);
+    if (!transaction.exists) {
+      res.status(400).json({ message: "Transaction does not exist" });
+    } else {
+      if (transaction.data().status === "Completed") {
+        return res.status(400).json({
+          message: "Transaction has already been verified",
+        });
+      }
+      const data = transaction.data();
+      if (data.status === "Pending") {
+        await transactionRef
+          .update({
+            status: "Completed",
+            verifiedBy: req.uid,
+            verifiedAt: FieldValue.serverTimestamp(),
+          })
+          .then(() => {
+            userRef.set(
+              {
+                wallets: user.data().wallets.map((wallet) => {
+                  if (wallet.currency === "US Dollar") {
+                    wallet.availableBalance -= transaction.data().amountInUSD;
+                    wallet.totalWithdrawal += transaction.data().amountInUSD;
+                  }
+                  return wallet;
+                }),
+              },
+              { merge: true }
+            );
+          });
+        res.status(200).json({ message: "Transaction verified" });
+      } else {
+        res
+          .status(400)
+          .json({ message: "Transaction has already been verified" });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+};
