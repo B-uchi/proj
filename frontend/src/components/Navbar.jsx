@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
-import { IoChevronDownOutline } from "react-icons/io5";
+import { IoChevronDownOutline, IoChevronForwardOutline } from "react-icons/io5";
 import { useState } from "react";
 import logo from "../assets/logo.png";
+import { AnimatePresence, motion } from "framer-motion";
 
 const MenuItemm = ({ children, onClick }) => (
   <li onClick={onClick}>{children}</li>
@@ -44,6 +45,9 @@ const HoverMenu = ({ items, label }) => {
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [subMenu, setSubMenu] = useState("home");
+
+  console.log(subMenu);
 
   return (
     <nav className="w-full z-50 sticky top-0 bg-white border-[1px]">
@@ -124,42 +128,243 @@ const Navbar = () => {
         </div>
       </div>
       {showMenu ? (
-        <div className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7">
-          <div className="container">
-            <ul className="flex flex-col gap-5 items-center">
-              <li onClick={() => setShowMenu(false)}>
-                <Link to={"/"}>
-                  <MenuItem text="Home" />
-                </Link>
-              </li>
-              <li onClick={() => setShowMenu(false)}>
-                <Link>
-                  <MenuItem text="Markets" />
-                </Link>
-              </li>
-              <li onClick={() => setShowMenu(false)}>
-                <Link>
-                  <MenuItem text="Company" />
-                </Link>
-              </li>
-              <li onClick={() => setShowMenu(false)}>
-                <Link>
-                  <MenuItem text="Resources" />
-                </Link>
-              </li>
-              <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
-                <div>
-                  <a
-                    className="bg-[#33337c] text-center text-white p-2 px-3 rounded-lg flex justify-center"
-                    href="https://proj-dash.vercel.app/sign_in"
+        <AnimatePresence>
+          {subMenu == "home" ? (
+            <motion.div
+              initial={{ translateX: -200, opacity: 0 }}
+              animate={{ translateX: 0, opacity: 1 }}
+              exit={{ display: "none", opacity: 0 }}
+              key={"home"}
+              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+            >
+              <div className="container">
+                <ul className="flex flex-col gap-5 items-center">
+                  <li onClick={() => setShowMenu(false)}>
+                    <Link to={"/"}>
+                      <MenuItem text="Home" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSubMenu("markets");
+                    }}
                   >
-                    <MenuItem text="Log In" />
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+                    <Link className="flex items-center gap-1">
+                      <p>Markets</p>
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSubMenu("company");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <MenuItem text="Company" />
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setSubMenu("resources");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <MenuItem text="Resources" />
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
+                    <div>
+                      <a
+                        className="bg-[#33337c] text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                        href="https://proj-dash.vercel.app/sign_in"
+                      >
+                        <MenuItem text="Log In" />
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          ) : subMenu == "markets" ? (
+            <motion.div
+              initial={{ translateX: 200, opacity: 0 }}
+              animate={{ translateX: 0, opacity: 1 }}
+              exit={{ display: "none", opacity: 0 }}
+              key={"markets"}
+              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+            >
+              <div className="container">
+                <ul className="flex flex-col gap-5 items-center">
+                  <li>
+                    <a href="#">
+                      <MenuItem text="Stocks" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="Bonds" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="MF's" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="ETF's" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="Futures" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="Commodities" />
+                    </a>
+                  </li>
+                  <li className=" w-[60%]" onClick={() => setSubMenu("home")}>
+                    <div>
+                      <button
+                        onClick={() => setSubMenu("home")}
+                        className="bg-[#33337c] mx-auto text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                        href="https://proj-dash.vercel.app/sign_in"
+                      >
+                        <p>Back</p>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          ) : subMenu == "company" ? (
+            <motion.div
+              initial={{ translateX: 200, opacity: 0 }}
+              animate={{ translateX: 0, opacity: 1 }}
+              exit={{ display: "none", opacity: 0 }}
+              key={"company"}
+              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+            >
+              <div className="container">
+                <ul className="flex flex-col gap-5 items-center">
+                  <li onClick={() => setShowMenu(false)}>
+                    <Link to={"/"}>
+                      <MenuItem text="Home" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setShowMenu(false);
+                      setSubMenu("markets");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <p>Markets</p>
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setShowMenu(false);
+                      setSubMenu("company");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <MenuItem text="Company" />
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setShowMenu(false);
+                      setSubMenu("resources");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <MenuItem text="Resources" />
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
+                    <div>
+                      <a
+                        className="bg-[#33337c] text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                        href="https://proj-dash.vercel.app/sign_in"
+                      >
+                        <MenuItem text="Log In" />
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ translateX: 200, opacity: 0 }}
+              animate={{ translateX: 0, opacity: 1 }}
+              exit={{ display: "none", opacity: 0 }}
+              key={"resources"}
+              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+            >
+              <div className="container">
+                <ul className="flex flex-col gap-5 items-center">
+                  <li onClick={() => setShowMenu(false)}>
+                    <Link to={"/"}>
+                      <MenuItem text="Home" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setShowMenu(false);
+                      setSubMenu("markets");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <p>Markets</p>
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setShowMenu(false);
+                      setSubMenu("company");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <MenuItem text="Company" />
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={() => {
+                      setShowMenu(false);
+                      setSubMenu("resources");
+                    }}
+                  >
+                    <Link className="flex items-center gap-1">
+                      <MenuItem text="Resources" />
+                      <IoChevronForwardOutline className="-translate-y-[5%]" />
+                    </Link>
+                  </li>
+                  <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
+                    <div>
+                      <a
+                        className="bg-[#33337c] text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                        href="https://proj-dash.vercel.app/sign_in"
+                      >
+                        <MenuItem text="Log In" />
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       ) : null}
     </nav>
   );
