@@ -251,52 +251,30 @@ const Navbar = () => {
             >
               <div className="container">
                 <ul className="flex flex-col gap-5 items-center">
-                  <li onClick={() => setShowMenu(false)}>
-                    <Link to={"/"}>
-                      <MenuItem text="Home" />
-                    </Link>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="How it works" />
+                    </a>
                   </li>
-                  <li
-                    onClick={() => {
-                      setShowMenu(false);
-                      setSubMenu("markets");
-                    }}
-                  >
-                    <Link className="flex items-center gap-1">
-                      <p>Markets</p>
-                      <IoChevronForwardOutline className="-translate-y-[5%]" />
-                    </Link>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="Careers" />
+                    </a>
                   </li>
-                  <li
-                    onClick={() => {
-                      setShowMenu(false);
-                      setSubMenu("company");
-                    }}
-                  >
-                    <Link className="flex items-center gap-1">
-                      <MenuItem text="Company" />
-                      <IoChevronForwardOutline className="-translate-y-[5%]" />
-                    </Link>
+                  <li>
+                    <a href="#">
+                      <MenuItem text="About us" />
+                    </a>
                   </li>
-                  <li
-                    onClick={() => {
-                      setShowMenu(false);
-                      setSubMenu("resources");
-                    }}
-                  >
-                    <Link className="flex items-center gap-1">
-                      <MenuItem text="Resources" />
-                      <IoChevronForwardOutline className="-translate-y-[5%]" />
-                    </Link>
-                  </li>
-                  <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
+                  <li className=" w-[60%]" onClick={() => setSubMenu("home")}>
                     <div>
-                      <a
-                        className="bg-[#33337c] text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                      <button
+                        onClick={() => setSubMenu("home")}
+                        className="bg-[#33337c] mx-auto text-center text-white p-2 px-3 rounded-lg flex justify-center"
                         href="https://proj-dash.vercel.app/sign_in"
                       >
-                        <MenuItem text="Log In" />
-                      </a>
+                        <p>Back</p>
+                      </button>
                     </div>
                   </li>
                 </ul>
