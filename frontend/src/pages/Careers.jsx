@@ -2,19 +2,21 @@ import officeBuilding from "../assets/officeBuilding.jpg";
 
 const Careers = () => {
   return (
-    <div className="p-5 md:w-[85%] mx-auto ">
-      <div
-        style={{ backgroundImage: `url(${officeBuilding})` }}
-        className="h-[50vh] rounded-lg bg-cover bg-center relative"
-      >
-        <div className="bg-black bg-opacity-50 rounded-lg h-full w-full flex items-center justify-center">
-          <h1 className="text-white text-4xl font-bold text-center">Careers</h1>
+    <div className="mx-auto ">
+      <div className="bg-white w-full p-3 mb-5 ">
+        <div className="">
+          <p className="text-[#4d4d4d] mx-auto w-[75%] font-siliguri">
+            Home &gt; Careers
+          </p>
         </div>
-      </div>
-      <div className="mt-10 mb-10 bg-white p-5">
-        <h1 className="font-montserrat text-xl">
-          No jop openings available right now. Check again soon...
-        </h1>
+        <div>
+          <h1 className="font-montserrat text-4xl font-bold text-center">
+            Careers / Job Listings
+          </h1>
+          <div className="py-10 lg:h-[50vh] w-[75%] mx-auto">
+            No job listings available at the moment. Check again later
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ const Markets = () => {
   ];
   return (
     <div className="md:w-[80%] mx-auto mt-3">
-      <TickerTape symbols={symbols} displayMode="regular" locale="en" />
+      <TickerTape symbols={symbols} displayMode="regular" locale="en"  />
     </div>
   );
 };
