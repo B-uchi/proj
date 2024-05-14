@@ -6,32 +6,32 @@ const About = () => {
     <div className="mx-auto ">
       <div className="bg-white w-full p-3 mb-5 ">
         <div className="">
-          <p className="text-[#4d4d4d] mb-8 mx-auto w-[75%] font-siliguri">
+          <p className="text-[#4d4d4d] mb-8 mx-auto lg:w-[75%] font-siliguri">
             Home &gt; About Us
           </p>
         </div>
         <div>
-          <h1 className="font-montserrat text-4xl font-bold text-center">
+          <h1 className="font-montserrat text-2xl lg:text-4xl font-bold text-center">
             About TradeStackNetwork.com
           </h1>
-          <div className="flex items-center w-[75%] mb-3 justify-between mt-5 mx-auto">
-            <div className="flex flex-col items-center border-[1px] rounded-lg p-3 border-[#f1f1f1] cursor-pointer">
+          <div className="flex lg:flex-row flex-col gap-2 lg:gap-0 items-center lg:w-[75%] mb-3 justify-between mt-5 mx-auto">
+            <div className="flex flex-col items-center border-[1px] rounded-lg p-3 border-[#f1f1f1] cursor-pointer lg:w-fit w-full">
               <GiDiamondTrophy className="text-[#f1c40f] text-3xl" />
               <small>World Trade Summit</small>
               <small>Dubai, 2012</small>
             </div>
-            <div className="flex flex-col items-center border-[1px] rounded-lg p-3 border-[#f1f1f1] cursor-pointer">
+            <div className="flex flex-col items-center border-[1px] rounded-lg p-3 border-[#f1f1f1] cursor-pointer lg:w-fit w-full">
               <GiDiamondTrophy className="text-[#f1c40f] text-3xl" />
               <small>Inv. Platform of the year</small>
               <small>2016-2018</small>
             </div>
-            <div className="flex flex-col items-center border-[1px] rounded-lg p-3 border-[#f1f1f1] cursor-pointer">
+            <div className="flex flex-col items-center border-[1px] rounded-lg p-3 border-[#f1f1f1] cursor-pointer lg:w-fit w-full">
               <GiDiamondTrophy className="text-[#f1c40f] text-3xl" />
               <small>Annual Forex Summit</small>
               <small>CA, 2021</small>
             </div>
           </div>
-          <div className="w-[75%] mx-auto">
+          <div className="lg:w-[75%] mx-auto">
             <div class="mx-auto mt-6">
               <p class="text-lg text-gray-700 leading-relaxed mb-6">
                 Trade Stack Network is a leading investment platform that caters

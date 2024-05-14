@@ -12,12 +12,12 @@ const Help = () => {
     <div className="mx-auto ">
       <div className="bg-white w-full p-3 mb-5 ">
         <div className="">
-          <p className="text-[#4d4d4d] mx-auto w-[75%] font-siliguri">
+          <p className="text-[#4d4d4d] mx-auto lg:w-[75%] font-siliguri">
             Home &gt; Resources
           </p>
         </div>
         <div>
-          <h1 className="font-montserrat text-4xl font-bold text-center">
+          <h1 className="font-montserrat text-2xl mt-2 lg:text-4xl font-bold text-center">
             {page === "default"
               ? "Trade Stack Network Resources Page"
               : page === "help"
@@ -37,12 +37,12 @@ const Help = () => {
                   exit={{ display: "none", opacity: 0 }}
                   onClick={() => setPage("help")}
                 >
-                  <div className=" p-1 w-[300px] flex flex-col items-start ">
+                  <div className=" p-1 lg:w-[300px] flex flex-col items-start ">
                     <div className="bg-[#33337c] flex p-2 rounded-lg">
                       <IoMdHelpCircleOutline size={40} color="#ffffff" />
                     </div>
                     <h1 className="text-2xl mt-1 mb-1">Help & Support</h1>
-                    <p className="w-full ">
+                    <p className="w-full">
                       Contact our customer service representatives who are ever
                       ready to help out with any issues encountered
                     </p>
@@ -57,13 +57,13 @@ const Help = () => {
                   exit={{ display: "none", opacity: 0 }}
                   onClick={() => setPage("how")}
                 >
-                  <div className=" p-1 w-[300px] flex flex-col items-start ">
+                  <div className=" p-1 lg:w-[300px] flex flex-col items-start ">
                     <div className="bg-[#33337c] flex p-2 rounded-lg">
                       <FaPersonChalkboard size={40} color="#ffffff" />
                     </div>
                     <h1 className="text-2xl mt-1 mb-1">How It Works</h1>
                     <p className="w-full">
-                      Find out how Tradestacknetwork makes profit foor its clients.
+                      Find out how Tradestacknetwork makes profit for its clients.
                     </p>
                     <a href="#" className="mt-2 underline text-[#33337c]">Read more</a>
                   </div>

@@ -9,7 +9,7 @@ const Footer = () => {
     <div>
       <footer className=" text-black p-5">
         <div className="mx-auto">
-          <div className="flex flex-col-reverse lg:flex-row justify-between lg:items-center lg:w-[75%] mx-auto">
+          <div className="flex flex-col lg:flex-row justify-between lg:items-center lg:w-[75%] mx-auto">
             <div className="flex flex-col gap-1 text-center lg:text-left">
               <h1 className="font-montserrat text-[#4d4d4d] font-extrabold text-2xl">
                 Trade Stack Network
