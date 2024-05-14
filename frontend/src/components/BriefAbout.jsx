@@ -27,18 +27,18 @@ const BriefAbout = () => {
             <h1 className="font-montserrat text-center font-bold text-lg">
               Awards & Recognition
             </h1>
-            <div className="flex items-center justify-between mt-3">
-              <div className="flex flex-col items-center border-[1px] rounded-lg p-2 border-[#000000] cursor-pointer text-center">
+            <div className="flex items-center gap-2 justify-between mt-3">
+              <div className="flex flex-col items-center border-[1px] rounded-lg p-1 lg:p-2 border-[#000000] cursor-pointer text-center">
                 <GiDiamondTrophy className="text-[#f1c40f] text-3xl" />
                 <small>World Trade Summit</small>
                 <small>Dubai, 2012</small>
               </div>
-              <div className="flex flex-col items-center border-[1px] rounded-lg p-2 border-[#000000] cursor-pointer text-center">
+              <div className="flex flex-col items-center border-[1px] rounded-lg p-1 lg:p-2 border-[#000000] cursor-pointer text-center">
                 <GiDiamondTrophy className="text-[#f1c40f] text-3xl" />
                 <small>Inv. Platform of the year</small>
                 <small>2016-2018</small>
               </div>
-              <div className="flex flex-col items-center border-[1px] rounded-lg p-2 border-[#000000] cursor-pointer text-center">
+              <div className="flex flex-col items-center border-[1px] rounded-lg p-1 lg:p-2 border-[#000000] cursor-pointer text-center">
                 <GiDiamondTrophy className="text-[#f1c40f] text-3xl" />
                 <small>Annual Forex Summit</small>
                 <small>CA, 2021</small>
