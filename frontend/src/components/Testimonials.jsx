@@ -55,17 +55,17 @@ const Testimonials = () => {
     setIndex((index - 1 + testimonials.length) % testimonials.length);
   };
   return (
-    <div className="md:w-[85%] mt-10 relative flex flex-col justify-center items-center mx-auto p-10">
+    <div className="lg:w-[85%] mt-10 relative flex flex-col justify-center items-center mx-auto p-10">
       <div className="">
         <h1 className="text-3xl font-montserrat text-center font-extrabold">
           Testimonials
         </h1>
-        <h1 className="md:text-xl font-montserrat text-center">
+        <h1 className="lg:text-xl font-montserrat text-center">
           Hear what our <span className="text-[#33337c]">satisfied</span>{" "}
           customers have to say
         </h1>
       </div>
-      <div className="w-[85%] md:w-[80%] mt-5 p-2 flex gap-4">
+      <div className="w-[85%] lg:w-[80%] mt-5 p-2 flex gap-4">
         <div className="p-5 bg-white rounded-lg shadow-md flex flex-col">
           <FaQuoteLeft className="text-[#33337c] text-3xl" />
           <div className="flex items-center justify-center">
@@ -80,7 +80,7 @@ const Testimonials = () => {
             </p>
           </div>
         </div>
-        <div className="p-5 md:flex bg-white rounded-lg shadow-md hidden flex-col">
+        <div className="p-5 lg:flex bg-white rounded-lg shadow-md hidden flex-col">
           <FaQuoteLeft className="text-[#33337c] text-3xl" />
           <div className="flex items-center justify-center">
             <p className="text-md p-2 font-inter text-[#5f5f5f]">
@@ -94,7 +94,7 @@ const Testimonials = () => {
             </p>
           </div>
         </div>
-        <div className="p-5 bg-white rounded-lg shadow-md hidden md:flex flex-col">
+        <div className="p-5 bg-white rounded-lg shadow-md hidden lg:flex flex-col">
           <FaQuoteLeft className="text-[#33337c] text-3xl" />
           <div className="flex items-center justify-center">
             <p className="text-md p-2 font-inter text-[#5f5f5f]">
@@ -108,12 +108,12 @@ const Testimonials = () => {
             </p>
           </div>
         </div>
-        <div className="absolute left-2 md:left-[5%] top-[50%] text-black dark:text-white dark:bg-[#12131f] bg-slate-300 flex p-1 rounded-full">
+        <div className="absolute left-2 lg:left-[5%] top-[50%] text-black dark:text-white dark:bg-[#12131f] bg-slate-300 flex p-1 rounded-full">
           <button type="button" title="next_article" onClick={() => prevItem()}>
             <IoChevronBack size={25} />
           </button>
         </div>
-        <div className="absolute right-2 md:right-[5%] top-[50%] text-black dark:text-white bg-slate-300 dark:bg-[#12131f] flex p-1 rounded-full">
+        <div className="absolute right-2 lg:right-[5%] top-[50%] text-black dark:text-white bg-slate-300 dark:bg-[#12131f] flex p-1 rounded-full">
           <button type="button" title="next_article" onClick={() => nextItem()}>
             <IoChevronForward size={25} />
           </button>

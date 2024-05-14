@@ -3,16 +3,16 @@ import { GiDiamondTrophy } from "react-icons/gi";
 
 const BriefAbout = () => {
   return (
-    <div className="border-y-[1px] md:h-[80vh] border-[#f1f1f1] mb-5 flex justify-center items-center">
-      <div className="bg-[#33337c] rounded-lg bg-opacity-5 md:w-[80%] p-5 mx-auto flex md:flex-row flex-col">
+    <div className="border-y-[1px] lg:h-[80vh] border-[#f1f1f1] mb-5 flex justify-center items-center">
+      <div className="bg-[#ffffff] rounded-lg lg:w-[80%] p-5 mx-auto flex lg:flex-row flex-col">
         <div
-          className="md:w-1/2 background-image bg-cover bg-center h-[300px] md:h-[400px] rounded-md md:rounded-l-md mb-5 md:mb-0"
+          className="lg:w-1/2 background-image bg-cover bg-center h-[300px] lg:h-[400px] rounded-md lg:rounded-l-md mb-5 lg:mb-0"
           style={{ backgroundImage: `url(${officeBuilding})` }}
         >
           <div className="h-full w-full flex justify-center items-center"></div>
         </div>
-        <div className="md:w-1/2 md:text-left p-4 md:p-7 text-black flex flex-col justify-center">
-          <h1 className="text-black font-montserrat text-center font-bold text-2xl md:text-3xl p-2">
+        <div className="lg:w-1/2 lg:text-left p-4 lg:p-7 text-black flex flex-col justify-center">
+          <h1 className="text-black font-montserrat text-center font-bold text-2xl lg:text-3xl p-2">
             Brief Company History
           </h1>
           <p className="mt-3 text-md text-center text-black">

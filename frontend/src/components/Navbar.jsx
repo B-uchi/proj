@@ -51,14 +51,14 @@ const Navbar = () => {
 
   return (
     <nav className="w-full z-50 sticky top-0 bg-white border-[1px]">
-      <div className="flex container items-center justify-between mx-auto p-2 py-2 md:px-3 px-5">
+      <div className="flex container items-center justify-between mx-auto p-2 py-2 lg:px-3 px-5">
         <div className="flex items-center gap-10">
           <Link to={"/"}>
             <div className="flex  items-center gap-3">
               <img src={logo} alt="logo" className="aspect-auto w-44" />
             </div>
           </Link>
-          <div className=" md:block hidden">
+          <div className=" lg:block hidden">
             <ul className="flex gap-7 items-center relative">
               <Link to={"/"}>
                 <MenuItem text="Home" />
@@ -90,7 +90,7 @@ const Navbar = () => {
                   {
                     key: 10,
                     text: "Legal Docs",
-                    path: "/src/assets/Terms%20And%20Conditions.pdf",
+                    path: "/public/TermsAndConditions.pdf",
                   },
                   { key: 11, text: "Help & Support", path: "/how_it_works" },
                 ]}
@@ -98,7 +98,7 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
-        <div className="md:flex gap-4 hidden">
+        <div className="lg:flex gap-4 hidden">
           <div>
             <a
               className="border-[#33337c] border-[2px] text-black p-1.5 px-3 rounded lg flex"
@@ -117,7 +117,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="md:hidden block">
+        <div className="lg:hidden block">
           <button onClick={() => setShowMenu((prev) => !prev)}>
             {!showMenu ? (
               <HiOutlineMenuAlt3 size={25} />
@@ -135,7 +135,7 @@ const Navbar = () => {
               animate={{ translateX: 0, opacity: 1 }}
               exit={{ display: "none", opacity: 0 }}
               key={"home"}
-              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+              className="absolute top-[110%] lg:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
             >
               <div className="container">
                 <ul className="flex flex-col gap-5 items-center">
@@ -193,36 +193,36 @@ const Navbar = () => {
               animate={{ translateX: 0, opacity: 1 }}
               exit={{ display: "none", opacity: 0 }}
               key={"markets"}
-              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+              className="absolute top-[110%] lg:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
             >
               <div className="container">
                 <ul className="flex flex-col gap-5 items-center">
-                  <li>
+                  <li onClick={()=>setShowMenu(false)}>
                     <a href="#">
                       <MenuItem text="Stocks" />
                     </a>
                   </li>
-                  <li>
+                  <li onClick={()=>setShowMenu(false)}>
                     <a href="#">
                       <MenuItem text="Bonds" />
                     </a>
                   </li>
-                  <li>
+                  <li onClick={()=>setShowMenu(false)}>
                     <a href="#">
                       <MenuItem text="MF's" />
                     </a>
                   </li>
-                  <li>
+                  <li onClick={()=>setShowMenu(false)}>
                     <a href="#">
                       <MenuItem text="ETF's" />
                     </a>
                   </li>
-                  <li>
+                  <li onClick={()=>setShowMenu(false)}>
                     <a href="#">
                       <MenuItem text="Futures" />
                     </a>
                   </li>
-                  <li>
+                  <li onClick={()=>setShowMenu(false)}>
                     <a href="#">
                       <MenuItem text="Commodities" />
                     </a>
@@ -247,23 +247,23 @@ const Navbar = () => {
               animate={{ translateX: 0, opacity: 1 }}
               exit={{ display: "none", opacity: 0 }}
               key={"company"}
-              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+              className="absolute top-[110%] lg:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
             >
               <div className="container">
                 <ul className="flex flex-col gap-5 items-center">
-                  <li>
-                    <a href="#">
-                      <MenuItem text="How it works" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
+                  <li onClick={()=>setShowMenu(false)}>
+                    <a href="/careers">
                       <MenuItem text="Careers" />
                     </a>
                   </li>
-                  <li>
-                    <a href="#">
+                  <li onClick={()=>setShowMenu(false)}>
+                    <a href="/about">
                       <MenuItem text="About us" />
+                    </a>
+                  </li>
+                  <li onClick={()=>setShowMenu(false)}>
+                    <a href="/how_it_works">
+                      <MenuItem text="How it works" />
                     </a>
                   </li>
                   <li className=" w-[60%]" onClick={() => setSubMenu("home")}>
@@ -286,56 +286,30 @@ const Navbar = () => {
               animate={{ translateX: 0, opacity: 1 }}
               exit={{ display: "none", opacity: 0 }}
               key={"resources"}
-              className="absolute top-[110%] md:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
+              className="absolute top-[110%] lg:hidden left-0 bg-white border-[1px] border-[#efefef] w-full p-7"
             >
               <div className="container">
                 <ul className="flex flex-col gap-5 items-center">
-                  <li onClick={() => setShowMenu(false)}>
-                    <Link to={"/"}>
-                      <MenuItem text="Home" />
-                    </Link>
+                  <li onClick={()=>setShowMenu(false)}>
+                    <a href="/public/TermsAndConditions.pdf">
+                      <MenuItem text="Legal Docs" />
+                    </a>
                   </li>
-                  <li
-                    onClick={() => {
-                      setShowMenu(false);
-                      setSubMenu("markets");
-                    }}
-                  >
-                    <Link className="flex items-center gap-1">
-                      <p>Markets</p>
-                      <IoChevronForwardOutline className="-translate-y-[5%]" />
-                    </Link>
+                  
+                  <li onClick={()=>setShowMenu(false)}>
+                    <a href="/how_it_works">
+                      <MenuItem text="Help and Support" />
+                    </a>
                   </li>
-                  <li
-                    onClick={() => {
-                      setShowMenu(false);
-                      setSubMenu("company");
-                    }}
-                  >
-                    <Link className="flex items-center gap-1">
-                      <MenuItem text="Company" />
-                      <IoChevronForwardOutline className="-translate-y-[5%]" />
-                    </Link>
-                  </li>
-                  <li
-                    onClick={() => {
-                      setShowMenu(false);
-                      setSubMenu("resources");
-                    }}
-                  >
-                    <Link className="flex items-center gap-1">
-                      <MenuItem text="Resources" />
-                      <IoChevronForwardOutline className="-translate-y-[5%]" />
-                    </Link>
-                  </li>
-                  <li className=" w-[60%]" onClick={() => setShowMenu(false)}>
+                  <li className=" w-[60%]" onClick={() => setSubMenu("home")}>
                     <div>
-                      <a
-                        className="bg-[#33337c] text-center text-white p-2 px-3 rounded-lg flex justify-center"
+                      <button
+                        onClick={() => setSubMenu("home")}
+                        className="bg-[#33337c] mx-auto text-center text-white p-2 px-3 rounded-lg flex justify-center"
                         href="https://proj-dash.vercel.app/sign_in"
                       >
-                        <MenuItem text="Log In" />
-                      </a>
+                        <p>Back</p>
+                      </button>
                     </div>
                   </li>
                 </ul>
