@@ -17,10 +17,8 @@ import { useNavigate } from "react-router-dom";
 
 const Dashboard = ({ currentUser }) => {
   const [kycBanner, showKycBanner] = useState(true);
-  const [showConversion, setShowConversion] = useState(false);
   const [showWithdrawalConversion, setShowWithdrawalConversion] =
     useState(false);
-  const [depositAmt, setDepositAmt] = useState(0);
   const [withdrawalAmt, setWithdrawalAmt] = useState(0);
   const [withdrawalAmtInBtc, setWithdrawalAmtInBtc] = useState(0);
   const [withdrawalMethod, setWithdrawalMethod] = useState("none");
@@ -28,13 +26,12 @@ const Dashboard = ({ currentUser }) => {
   const [depositMethod, setDepositMethod] = useState("none");
   const [selectedPlan, setSelectedPlan] = useState("none");
   const [plans, setPlans] = useState([]);
-  const [depositAmtInUSD, setDepositAmtInUSD] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     getBitcoinPrice();
     getPlanData();
-  }, [showConversion]);
+  }, []);
 
   const getBitcoinPrice = async () => {
     try {
@@ -61,19 +58,21 @@ const Dashboard = ({ currentUser }) => {
     };
     axios
       .request(requestOptions)
-      .then((response) => setPlans(response.data.plans['planArray']))
+      .then((response) => {setPlans(response.data.plans['planArray']);})
       .catch((e) => console.log(e));
   };
+
+  console.log(plans)
 
   const navitagteToPage = (item) => {
     if (depositMethod === "none") {
       return toast.error("Please select a deposit method");
     }
-    if (depositAmt == 0) {
+    if (selectedPlan == "none") {
       return toast.error("Please enter a valid amount");
     }
     navigate("/user/deposit", {
-      state: { depositAmtInUSD, depositAmt, depositMethod },
+      state: { selectedPlan, depositMethod, plans, btcPrice: btcRate },
     });
   };
 
@@ -248,17 +247,19 @@ const Dashboard = ({ currentUser }) => {
                 <div className="mt-2">
                   <p className="text-sm">Investment Plan</p>
                   <select
-                    value={depositMethod}
-                    onChange={(e) => setDepositMethod(e.target.value)}
+                    value={selectedPlan}
+                    onChange={(e) => setSelectedPlan(e.target.value)}
                     className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
                   >
                     <option value="none" disabled>
                       None
                     </option>
-                    <option value="Crypto Transfer">Crypto Transfer</option>
+                    {plans.map((plan, index)=>(
+                      <option key={plan.name} value={index}>{plan.name} (${plan.minimumDeposit} - ${plan.maximumDeposit})</option>
+                    ))}
                   </select>
                 </div>
-                <div className="mt-2">
+                {/* <div className="mt-2">
                   <p className="text-sm">Amount (in BTC)</p>
                   <input
                     type="number"
@@ -278,7 +279,7 @@ const Dashboard = ({ currentUser }) => {
                       </p>
                     </div>
                   ) : null}
-                </div>
+                </div> */}
                 <div className="mt-3 flex">
                   <button
                     onClick={() => navitagteToPage()}
@@ -343,7 +344,7 @@ const Dashboard = ({ currentUser }) => {
                 <div className="mt-3 flex">
                   <button
                     onClick={() => navigateToWithdrawPage()}
-                    className="bg-[#345d96] mx-auto p-2 px-3 rounded-md "
+                    className="bg-[#345d96] mx-auto p-2 px-3 rounded-md text-white"
                   >
                     Withdraw
                   </button>

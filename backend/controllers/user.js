@@ -227,7 +227,7 @@ export const getWallet = async (req, res) => {
 
 export const createDepositTransaction = async (req, res) => {
   console.log("req received to createTransaction");
-  const { depositAmtInUSD, depositMethod, depositAmt } = req.body;
+  const { depositAmtInUSD, depositMethod, depositAmtInBTC, planName } = req.body;
   try {
     const transactionRef = db.collection("transactions").doc();
     await transactionRef
@@ -236,7 +236,8 @@ export const createDepositTransaction = async (req, res) => {
           userId: req.uid,
           transactionId: transactionRef.id,
           amountInUSD: depositAmtInUSD,
-          amount: depositAmt,
+          amountInBTC: depositAmtInBTC,
+          planName,
           wallet: "USD",
           transactionType: "Deposit",
           depositMethod,
@@ -344,193 +345,192 @@ export const createWithdrawalTransaction = async (req, res) => {
   }
 };
 
-export const openTrade = async (req, res) => {
-  console.log("req received to openTrade");
-  const { pair, leverage, entryPrice, type, total } = req.body;
-  try {
-    const userRef = db.collection("users").doc(req.uid);
-    const user = await userRef.get();
+// export const openTrade = async (req, res) => {
+//   console.log("req received to openTrade");
+//   const { pair, leverage, entryPrice, type, total } = req.body;
+//   try {
+//     const userRef = db.collection("users").doc(req.uid);
+//     const user = await userRef.get();
 
-    if (user.data().kycComplete === false) {
-      return res.status(400).json({ message: "Complete KYC first" });
-    }
+//     if (user.data().kycComplete === false) {
+//       return res.status(400).json({ message: "Complete KYC first" });
+//     }
 
-    if (user.data().wallets[0].availableBalance < total) {
-      return res.status(400).json({ message: "Insufficient balance" });
-    }
+//     if (user.data().wallets[0].availableBalance < total) {
+//       return res.status(400).json({ message: "Insufficient balance" });
+//     }
 
-    const tradeRef = db.collection("trades").doc();
-    await tradeRef
-      .set(
-        {
-          userId: req.uid,
-          tradeId: tradeRef.id,
-          pair,
-          leverage,
-          type,
-          entryPrice,
-          total,
-          status: "Open",
-          createdAt: FieldValue.serverTimestamp(),
-        },
-        { merge: true }
-      )
-      .then(async () => {
-        const doc = await tradeRef.get();
-        await userRef.set(
-          {
-            orderDetails: {
-              openOrders: user.data().orderDetails.openOrders + 1,
-              totalOrders: user.data().orderDetails.totalOrders + 1,
-            },
-            wallets: user.data().wallets.map((wallet) => {
-              if (wallet.currency === "US Dollar") {
-                wallet.availableBalance -= total;
-              }
-              return wallet;
-            }),
-          },
-          { merge: true }
-        );
-        return res.sendStatus(201);
-      });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
+//     const tradeRef = db.collection("trades").doc();
+//     await tradeRef
+//       .set(
+//         {
+//           userId: req.uid,
+//           tradeId: tradeRef.id,
+//           pair,
+//           leverage,
+//           type,
+//           entryPrice,
+//           total,
+//           status: "Open",
+//           createdAt: FieldValue.serverTimestamp(),
+//         },
+//         { merge: true }
+//       )
+//       .then(async () => {
+//         const doc = await tradeRef.get();
+//         await userRef.set(
+//           {
+//             orderDetails: {
+//               openOrders: user.data().orderDetails.openOrders + 1,
+//               totalOrders: user.data().orderDetails.totalOrders + 1,
+//             },
+//             wallets: user.data().wallets.map((wallet) => {
+//               if (wallet.currency === "US Dollar") {
+//                 wallet.availableBalance -= total;
+//               }
+//               return wallet;
+//             }),
+//           },
+//           { merge: true }
+//         );
+//         return res.sendStatus(201);
+//       });
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// };
 
-export const closeTrade = async (req, res) => {
-  console.log("req received to closeTrade");
-  const { tradeId, exitPrice } = req.body;
-  try {
-    const tradeRef = db.collection("trades").doc(tradeId);
-    const trade = await tradeRef.get();
-    if (trade.data().status === "Closed") {
-      return res.status(400).json({ message: "Trade position already closed" });
-    }
-    if (trade.data().status === "Cancelled") {
-      return res
-        .status(400)
-        .json({ message: "Trade position already cancelled" });
-    }
-    const userRef = db.collection("users").doc(trade.data().userId);
-    const user = await userRef.get();
-    let profit;
-    if (trade.data().type === "BUY") {
-      profit = trade.data().total * (exitPrice - trade.data().entryPrice);
-    } else {
-      profit = trade.data().total * (trade.data().entryPrice - exitPrice);
-    }
-    const transactionRef = db.collection("transactions").doc();
-    await tradeRef
-      .set(
-        {
-          exitPrice,
-          profit,
-          status: "Closed",
-          updatedAt: FieldValue.serverTimestamp(),
-        },
-        { merge: true }
-      )
-      .then(async () => {
-        await transactionRef.set(
-          {
-            userId: trade.data().userId,
-            transactionId: transactionRef.id,
-            amountInUSD: profit,
-            amount: profit,
-            wallet: "USD",
-            transactionType: "Profit",
-            status: "Completed",
-            createdAt: FieldValue.serverTimestamp(),
-          },
-          { merge: true }
-        );
-        await userRef.set(
-          {
-            orderDetails: {
-              closedOrders: user.data().orderDetails.closedOrders + 1,
-              openOrders: user.data().orderDetails.openOrders - 1,
-            },
-            wallets: user.data().wallets.map((wallet) => {
-              if (wallet.currency === "US Dollar") {
-                wallet.availableBalance += trade.data().total + profit;
-              }
-              return wallet;
-            }),
-          },
-          { merge: true }
-        );
-        return res.status(200).json({ profit });
-      });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error);
-  }
-};
+// export const closeTrade = async (req, res) => {
+//   console.log("req received to closeTrade");
+//   const { tradeId, exitPrice } = req.body;
+//   try {
+//     const tradeRef = db.collection("trades").doc(tradeId);
+//     const trade = await tradeRef.get();
+//     if (trade.data().status === "Closed") {
+//       return res.status(400).json({ message: "Trade position already closed" });
+//     }
+//     if (trade.data().status === "Cancelled") {
+//       return res
+//         .status(400)
+//         .json({ message: "Trade position already cancelled" });
+//     }
+//     const userRef = db.collection("users").doc(trade.data().userId);
+//     const user = await userRef.get();
+//     let profit;
+//     if (trade.data().type === "BUY") {
+//       profit = trade.data().total * (exitPrice - trade.data().entryPrice);
+//     } else {
+//       profit = trade.data().total * (trade.data().entryPrice - exitPrice);
+//     }
+//     const transactionRef = db.collection("transactions").doc();
+//     await tradeRef
+//       .set(
+//         {
+//           exitPrice,
+//           profit,
+//           status: "Closed",
+//           updatedAt: FieldValue.serverTimestamp(),
+//         },
+//         { merge: true }
+//       )
+//       .then(async () => {
+//         await transactionRef.set(
+//           {
+//             userId: trade.data().userId,
+//             transactionId: transactionRef.id,
+//             amountInUSD: profit,
+//             amount: profit,
+//             wallet: "USD",
+//             transactionType: "Profit",
+//             status: "Completed",
+//             createdAt: FieldValue.serverTimestamp(),
+//           },
+//           { merge: true }
+//         );
+//         await userRef.set(
+//           {
+//             orderDetails: {
+//               closedOrders: user.data().orderDetails.closedOrders + 1,
+//               openOrders: user.data().orderDetails.openOrders - 1,
+//             },
+//             wallets: user.data().wallets.map((wallet) => {
+//               if (wallet.currency === "US Dollar") {
+//                 wallet.availableBalance += trade.data().total + profit;
+//               }
+//               return wallet;
+//             }),
+//           },
+//           { merge: true }
+//         );
+//         return res.status(200).json({ profit });
+//       });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json(error);
+//   }
+// };
 
-export const cancelTrade = async (req, res) => {
-  console.log("req recieved to cancelTrade");
-  const { tradeId } = req.body;
-  try {
-    const tradeRef = db.collection("trades").doc(tradeId);
-    const trade = await tradeRef.get();
-    if (trade.data().status === "Closed") {
-      return res.status(400).json({ message: "Trade position already closed" });
-    }
-    if (trade.data().status === "Cancelled") {
-      return res
-        .status(400)
-        .json({ message: "Trade position already cancelled" });
-    }
-    const userRef = db.collection("users").doc(trade.data().userId);
-    const user = await userRef.get();
-    await tradeRef
-      .set(
-        {
-          status: "Cancelled",
-          updatedAt: FieldValue.serverTimestamp(),
-        },
-        { merge: true }
-      )
-      .then(async () => {
-        await userRef.set(
-          {
-            orderDetails: {
-              cancelledOrders: user.data().orderDetails.cancelledOrders + 1,
-              openOrders: user.data().orderDetails.openOrders - 1,
-            },
-          },
-          { merge: true }
-        );
-        return res
-          .status(200)
-          .json({ message: "Trade cancelled successfully" });
-      });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json(error);
-  }
-};
+// export const cancelTrade = async (req, res) => {
+//   console.log("req recieved to cancelTrade");
+//   const { tradeId } = req.body;
+//   try {
+//     const tradeRef = db.collection("trades").doc(tradeId);
+//     const trade = await tradeRef.get();
+//     if (trade.data().status === "Closed") {
+//       return res.status(400).json({ message: "Trade position already closed" });
+//     }
+//     if (trade.data().status === "Cancelled") {
+//       return res
+//         .status(400)
+//         .json({ message: "Trade position already cancelled" });
+//     }
+//     const userRef = db.collection("users").doc(trade.data().userId);
+//     const user = await userRef.get();
+//     await tradeRef
+//       .set(
+//         {
+//           status: "Cancelled",
+//           updatedAt: FieldValue.serverTimestamp(),
+//         },
+//         { merge: true }
+//       )
+//       .then(async () => {
+//         await userRef.set(
+//           {
+//             orderDetails: {
+//               cancelledOrders: user.data().orderDetails.cancelledOrders + 1,
+//               openOrders: user.data().orderDetails.openOrders - 1,
+//             },
+//           },
+//           { merge: true }
+//         );
+//         return res
+//           .status(200)
+//           .json({ message: "Trade cancelled successfully" });
+//       });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).json(error);
+//   }
+// };
 
-export const getTrades = async (req, res) => {
-  console.log("req received to getTrades");
-  const trades = [];
-  try {
-    const tradeRef = db.collection("trades");
-    const snapshot = await tradeRef.where("userId", "==", req.uid).get();
-    snapshot.forEach((doc) => {
-      trades.push({ id: doc.id, ...doc.data() });
-    });
-    return res.status(200).json({ trades });
-  } catch (error) {
-    res.status(400).json(error);
-  }
-};
+// export const getTrades = async (req, res) => {
+//   console.log("req received to getTrades");
+//   const trades = [];
+//   try {
+//     const tradeRef = db.collection("trades");
+//     const snapshot = await tradeRef.where("userId", "==", req.uid).get();
+//     snapshot.forEach((doc) => {
+//       trades.push({ id: doc.id, ...doc.data() });
+//     });
+//     return res.status(200).json({ trades });
+//   } catch (error) {
+//     res.status(400).json(error);
+//   }
+// };
 
 export const getPlans = async (req, res) => {
   console.log("req received to getPlans");
-  const plans = [];
   try {
     const planRef = db.collection("plans").doc('oXknJPpCy9Ca3DnMN1Ya');
     const plans = (await planRef.get()).data();

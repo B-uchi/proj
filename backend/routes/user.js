@@ -12,10 +12,6 @@ import {
   getDeposits,
   getWithdrawals,
   createWithdrawalTransaction,
-  getTrades,
-  openTrade,
-  closeTrade,
-  cancelTrade,
   getPlans,
 } from "../controllers/user.js";
 
@@ -32,10 +28,10 @@ router.get("/getTransactions", verifyToken, getTransactions);
 router.get("/getDeposits", verifyToken, getDeposits);
 router.post("/withdraw", verifyToken, createWithdrawalTransaction);
 router.get("/getWithdrawals", verifyToken, getWithdrawals);
-router.get("/getTrades", verifyToken, getTrades);
-router.post("/openTrade", verifyToken, openTrade);
-router.post("/closeTrade", verifyToken, closeTrade);
-router.post('/cancelTrade', verifyToken, cancelTrade)
+// router.get("/getTrades", verifyToken, getTrades);
+// router.post("/openTrade", verifyToken, openTrade);
+// router.post("/closeTrade", verifyToken, closeTrade);
+// router.post('/cancelTrade', verifyToken, cancelTrade)
 router.get('/getPlans', verifyToken, getPlans)
 
 export default router;
