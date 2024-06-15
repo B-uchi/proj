@@ -527,3 +527,15 @@ export const getTrades = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+export const getPlans = async (req, res) => {
+  console.log("req received to getPlans");
+  const plans = [];
+  try {
+    const planRef = db.collection("plans").doc('oXknJPpCy9Ca3DnMN1Ya');
+    const plans = (await planRef.get()).data();
+    return res.status(200).json({ plans });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};

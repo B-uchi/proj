@@ -26,11 +26,14 @@ const Dashboard = ({ currentUser }) => {
   const [withdrawalMethod, setWithdrawalMethod] = useState("none");
   const [btcRate, setBtcRate] = useState(null);
   const [depositMethod, setDepositMethod] = useState("none");
+  const [selectedPlan, setSelectedPlan] = useState("none");
+  const [plans, setPlans] = useState([]);
   const [depositAmtInUSD, setDepositAmtInUSD] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     getBitcoinPrice();
+    getPlanData();
   }, [showConversion]);
 
   const getBitcoinPrice = async () => {
@@ -45,6 +48,21 @@ const Dashboard = ({ currentUser }) => {
       console.error("Error fetching Bitcoin price:", error);
       return null;
     }
+  };
+
+  const getPlanData = () => {
+    const requestOptions = {
+      url: "http://localhost:8080/user/getPlans",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${document.cookie.slice(18)}`,
+      },
+    };
+    axios
+      .request(requestOptions)
+      .then((response) => setPlans(response.data.plans['planArray']))
+      .catch((e) => console.log(e));
   };
 
   const navitagteToPage = (item) => {
@@ -83,7 +101,7 @@ const Dashboard = ({ currentUser }) => {
         <div className="">
           <h1 className="text-2xl font-montserrat font-bold dark:text-[#cccccc] flex items-center gap-5">
             My Dashboard{" "}
-            <div className="text-lg">
+            {/* <div className="text-lg">
               <button
                 onClick={() => {
                   navigate("/trade");
@@ -92,7 +110,7 @@ const Dashboard = ({ currentUser }) => {
               >
                 Trade
               </button>
-            </div>
+            </div> */}
           </h1>
         </div>
         <div className="mt-5">
@@ -120,28 +138,36 @@ const Dashboard = ({ currentUser }) => {
               <AiOutlineLoading3Quarters color="#345d96" size={28} />
               <div className="">
                 <small>Open Orders</small>
-                <h1 className="text-xl">{currentUser.orderDetails.openOrders}</h1>
+                <h1 className="text-xl">
+                  {currentUser.orderDetails.openOrders}
+                </h1>
               </div>
             </div>
             <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <CiCircleCheck color="green" size={30} />
               <div className="">
                 <small>Closed Orders</small>
-                <h1 className="text-xl">{currentUser.orderDetails.closedOrders}</h1>
+                <h1 className="text-xl">
+                  {currentUser.orderDetails.closedOrders}
+                </h1>
               </div>
             </div>
             <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <IoCloseCircleOutline color="red" size={30} />
               <div className="">
                 <small>Cancelled Orders</small>
-                <h1 className="text-xl">{currentUser.orderDetails.cancelledOrders}</h1>
+                <h1 className="text-xl">
+                  {currentUser.orderDetails.cancelledOrders}
+                </h1>
               </div>
             </div>
             <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <BiLineChart color="#2e9c5c" size={30} />
               <div className="">
                 <small>Total Trade</small>
-                <h1 className="text-xl">{currentUser.orderDetails.totalOrders}</h1>
+                <h1 className="text-xl">
+                  {currentUser.orderDetails.totalOrders}
+                </h1>
               </div>
             </div>
           </div>
@@ -220,6 +246,19 @@ const Dashboard = ({ currentUser }) => {
                   </select>
                 </div>
                 <div className="mt-2">
+                  <p className="text-sm">Investment Plan</p>
+                  <select
+                    value={depositMethod}
+                    onChange={(e) => setDepositMethod(e.target.value)}
+                    className="p-2 mt-2 border-[1px] w-full bg-[#fafafa] dark:bg-[#10121b]  dark:border-[#1f1f1f] border-[#f1f1f1] rounded-md"
+                  >
+                    <option value="none" disabled>
+                      None
+                    </option>
+                    <option value="Crypto Transfer">Crypto Transfer</option>
+                  </select>
+                </div>
+                <div className="mt-2">
                   <p className="text-sm">Amount (in BTC)</p>
                   <input
                     type="number"
@@ -243,7 +282,7 @@ const Dashboard = ({ currentUser }) => {
                 <div className="mt-3 flex">
                   <button
                     onClick={() => navitagteToPage()}
-                    className="bg-[#2e9c5c] hover:bg-green-500 mx-auto p-2 px-3 rounded-md text-[#cccccc] "
+                    className="bg-[#2e9c5c] hover:bg-green-500 mx-auto p-2 px-3 rounded-md text-white"
                   >
                     Deposit
                   </button>
@@ -304,7 +343,7 @@ const Dashboard = ({ currentUser }) => {
                 <div className="mt-3 flex">
                   <button
                     onClick={() => navigateToWithdrawPage()}
-                    className="bg-[#345d96] mx-auto p-2 px-3 rounded-md text-[#cccccc] "
+                    className="bg-[#345d96] mx-auto p-2 px-3 rounded-md "
                   >
                     Withdraw
                   </button>
@@ -327,7 +366,7 @@ const Dashboard = ({ currentUser }) => {
                   Recent Transactions:
                 </h1>
               </div>
-              <TransactionsTable/>
+              <TransactionsTable />
             </div>
           </div>
         </div>

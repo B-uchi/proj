@@ -16,6 +16,7 @@ import {
   openTrade,
   closeTrade,
   cancelTrade,
+  getPlans,
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -35,5 +36,6 @@ router.get("/getTrades", verifyToken, getTrades);
 router.post("/openTrade", verifyToken, openTrade);
 router.post("/closeTrade", verifyToken, closeTrade);
 router.post('/cancelTrade', verifyToken, cancelTrade)
+router.get('/getPlans', verifyToken, getPlans)
 
 export default router;
