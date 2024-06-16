@@ -36,7 +36,7 @@ const SignIn = ({ currentUser, setCurrentUser }) => {
                 setCurrentUser({ ...snapshot.data() });
                 toast.success("Logged in successfully");
                 setTimeout(() => {
-                  navigate("/dashboard");
+                  navigate("/");
                 }, 2000);
               } else {
                 toast.error("User does not exist");
