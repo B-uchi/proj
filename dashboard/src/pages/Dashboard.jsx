@@ -33,6 +33,7 @@ const Dashboard = ({ currentUser }) => {
     getPlanData();
   }, []);
 
+
   const getBitcoinPrice = async () => {
     try {
       const response = await axios.get(
@@ -65,6 +66,9 @@ const Dashboard = ({ currentUser }) => {
   console.log(plans)
 
   const navitagteToPage = (item) => {
+    if (currentUser.currentPlan){
+      return toast.error("Please contact support to terminate your current plan.")
+    }
     if (depositMethod === "none") {
       return toast.error("Please select a deposit method");
     }

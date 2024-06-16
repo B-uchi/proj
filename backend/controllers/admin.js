@@ -7,7 +7,6 @@ import {
   FieldValue,
   Filter,
 } from "firebase-admin/firestore";
-import { getStorage } from "firebase-admin/storage";
 
 const db = getFirestore();
 
@@ -65,9 +64,11 @@ export const verifyDeposit = async (req, res) => {
                   }
                   return wallet;
                 }),
+                currentPlan: data.planName,
               },
               { merge: true }
             );
+            initiatePlan()
           });
         res.status(200).json({ message: "Transaction verified" });
       } else {
@@ -81,6 +82,11 @@ export const verifyDeposit = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+const initiatePlan = () => {
+  
+}
+
 export const verifyWithdrawal = async (req, res) => {
   try {
     const { transactionId } = req.body;

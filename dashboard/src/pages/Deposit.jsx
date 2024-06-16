@@ -52,9 +52,10 @@ const Deposit = () => {
         Authorization: `Bearer ${document.cookie.slice(18)}`,
       },
       data: {
-        depositAmtInUSD: data.depositAmtInUSD - 5,
-        depositAmt: data.depositAmt,
+        depositAmtInUSD: data.depositAmtInUSD,
+        depositAmtInBTC,
         depositMethod: data.depositMethod,
+        planName: data.plans[data.selectedPlan].name,
       },
     };
 

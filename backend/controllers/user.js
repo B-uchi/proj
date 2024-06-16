@@ -13,7 +13,6 @@ const db = getFirestore();
 
 export const completeSignup = async (req, res) => {
   console.log("req received to completeSignup");
-  const auth = getAuth();
   const { firstName, lastName, phoneNumber, location } = req.body;
   try {
     const userRef = db.collection("users").doc(req.uid);
@@ -26,6 +25,7 @@ export const completeSignup = async (req, res) => {
           lastName,
           location,
           phoneNumber,
+          currentPlan: None,
           wallets: [
             {
               currency: "US Dollar",
@@ -227,7 +227,9 @@ export const getWallet = async (req, res) => {
 
 export const createDepositTransaction = async (req, res) => {
   console.log("req received to createTransaction");
-  const { depositAmtInUSD, depositMethod, depositAmtInBTC, planName } = req.body;
+  const { depositAmtInUSD, depositMethod, depositAmtInBTC, planName } =
+    req.body;
+
   try {
     const transactionRef = db.collection("transactions").doc();
     await transactionRef
@@ -532,7 +534,7 @@ export const createWithdrawalTransaction = async (req, res) => {
 export const getPlans = async (req, res) => {
   console.log("req received to getPlans");
   try {
-    const planRef = db.collection("plans").doc('oXknJPpCy9Ca3DnMN1Ya');
+    const planRef = db.collection("plans").doc("oXknJPpCy9Ca3DnMN1Ya");
     const plans = (await planRef.get()).data();
     return res.status(200).json({ plans });
   } catch (error) {
