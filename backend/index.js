@@ -1,3 +1,4 @@
+import { spawn } from "child_process";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -24,32 +25,22 @@ app.use(
   })
 );
 
-// Routing
-// app.post("/confirmRedirect", (req, res) => {
-//   const { idToken } = req.body;
-//   res.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PUT, PATCH, DELETE"
-//   ); // Allowed HTTP methods
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allowed headers
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-//   res.cookie("firebaseAuthToken", idToken, {
-//     domain: ".vercel.app",
-//     maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
-//     expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours in milliseconds
-//     secure: true, // Only send the cookie over HTTPS
-//     sameSite: "none", // Allow cross-site usage
-//   });
-
-//   // Redirect to the desired URL
-//   res.redirect(301, "https://proj-dash.vercel.app");
-// });
+app.get("/bla", async (req, res) => {
+  console.log("hiii");
+  const cronProcess = spawn("node", ["cron_job.js"]); // Spawn the cron job script
+  cronProcess.stdout.on("data", (data) => {
+    console.log(`Cron job script output: ${data}`);
+  });
+  cronProcess.stderr.on("data", (data) => {
+    console.error(`Cron job script error: ${data}`);
+  });
+  return res.sendStatus(200);
+});
 
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/admin", adminRoutes);
-app.get("/", () => {
+app.get("/", (req, res) => {
   return res.status(200).json({ message: "Welcome to the backend" });
 });
 
