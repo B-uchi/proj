@@ -1,4 +1,4 @@
-import { getAuth } from "firebase-admin/auth";
+import cron from "node-cron";
 import pkg from "../util/firebase/config.cjs";
 const { defaultFirestore } = pkg;
 import {
@@ -44,6 +44,7 @@ export const verifyDeposit = async (req, res) => {
     const transactionRef = db.collection("transactions").doc(transactionId);
     const transaction = await transactionRef.get();
     const userRef = db.collection("users").doc(transaction.data().userId);
+    const user = await userRef.get();
     if (!transaction.exists) {
       res.status(400).json({ message: "Transaction does not exist" });
     } else {
@@ -60,7 +61,9 @@ export const verifyDeposit = async (req, res) => {
               {
                 wallets: user.data().wallets.map((wallet) => {
                   if (wallet.currency === "US Dollar") {
-                    wallet.availableBalance += transaction.data().amountInUSD;
+                    wallet.availableBalance += Number(
+                      transaction.data().amountInUSD
+                    );
                   }
                   return wallet;
                 }),
@@ -68,7 +71,7 @@ export const verifyDeposit = async (req, res) => {
               },
               { merge: true }
             );
-            initiatePlan(userRef)
+            initiatePlan(userRef, data.planName);
           });
         res.status(200).json({ message: "Transaction verified" });
       } else {
@@ -83,10 +86,54 @@ export const verifyDeposit = async (req, res) => {
   }
 };
 
-const initiatePlan = (userRef) => {
-  userRef.se
+async function initiatePlan(userRef, planName) {
+  try {
+    await userRef.set(
+      {
+        currentPlan: planName,
+        activePlan: {
+          earnings: 0,
+          startDate: new Date().toDateString(),
+        },
+      },
+      { merge: true }
+    );
+    console.log("here");
 
+    const job = cron.schedule("1 * * * *", async () => {
+      console.log("cron running");
+      const planRef = db.collection("plans").doc(planName);
+      const user = await userRef.get();
+      const plan = await planRef.get();
+      const randomDecimal = Math.random();
+      const roi = plan.roi[0]
+        ? randomDecimal * (plan.roi[1] - plan.roi[0]) + plan.roi[0]
+        : plan.roi + 0.38;
+
+      // Update user earnings and wallet balance
+      await userRef.set(
+        {
+          activePlan: {
+            earnings:
+              user.wallets[0].availableBalance * roi + user.activePlan.earnings,
+          },
+          wallets: wallets.map((wallet) => {
+            if (wallet.currency === "US Dollar") {
+              wallet.availableBalance += Number(wallet.availableBalance * roi);
+            }
+            return wallet;
+          }),
+        },
+        { merge: true }
+      );
+    });
+
+    await job.start();
+  } catch (error) {
+    console.log(error);
+  }
 }
+
 
 export const verifyWithdrawal = async (req, res) => {
   try {

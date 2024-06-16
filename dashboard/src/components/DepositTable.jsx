@@ -62,7 +62,7 @@ const Table = () => {
                   </td>
                   <td className="w-1/5 text-center">{item.depositMethod}</td>
                   <td className="w-1/5 text-center">
-                    {item.amount}BTC = ${item.amountInUSD}
+                    ${item.amountInUSD}
                   </td>
                   <td className="w-1/5 text-right">{item.status}</td>
                   <td className="w-1/5 text-right">

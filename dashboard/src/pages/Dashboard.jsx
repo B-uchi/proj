@@ -104,16 +104,6 @@ const Dashboard = ({ currentUser }) => {
         <div className="">
           <h1 className="text-2xl font-montserrat font-bold dark:text-[#cccccc] flex items-center gap-5">
             My Dashboard{" "}
-            {/* <div className="text-lg">
-              <button
-                onClick={() => {
-                  navigate("/trade");
-                }}
-                className="p-2 px-3 bg-[#345d96] rounded-md text-white"
-              >
-                Trade
-              </button>
-            </div> */}
           </h1>
         </div>
         <div className="mt-5">
@@ -136,7 +126,7 @@ const Dashboard = ({ currentUser }) => {
               </button>
             </div>
           ) : null}
-          <div className="mt-5 flex flex-col md:flex-row gap-5">
+          {/* <div className="mt-5 flex flex-col md:flex-row gap-5">
             <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
               <AiOutlineLoading3Quarters color="#345d96" size={28} />
               <div className="">
@@ -173,7 +163,7 @@ const Dashboard = ({ currentUser }) => {
                 </h1>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col md:flex-row gap-5">
             <div className="mt-5 md:w-1/3 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 h-[40vh] overflow-y-auto shadow-md">
               <div className="">

@@ -13,6 +13,7 @@ const Deposit = () => {
   const location = useLocation();
   const data = location.state;
 
+
   useEffect(() => {
     const fetchWalletAddress = async () => {
       const requestOptions = {
@@ -45,15 +46,15 @@ const Deposit = () => {
   const createTransaction = async () => {
     setLoading(true);
     const requestOptions = {
-      url: "https://proj-server-3j4y.onrender.com/user/createDepositTransaction",
+      url: "http://localhost:8080/user/createDepositTransaction",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${document.cookie.slice(18)}`,
       },
       data: {
-        depositAmtInUSD: data.depositAmtInUSD,
-        depositAmtInBTC,
+        depositAmtInUSD: Number(depositAmt),
+        depositAmtInBTC: Number(depositAmtInBTC),
         depositMethod: data.depositMethod,
         planName: data.plans[data.selectedPlan].name,
       },

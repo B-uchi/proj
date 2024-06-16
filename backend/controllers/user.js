@@ -121,12 +121,6 @@ export const completeKYC = async (req, res) => {
       .set(
         {
           kycComplete: true,
-          orderDetails: {
-            openOrders: 0,
-            closedOrders: 0,
-            totalOrders: 0,
-            cancelledOrders: 0,
-          },
           kyc: {
             ssn: ssn && ssn,
             gender,
@@ -255,6 +249,7 @@ export const createDepositTransaction = async (req, res) => {
           .json({ message: "Transaction created successfully" });
       });
   } catch (error) {
+    console.log(error)
     res.status(400).json(error);
   }
 };

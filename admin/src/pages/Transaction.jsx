@@ -84,7 +84,7 @@ const Transaction = () => {
     <div className="">
       <Navbar />
       <div className="">
-        <Toaster position="top-right" richColors/>
+        <Toaster position="top-right" richColors />
         <div className=" border-[2px] p-3 rounded-md border-[#f1f1f1]">
           <h1 className="font-montserrat font-bold text-lg">All Users</h1>
           <div className="p-2 h-full w-[600px] md:w-full overflow-x-scroll">
@@ -149,7 +149,7 @@ const Transaction = () => {
                   <tr className="mx-auto flex justify-center p-3 mt-20">
                     <td className="mx-auto">
                       <div className="text-black">
-                        <IoCloseCircleOutline size={60} className="mx-auto" />
+                        {/* <IoCloseCircleOutline size={60} className="mx-auto" /> */}
                         <p>No data found</p>
                       </div>
                     </td>
