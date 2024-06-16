@@ -63,17 +63,6 @@ const SideNav = ({ setShowSideNav, setCurrentUser }) => {
               <MdSpaceDashboard size={25} /> Dashboard
             </li>
           </Link>
-          <Link to={"/orders"}>
-            <li
-              onClick={(e) => {
-                setAsActive(e);
-                setShowSideNav(false);
-              }}
-              className="p-6 hover:bg-[#f1f1f1] dark:hover:bg-[#1f1f1f] cursor-pointer flex gap-2 items-center"
-            >
-              <BiSolidPurchaseTag size={25} /> Orders
-            </li>
-          </Link>
           <Link to={"/wallets"}>
             <li
               onClick={(e) => {

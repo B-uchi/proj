@@ -33,7 +33,6 @@ const Dashboard = ({ currentUser }) => {
     getPlanData();
   }, []);
 
-
   const getBitcoinPrice = async () => {
     try {
       const response = await axios.get(
@@ -59,15 +58,17 @@ const Dashboard = ({ currentUser }) => {
     };
     axios
       .request(requestOptions)
-      .then((response) => {setPlans(response.data.plans['planArray']);})
+      .then((response) => {
+        setPlans(response.data.plans["planArray"]);
+      })
       .catch((e) => console.log(e));
   };
 
-  console.log(plans)
-
   const navitagteToPage = (item) => {
-    if (currentUser.currentPlan){
-      return toast.error("Please contact support to terminate your current plan.")
+    if (currentUser.currentPlan) {
+      return toast.error(
+        "Please contact support to terminate your current plan."
+      );
     }
     if (depositMethod === "none") {
       return toast.error("Please select a deposit method");
@@ -126,44 +127,56 @@ const Dashboard = ({ currentUser }) => {
               </button>
             </div>
           ) : null}
-          {/* <div className="mt-5 flex flex-col md:flex-row gap-5">
-            <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
-              <AiOutlineLoading3Quarters color="#345d96" size={28} />
-              <div className="">
-                <small>Open Orders</small>
-                <h1 className="text-xl">
-                  {currentUser.orderDetails.openOrders}
-                </h1>
-              </div>
+          <div className="bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3">
+            <div className="">
+              <h1 className="font-inter font-bold dark:text-[#cccccc]">
+                Earnings Overview
+              </h1>
+              <small>Started on: {currentUser.activePlan.startDate}</small>
             </div>
-            <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
-              <CiCircleCheck color="green" size={30} />
-              <div className="">
-                <small>Closed Orders</small>
-                <h1 className="text-xl">
-                  {currentUser.orderDetails.closedOrders}
-                </h1>
+            {currentUser.currentPlan ? (
+              <div className="mt-2 flex lg:flex-row flex-col items-center lg:items-start text-center lg:text-left gap-2 justify-between">
+                <div className="">
+                  <small>Plan Name:</small>
+                  <h1 className="font-bold text-2xl">
+                    {currentUser.currentPlan}
+                  </h1>
+                </div>
+                <div className="">
+                  <small>Trading Period:</small>
+                  <h1 className="font-bold text-2xl">
+                    {plans.map((plan) => {
+                      if (plan.name === currentUser.currentPlan)
+                        return plan.period;
+                    })}{" "}
+                    days
+                  </h1>
+                </div>
+                <div className="">
+                  <small>Estimated Returns:</small>
+                  <h1 className="font-bold text-2xl">
+                    {plans.map((plan) => {
+                      if (plan.name === currentUser.currentPlan)
+                        return plan.roi[0]
+                          ? plan.roi[0] + "-" + plan.roi[1]
+                          : plan.roi;
+                    })}
+                    %
+                  </h1>
+                </div>
+                <div className="mr-3">
+                  <small>Profit:</small>
+                  <h1 className="font-bold text-2xl">
+                    ${currentUser.activePlan.earnings}
+                  </h1>
+                </div>
               </div>
-            </div>
-            <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
-              <IoCloseCircleOutline color="red" size={30} />
-              <div className="">
-                <small>Cancelled Orders</small>
-                <h1 className="text-xl">
-                  {currentUser.orderDetails.cancelledOrders}
-                </h1>
+            ) : (
+              <div className="mt-3">
+                Make an investment deposit to see more insight.
               </div>
-            </div>
-            <div className="md:w-1/4 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 flex items-center gap-3 hover:shadow-md hover:-translate-y-3 transition-all cursor-pointer">
-              <BiLineChart color="#2e9c5c" size={30} />
-              <div className="">
-                <small>Total Trade</small>
-                <h1 className="text-xl">
-                  {currentUser.orderDetails.totalOrders}
-                </h1>
-              </div>
-            </div>
-          </div> */}
+            )}
+          </div>
           <div className="flex flex-col md:flex-row gap-5">
             <div className="mt-5 md:w-1/3 bg-white dark:bg-[#191d2b] border-[2px] rounded-md dark:border-[#1f1f1f] border-[#f1f1f1] p-3 h-[40vh] overflow-y-auto shadow-md">
               <div className="">
@@ -248,8 +261,11 @@ const Dashboard = ({ currentUser }) => {
                     <option value="none" disabled>
                       None
                     </option>
-                    {plans.map((plan, index)=>(
-                      <option key={plan.name} value={index}>{plan.name} (${plan.minimumDeposit} - ${plan.maximumDeposit})</option>
+                    {plans.map((plan, index) => (
+                      <option key={plan.name} value={index}>
+                        {plan.name} (${plan.minimumDeposit} - $
+                        {plan.maximumDeposit})
+                      </option>
                     ))}
                   </select>
                 </div>
