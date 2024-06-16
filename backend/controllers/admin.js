@@ -68,7 +68,7 @@ export const verifyDeposit = async (req, res) => {
               },
               { merge: true }
             );
-            initiatePlan()
+            initiatePlan(userRef)
           });
         res.status(200).json({ message: "Transaction verified" });
       } else {
@@ -83,8 +83,9 @@ export const verifyDeposit = async (req, res) => {
   }
 };
 
-const initiatePlan = () => {
-  
+const initiatePlan = (userRef) => {
+  userRef.se
+
 }
 
 export const verifyWithdrawal = async (req, res) => {
