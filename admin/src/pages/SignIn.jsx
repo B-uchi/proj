@@ -29,14 +29,11 @@ const SignIn = ({ currentUser, setCurrentUser }) => {
                   toast.error("User is not an admin");
                   return;
                 }
-                const expires = new Date();
-                expires.setTime(expires.getTime() + 1 * 24 * 60 * 60 * 1000);
-                const cookie = `firebaseAuthToken=${idToken};expires=${expires.toUTCString()};domain=localhost;path=/;secure;SameSite=None`;
-                document.cookie = cookie;
+                sessionStorage.setItem('token', idToken)
                 setCurrentUser({ ...snapshot.data() });
                 toast.success("Logged in successfully");
                 setTimeout(() => {
-                  navigate("/");
+                  window.location.href = "http://localhost:5174/"
                 }, 2000);
               } else {
                 toast.error("User does not exist");
@@ -46,7 +43,7 @@ const SignIn = ({ currentUser, setCurrentUser }) => {
         })
         .catch((error) => {
           toast.error("An error occurred");
-          console.log(error);
+          console.log("e, ", error);
         });
     }
   };
@@ -83,7 +80,7 @@ const SignIn = ({ currentUser, setCurrentUser }) => {
             <div className="mt-5 flex justify-center">
               <button
                 onClick={(e) => login(e)}
-                className="p-3 px-5 hover:scale-105 bg-[#196137] text-white rounded-lg"
+                className="p-3 px-5 hover:scale-105 bg-[#191d2b] text-white rounded-lg"
               >
                 Log in <div id="login" className="traffic-loader"></div>
               </button>

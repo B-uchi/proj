@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import Transaction from "./pages/Transaction";
@@ -8,11 +13,13 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { connect } from "react-redux";
+import Navbar from "./components/Navbar";
+import Wallets from "./pages/Wallets";
+import Users from "./pages/Users";
 
-function App({ setCurrentUser }) {
+function App({ setCurrentUser, currentUser }) {
   const [loading, setLoading] = useState(true);
-  const cookie = document.cookie;
-  const idToken = cookie ? cookie.slice(18) : null;
+  const idToken = sessionStorage.getItem("token");
 
   useEffect(() => {
     const verifyUser = async () => {
@@ -20,7 +27,6 @@ function App({ setCurrentUser }) {
         setLoading(false);
         return;
       }
-
       try {
         const requestOptions = {
           method: "POST",
@@ -48,31 +54,80 @@ function App({ setCurrentUser }) {
     verifyUser();
   }, []);
 
-  return (
-    <div className="flex w-full">
-      <Toaster richColors position="top-right" />
-      {!window.location.pathname == "/sign_in" ? (
-        <div className="lg:w-[20%]">
-          <SideNav />
-        </div>
-      ) : (
-        ""
-      )}
-      <div className="flex-grow">
-        <Router>
+  if (!currentUser && !loading) {
+    return (
+      <Router>
+        <div className="">
+          <Navigate to="/sign_in" />
+          <Toaster richColors position="top-right" />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
             <Route path="/sign_in" element={<SignIn />} />
-            <Route path="/transactions" element={<Transaction />} />
           </Routes>
+        </div>
+      </Router>
+    );
+  }
+
+  if (window.location.pathname === "/sign_in") {
+    return (
+      <Router>
+        <div className="">
+          <Navigate to="/sign_in" />
+          <Toaster richColors position="top-right" />
+          <Routes>
+            <Route path="/sign_in" element={<SignIn />} />
+          </Routes>
+        </div>
+      </Router>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="">
+        <Toaster richColors position="top-right" />
+        <div className="newtons-cradle absolute left-[50%] top-[50vh]">
+          <div className="newtons-cradle__dot"></div>
+          <div className="newtons-cradle__dot"></div>
+          <div className="newtons-cradle__dot"></div>
+          <div className="newtons-cradle__dot"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentUser && currentUser) {
+    return (
+      <div className="flex w-full">
+        <Router>
+          <Toaster richColors position="top-right" />
+          {window.location.pathname != "/sign_in" ? (
+            <div className="lg:w-[20%] hidden md:block">
+              <SideNav />
+            </div>
+          ) : (
+            ""
+          )}
+          <div className="flex-grow">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/transactions" element={<Transaction />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/wallets" element={<Wallets />} />
+            </Routes>
+          </div>
         </Router>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

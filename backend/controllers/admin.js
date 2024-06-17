@@ -1,9 +1,7 @@
-import cron from "node-cron";
 import pkg from "../util/firebase/config.cjs";
 const { defaultFirestore } = pkg;
 import {
   getFirestore,
-  Timestamp,
   FieldValue,
   Filter,
 } from "firebase-admin/firestore";
@@ -86,25 +84,29 @@ export const verifyDeposit = async (req, res) => {
 };
 
 export const addProfit = async (req, res) => {
-  const { userId, percentage } = req.body;
-  const userRef = db.collection("users").doc(userId);
-  const user = await userRef.get();
-  const wallets = user.data().wallets;
-  const profit = (wallets[0].availableBalance * percentage) / 100;
-  await userRef.set(
-    {
-      activePlan: {
-        earnings: user.data().activePlan.earnings + profit,
+  try {
+    const { userId, percentage } = req.body;
+    const userRef = db.collection("users").doc(userId);
+    const user = await userRef.get();
+    const wallets = user.data().wallets;
+    const profit = (wallets[0].availableBalance * percentage) / 100;
+    await userRef.set(
+      {
+        activePlan: {
+          earnings: user.data().activePlan.earnings + profit,
+        },
+        wallets: wallets.map((wallet) => {
+          if (wallet.currency === "US Dollar") {
+            wallet.availableBalance += profit;
+          }
+          return wallet;
+        }),
       },
-      wallets: wallets.map((wallet) => {
-        if (wallet.currency === "US Dollar") {
-          wallet.availableBalance += profit;
-        }
-        return wallet;
-      }),
-    },
-    { merge: true }
-  );
+      { merge: true }
+    );
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const verifyWithdrawal = async (req, res) => {
@@ -153,5 +155,41 @@ export const verifyWithdrawal = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
+  }
+};
+
+export const getStats = async (req, res) => {
+  console.log('req received to getStats')
+  try {
+    let totalDeposit = 0
+    let totalBTCDeposit = 0
+    let totalUsers = 0
+    let activeWallets = 0
+    let pendingTransactions = 0
+
+    const transactionCollectionRef = db.collection('transactions')
+    const userCollectionRef = db.collection('users')
+    const usersSnapshot = await userCollectionRef.get()
+    const transactionSnapshot = await transactionCollectionRef.get()
+    const walletRef = db.collection('wallets')
+    const walletSnapshot = await walletRef.get()
+    transactionSnapshot.docs.map((doc)=>{
+      const data = doc.data()
+      if (data.status.toLowerCase() == 'pending'){
+        pendingTransactions += 1
+      }else if (data.transactionType.toLowerCase() == 'deposit'){
+        if (data.status.toLowerCase() == 'completed'){
+          totalDeposit+=data.amountInUSD
+          totalBTCDeposit = data.amountInBTC ? totalBTCDeposit + data.amountInBTC : totalBTCDeposit
+        }
+      }
+
+    })
+    totalUsers = usersSnapshot.size
+    activeWallets = walletSnapshot.size
+    return res.status(200).json({totalDeposit, totalBTCDeposit, totalUsers, pendingTransactions, activeWallets})
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ message: error.message });
   }
 };

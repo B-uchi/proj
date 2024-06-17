@@ -7,7 +7,6 @@ import {
   FieldValue,
   Filter,
 } from "firebase-admin/firestore";
-import { getStorage } from "firebase-admin/storage";
 
 const db = getFirestore();
 
