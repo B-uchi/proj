@@ -108,7 +108,7 @@ function App({ setCurrentUser, currentUser }) {
           ) : (
             ""
           )}
-          <div className="flex-grow">
+          <div className="flex-grow h-[100vh]">
             <Navbar />
             <Routes>
               <Route path="/" element={<Dashboard />} />

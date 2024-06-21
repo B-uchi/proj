@@ -68,6 +68,7 @@ export const completeSignup = async (req, res) => {
             },
           ],
           updatedAt: FieldValue.serverTimestamp(),
+          createdAt: FieldValue.serverTimestamp(),
         },
         { merge: true }
       )

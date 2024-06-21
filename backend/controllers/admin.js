@@ -1,14 +1,21 @@
 import pkg from "../util/firebase/config.cjs";
 const { defaultFirestore } = pkg;
-import {
-  getFirestore,
-  FieldValue,
-  Filter,
-} from "firebase-admin/firestore";
+import { getFirestore, FieldValue, Filter } from "firebase-admin/firestore";
 
 const db = getFirestore();
 
+const compareCreatedAt = (a, b) => {
+  const dateA = new Date(
+    a.createdAt._seconds * 1000 + a.createdAt._nanoseconds / 1000000
+  );
+  const dateB = new Date(
+    b.createdAt._seconds * 1000 + b.createdAt._nanoseconds / 1000000
+  );
+  return dateA - dateB;
+};
+
 export const getUsers = async (req, res) => {
+  console.log("req recieved to getUsers");
   try {
     const users = [];
     const usersRef = db.collection("users");
@@ -16,13 +23,14 @@ export const getUsers = async (req, res) => {
     snapshot.forEach((doc) => {
       users.push(doc.data());
     });
-    res.status(200).json({ users });
+    res.status(200).json({ users: users.sort(compareCreatedAt).reverse() });
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
 export const getTransactions = async (req, res) => {
+  console.log("req received to getTransactions");
   try {
     const transactions = [];
     const transactionsRef = db.collection("transactions");
@@ -30,9 +38,12 @@ export const getTransactions = async (req, res) => {
     snapshot.forEach((doc) => {
       transactions.push(doc.data());
     });
-    res.status(200).json({ transactions });
+    return res
+      .status(200)
+      .json({ transactions: transactions.sort(compareCreatedAt).reverse() });
   } catch (error) {
-    res.status(400).json(error);
+    console.log(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -159,37 +170,56 @@ export const verifyWithdrawal = async (req, res) => {
 };
 
 export const getStats = async (req, res) => {
-  console.log('req received to getStats')
+  console.log("req received to getStats");
   try {
-    let totalDeposit = 0
-    let totalBTCDeposit = 0
-    let totalUsers = 0
-    let activeWallets = 0
-    let pendingTransactions = 0
+    let totalDeposit = 0;
+    let totalBTCDeposit = 0;
+    let totalUsers = 0;
+    let activeWallets = 0;
+    let pendingTransactions = 0;
 
-    const transactionCollectionRef = db.collection('transactions')
-    const userCollectionRef = db.collection('users')
-    const usersSnapshot = await userCollectionRef.get()
-    const transactionSnapshot = await transactionCollectionRef.get()
-    const walletRef = db.collection('wallets')
-    const walletSnapshot = await walletRef.get()
-    transactionSnapshot.docs.map((doc)=>{
-      const data = doc.data()
-      if (data.status.toLowerCase() == 'pending'){
-        pendingTransactions += 1
-      }else if (data.transactionType.toLowerCase() == 'deposit'){
-        if (data.status.toLowerCase() == 'completed'){
-          totalDeposit+=data.amountInUSD
-          totalBTCDeposit = data.amountInBTC ? totalBTCDeposit + data.amountInBTC : totalBTCDeposit
+    const transactionCollectionRef = db.collection("transactions");
+    const userCollectionRef = db.collection("users");
+    const usersSnapshot = await userCollectionRef.get();
+    const transactionSnapshot = await transactionCollectionRef.get();
+    const walletRef = db.collection("wallets");
+    const walletSnapshot = await walletRef.get();
+    transactionSnapshot.docs.map((doc) => {
+      const data = doc.data();
+      if (data.status.toLowerCase() == "pending") {
+        pendingTransactions += 1;
+      } else if (data.transactionType.toLowerCase() == "deposit") {
+        if (data.status.toLowerCase() == "completed") {
+          totalDeposit += data.amountInUSD;
+          totalBTCDeposit = data.amountInBTC
+            ? totalBTCDeposit + data.amountInBTC
+            : totalBTCDeposit;
         }
       }
-
-    })
-    totalUsers = usersSnapshot.size
-    activeWallets = walletSnapshot.size
-    return res.status(200).json({totalDeposit, totalBTCDeposit, totalUsers, pendingTransactions, activeWallets})
+    });
+    totalUsers = usersSnapshot.size;
+    activeWallets = walletSnapshot.size;
+    return res.status(200).json({
+      totalDeposit,
+      totalBTCDeposit,
+      totalUsers,
+      pendingTransactions,
+      activeWallets,
+    });
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const getWallets = async (req, res) => {
+  console.log("req received to getWallets");
+  try {
+    let wallets;
+    const walletSnap = await db.collection("wallets").get();
+    wallets = walletSnap.docs.map((doc) => doc.data());
+    return res.status(200).json({ wallets });
+  } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 };
