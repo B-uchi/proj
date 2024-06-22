@@ -16,8 +16,9 @@ import { connect } from "react-redux";
 import Navbar from "./components/Navbar";
 import Wallets from "./pages/Wallets";
 import Users from "./pages/Users";
+import { setShowSideNav } from "./redux/nav/sideNav.actions";
 
-function App({ setCurrentUser, currentUser }) {
+function App({ setCurrentUser, currentUser, showSideNav, setShowSideNav }) {
   const [loading, setLoading] = useState(true);
   const idToken = sessionStorage.getItem("token");
 
@@ -97,19 +98,22 @@ function App({ setCurrentUser, currentUser }) {
   }
 
   if (currentUser && currentUser) {
+    const style = !showSideNav
+      ? "w-[0%] transition-all overflow-hidden md:w-[20%] z-40 absolute md:relative"
+      : "w-[80%] transition-all md:w-[20%] z-40 absolute md:relative";
     return (
       <div className="flex w-full">
         <Router>
           <Toaster richColors position="top-right" />
           {window.location.pathname != "/sign_in" ? (
-            <div className="lg:w-[20%] hidden md:block">
-              <SideNav />
+            <div className={style}>
+              <SideNav setShowSideNav={setShowSideNav} />
             </div>
           ) : (
             ""
           )}
           <div className="flex-grow h-[100vh] w-[80%]">
-            <Navbar />
+            <Navbar setShowSideNav={setShowSideNav}/>
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/transactions" element={<Transaction />} />
@@ -125,9 +129,12 @@ function App({ setCurrentUser, currentUser }) {
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setShowSideNav: (value) => dispatch(setShowSideNav(value)),
 });
-const mapStateToProps = ({ user }) => ({
+
+const mapStateToProps = ({ user, nav }) => ({
   currentUser: user.currentUser,
+  showSideNav: nav.showSideNav,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
