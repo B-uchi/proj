@@ -8,6 +8,11 @@ import { LiaWalletSolid } from "react-icons/lia";
 import { GrTransaction } from "react-icons/gr";
 
 const SideNav = ({ currentUser }) => {
+  const signOut = () =>{
+    sessionStorage.clear()
+    window.location.pathname = '/sign_in'
+  }
+
   return (
     <nav
       className="bg-white p-3 h-[100vh] border-r-[1px] border-[
@@ -55,7 +60,7 @@ const SideNav = ({ currentUser }) => {
           </ul>
         </div>
         <div className="">
-          <div className="p-5 cursor-pointer">Log Out</div>
+          <button onClick={()=>{signOut()}} className="p-5 cursor-pointer">Log Out</button>
         </div>
       </div>
     </nav>

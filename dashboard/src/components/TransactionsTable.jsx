@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
+import { toast } from "sonner";
 import axios from "axios";
 
 const TransactionsTable = () => {
@@ -30,7 +31,9 @@ const TransactionsTable = () => {
         .request(requestOptions)
         .then((response) => {
           if (response.status === 200) {
-            setData(response.data.transactions.sort(compareCreatedAt).reverse());
+            setData(
+              response.data.transactions.sort(compareCreatedAt).reverse()
+            );
           }
         })
         .catch((err) => {

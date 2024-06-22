@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 const UsersTable = ({ full }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const path = window.location.pathname == "/" ? false : true;
 
   useEffect(() => {
     const getUsers = async () => {
@@ -31,23 +32,20 @@ const UsersTable = ({ full }) => {
         });
     };
     getUsers();
-  }, []);
+  }, [path]);
 
   return (
-    <table className="table-auto w-full overflogw-x-scroll">
+    <table className="table-auto w-[1200px]">
       <thead className="">
         <tr className="flex border-b-[1px] border-[#e1e1e1]">
           <th className="py-2 text-left w-[10%]">Created At</th>
           <th className="py-2 text-left w-[16%]">Name</th>
           <th className="py-2 text-left w-[22%]">Email</th>
           <th className="py-2 text-left w-[15%]">Location</th>
-          {full && (
-            <>
-              <th className="py-2 text-center w-[15%]">KYC Completed</th>
-              <th className="py-2 text-center w-[15%]">Registered Plan</th>
-              <th className="py-2 text-right flex-grow">Details</th>
-            </>
-          )}
+
+          <th className="py-2 text-center w-[15%]">KYC Completed</th>
+          <th className="py-2 text-center w-[15%]">Registered Plan</th>
+          {path && <th className="py-2 text-right flex-grow">Details</th>}
         </tr>
       </thead>
       <tbody>
@@ -87,14 +85,16 @@ const UsersTable = ({ full }) => {
               <td className="w-[15%] text-center">
                 {user && user.currentPlan ? user.currentPlan : "None"}
               </td>
-              <td className="flex-grow text-right">
-                <button
-                  onClick={() => {}}
-                  className="p-2 bg-[#345d96] rounded-lg text-[#ffffff]"
-                >
-                  View
-                </button>
-              </td>
+              {path && (
+                <td className="flex-grow text-right">
+                  <button
+                    onClick={() => {}}
+                    className="p-2 bg-[#345d96] rounded-lg text-[#ffffff]"
+                  >
+                    View
+                  </button>
+                </td>
+              )}
             </tr>
           ))
         ) : (

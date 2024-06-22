@@ -24,7 +24,7 @@ const Users = () => {
         <div className="p-3 rounded-md">
           <h1 className="font-montserrat font-bold text-lg">All Users</h1>
           <div className="p-2 h-full w-[600px] md:w-full overflow-x-scroll">
-            <UsersTable full/>
+            <UsersTable/>
           </div>
         </div>
       </div>

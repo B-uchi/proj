@@ -125,9 +125,9 @@ const Dashboard = () => {
               <TransactionTable />
             </div>
           </div>
-          <div className="w-1/2">
+          <div className="w-1/2 ">
             <h1 className="font-bold text-xl">Users:</h1>
-            <div className="bg-white border-[1px] border-[#efefef] rounded-md">
+            <div className="bg-white overflow-x-scroll p-2 border-[1px] border-[#efefef] rounded-md">
               <UsersTable/>
             </div>
           </div>
